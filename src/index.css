@@ -1,70 +1,115 @@
 @import "tailwindcss";
 
+/* Primitive palette — single source of truth for Tailwind utilities (bg-ink-500, etc.) */
+@theme {
+  --color-neutral-50:  #fafaf9;
+  --color-neutral-100: #f5f5f4;
+  --color-neutral-200: #e7e5e4;
+  --color-neutral-300: #d6d3d1;
+  --color-neutral-400: #a8a29e;
+  --color-neutral-500: #78716c;
+  --color-neutral-600: #57534e;
+  --color-neutral-700: #44403c;
+  --color-neutral-800: #292524;
+  --color-neutral-900: #1c1917;
+  --color-ink-50: #f4f7fb;
+  --color-ink-100: #e7edf5;
+  --color-ink-200: #cfd9e8;
+  --color-ink-300: #aebfd5;
+  --color-ink-400: #879bb8;
+  --color-ink-500: #607a99;
+  --color-ink-600: #4d637e;
+  --color-ink-700: #3f5065;
+  --color-ink-800: #2f3d4f;
+  --color-ink-900: #1f2937;
+  --color-clay-50: #faf6f2;
+  --color-clay-100: #f1e7df;
+  --color-clay-200: #e2d0c0;
+  --color-clay-300: #cfb29b;
+  --color-clay-400: #b28c70;
+  --color-clay-500: #916c53;
+  --color-clay-600: #755541;
+  --color-clay-700: #5f4535;
+  --color-clay-800: #493329;
+  --color-clay-900: #312119;
+  --color-moss-50:  #f5f7f4;
+  --color-moss-100: #e7ece5;
+  --color-moss-200: #ced8ca;
+  --color-moss-300: #aebea7;
+  --color-moss-400: #87997f;
+  --color-moss-500: #65785d;
+  --color-moss-600: #52624b;
+  --color-moss-700: #434f3d;
+  --color-moss-800: #343d2f;
+  --color-moss-900: #23291f;
+  --color-mist-50:  #f7f7fa;
+  --color-mist-100: #ececf1;
+  --color-mist-200: #d9d8e3;
+  --color-mist-300: #bbb9cb;
+  --color-mist-400: #9793ab;
+  --color-mist-500: #767089;
+  --color-mist-600: #5f596f;
+  --color-mist-700: #4c4758;
+  --color-mist-800: #393542;
+  --color-mist-900: #25222c;
+  /* Semantic aliases — use in components (text-text-primary, bg-surface, etc.) */
+  --color-text-primary: var(--color-ink-900);
+  --color-text-muted: var(--color-ink-600);
+  --color-text-subtle: var(--color-ink-500);
+  --color-surface: var(--color-ink-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-ink-200);
+  --color-accent: var(--color-clay-500);
+  --color-accent-hover: var(--color-clay-600);
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+a {
+  font-weight: 500;
+  color: var(--color-accent);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
 }
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid var(--color-border);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text-primary);
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-ink-400);
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
