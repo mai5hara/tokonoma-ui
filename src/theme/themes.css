@@ -1,0 +1,65 @@
+/**
+ * Semantic tokens — remapped per user-selected palette (data-theme).
+ * Components use bg-surface, border-border, text-text-primary only (not bg-ink-50).
+ */
+
+:root,
+[data-theme="ink"] {
+  --color-text-primary: var(--color-ink-900);
+  --color-text-muted: var(--color-ink-600);
+  --color-text-subtle: var(--color-ink-500);
+  --color-surface: var(--color-ink-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-ink-200);
+  --color-border-strong: var(--color-ink-400);
+  --color-accent: var(--color-ink-500);
+  --color-accent-hover: var(--color-ink-600);
+}
+
+[data-theme="clay"] {
+  --color-text-primary: var(--color-clay-900);
+  --color-text-muted: var(--color-clay-600);
+  --color-text-subtle: var(--color-clay-500);
+  --color-surface: var(--color-clay-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-clay-200);
+  --color-border-strong: var(--color-clay-400);
+  --color-accent: var(--color-clay-500);
+  --color-accent-hover: var(--color-clay-600);
+}
+
+[data-theme="moss"] {
+  --color-text-primary: var(--color-moss-900);
+  --color-text-muted: var(--color-moss-600);
+  --color-text-subtle: var(--color-moss-500);
+  --color-surface: var(--color-moss-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-moss-200);
+  --color-border-strong: var(--color-moss-400);
+  --color-accent: var(--color-moss-500);
+  --color-accent-hover: var(--color-moss-600);
+}
+
+[data-theme="mist"] {
+  --color-text-primary: var(--color-mist-900);
+  --color-text-muted: var(--color-mist-600);
+  --color-text-subtle: var(--color-mist-500);
+  --color-surface: var(--color-mist-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-mist-200);
+  --color-border-strong: var(--color-mist-400);
+  --color-accent: var(--color-mist-500);
+  --color-accent-hover: var(--color-mist-600);
+}
+
+[data-theme="neutral"] {
+  --color-text-primary: var(--color-neutral-900);
+  --color-text-muted: var(--color-neutral-600);
+  --color-text-subtle: var(--color-neutral-500);
+  --color-surface: var(--color-neutral-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-neutral-200);
+  --color-border-strong: var(--color-neutral-400);
+  --color-accent: var(--color-neutral-600);
+  --color-accent-hover: var(--color-neutral-700);
+}
