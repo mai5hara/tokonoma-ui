@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap");
-@import "./theme/themes.css";
 @import "tailwindcss";
+@import "./theme/themes.css";
 
 /* Primitive palette — single source of truth for Tailwind utilities (bg-ink-500, etc.) */
 @theme {
@@ -43,7 +43,7 @@
   --color-neutral-700: #44403c;
   --color-neutral-800: #292524;
   --color-neutral-900: #1c1917;
-  
+
   --color-ink-50: #f4f7fb;
   --color-ink-100: #e7edf5;
   --color-ink-200: #cfd9e8;
@@ -76,7 +76,7 @@
   --color-moss-700: #434f3d;
   --color-moss-800: #343d2f;
   --color-moss-900: #23291f;
-  
+
   --color-mist-50:  #f7f7fa;
   --color-mist-100: #ececf1;
   --color-mist-200: #d9d8e3;
@@ -101,6 +101,11 @@
   --color-border-strong: var(--color-ink-400);
   --color-accent: var(--color-ink-500);
   --color-accent-hover: var(--color-ink-600);
+  --color-foreground: var(--color-ink-900);
+  --color-card: var(--color-surface-elevated);
+  --color-card-foreground: var(--color-ink-900);
+  --color-muted-foreground: var(--color-ink-600);
+  --color-ring: var(--color-ink-400);
 }
 
 :root {

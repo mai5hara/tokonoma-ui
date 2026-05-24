@@ -1,6 +1,6 @@
 /**
  * Semantic tokens — remapped per user-selected palette (data-theme).
- * Components use bg-surface, border-border, text-text-primary only (not bg-ink-50).
+ * Overrides @theme defaults from index.css at runtime.
  */
 
 :root,
@@ -14,6 +14,11 @@
   --color-border-strong: var(--color-ink-400);
   --color-accent: var(--color-ink-500);
   --color-accent-hover: var(--color-ink-600);
+  --color-foreground: var(--color-ink-900);
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-ink-900);
+  --color-muted-foreground: var(--color-ink-600);
+  --color-ring: var(--color-ink-400);
 }
 
 [data-theme="clay"] {
@@ -26,6 +31,11 @@
   --color-border-strong: var(--color-clay-400);
   --color-accent: var(--color-clay-500);
   --color-accent-hover: var(--color-clay-600);
+  --color-foreground: var(--color-clay-900);
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-clay-900);
+  --color-muted-foreground: var(--color-clay-600);
+  --color-ring: var(--color-clay-400);
 }
 
 [data-theme="moss"] {
@@ -38,6 +48,11 @@
   --color-border-strong: var(--color-moss-400);
   --color-accent: var(--color-moss-500);
   --color-accent-hover: var(--color-moss-600);
+  --color-foreground: var(--color-moss-900);
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-moss-900);
+  --color-muted-foreground: var(--color-moss-600);
+  --color-ring: var(--color-moss-400);
 }
 
 [data-theme="mist"] {
@@ -50,6 +65,11 @@
   --color-border-strong: var(--color-mist-400);
   --color-accent: var(--color-mist-500);
   --color-accent-hover: var(--color-mist-600);
+  --color-foreground: var(--color-mist-900);
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-mist-900);
+  --color-muted-foreground: var(--color-mist-600);
+  --color-ring: var(--color-mist-400);
 }
 
 [data-theme="neutral"] {
@@ -62,4 +82,49 @@
   --color-border-strong: var(--color-neutral-400);
   --color-accent: var(--color-neutral-600);
   --color-accent-hover: var(--color-neutral-700);
+  --color-foreground: var(--color-neutral-900);
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-neutral-900);
+  --color-muted-foreground: var(--color-neutral-600);
+  --color-ring: var(--color-neutral-400);
+}
+
+/*
+ * Card depth (raised / inset) — color-mix uses semantic tokens remapped by data-theme.
+ * Rim border uses the same mix as the dark shadow layer (not a white highlight stroke).
+ */
+:root,
+[data-theme="ink"],
+[data-theme="clay"],
+[data-theme="moss"],
+[data-theme="mist"],
+[data-theme="neutral"] {
+  --color-card-shadow-dark-raised: color-mix(
+    in oklab,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+  --color-card-shadow-dark-inset: color-mix(
+    in oklab,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+  /*
+   * raised only: bottom-right matches page surface; toward top-left (highlight)
+   * the face darkens slightly so the outer light shadow reads clearly (no white in fill).
+   */
+  --background-card-raised: linear-gradient(
+    to top left,
+    var(--color-surface) 0%,
+    color-mix(in oklab, var(--color-text-primary) 2%, var(--color-surface)) 65%,
+    color-mix(in oklab, var(--color-text-primary) 3%, var(--color-surface)) 100%
+  );
+  --shadow-card-raised:
+    4px 4px 14px var(--color-card-shadow-dark-raised),
+    -6px -6px 20px 3px
+      color-mix(in oklab, var(--color-surface-elevated) 95%, var(--color-surface));
+  --shadow-card-inset:
+    inset 3px 3px 14px var(--color-card-shadow-dark-inset),
+    inset -6px -6px 20px 2px
+      color-mix(in oklab, var(--color-surface-elevated) 95%, var(--color-surface));
 }
