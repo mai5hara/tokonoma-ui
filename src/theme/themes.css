@@ -113,7 +113,7 @@
    * raised only: bottom-right matches page surface; toward top-left (highlight)
    * the face darkens slightly so the outer light shadow reads clearly (no white in fill).
    */
-  --background-card-raised: linear-gradient(
+  --background-gradient-raised: linear-gradient(
     to top left,
     var(--color-surface) 0%,
     color-mix(in oklab, var(--color-text-primary) 2%, var(--color-surface)) 65%,
@@ -121,10 +121,24 @@
   );
   --shadow-card-raised:
     4px 4px 14px var(--color-card-shadow-dark-raised),
-    -6px -6px 20px 3px
-      color-mix(in oklab, var(--color-surface-elevated) 95%, var(--color-surface));
+    -6px -6px 18px 2px
+      color-mix(in oklab, var(--color-surface-elevated) 90%, var(--color-surface));
   --shadow-card-inset:
     inset 3px 3px 14px var(--color-card-shadow-dark-inset),
-    inset -6px -6px 20px 2px
-      color-mix(in oklab, var(--color-surface-elevated) 95%, var(--color-surface));
+    5px 5px 12px 1px
+      color-mix(in oklab, var(--color-surface-elevated) 90%, var(--color-surface));
+
+  /* Button — softer, smaller than card (same vocabulary: flat / raised / inset) */
+  --shadow-button-raised:
+    2px 2px 8px var(--color-card-shadow-dark-raised),
+    -2px -2px 5px 1px
+      color-mix(in oklab, var(--color-surface-elevated) 90%, var(--color-surface));
+  --shadow-button-raised-hover:
+    inset 2px 2px 6px var(--color-card-shadow-dark-inset),
+    2px 2px 5px 1px
+    color-mix(in oklab, var(--color-surface-elevated) 90%, var(--color-surface));
+  --shadow-button-inset:
+    inset 2px 2px 6px var(--color-card-shadow-dark-inset),
+    2px 2px 5px 1px
+      color-mix(in oklab, var(--color-surface-elevated) 90%, var(--color-surface));
 }
