@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
+import { Button } from "@/components/ui/button"
+
 import {
   Card,
   CardContent,
@@ -11,7 +13,7 @@ import {
 } from "."
 
 const meta = {
-  title: "Components/UI/Card",
+  title: "Components/Card",
   component: Card,
   argTypes: {
     variant: {
@@ -98,9 +100,9 @@ export const WithAction: Story = {
       <Card variant="flat">
         <CardHeader
           action={
-            <button type="button" className="text-sm">
+            <Button variant="flat" size="sm">
               Edit
-            </button>
+            </Button>
           }
         >
           <CardTitle>Title</CardTitle>

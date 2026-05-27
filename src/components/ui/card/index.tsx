@@ -1,35 +1,14 @@
 import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+// import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-const cardVariants = cva(
-  "group/card flex flex-col overflow-hidden rounded-lg text-sm text-text-primary",
-  {
-    variants: {
-      variant: {
-        flat: "border border-border bg-surface-elevated",
-        raised: [
-          "[background:var(--background-card-raised)] shadow-[var(--shadow-card-raised)]",
-        ],
-        inset: "bg-surface shadow-[var(--shadow-card-inset)]",
-      },
-      size: {
-        default: "gap-6 py-6",
-        sm: "gap-4 py-4",
-      },
-    },
-    defaultVariants: {
-      variant: "flat",
-      size: "default",
-    },
-  }
-)
+import { cardVariants, type CardVariantProps } from "./card-variants"
 
 const cardSectionX = "px-6 group-data-[size=sm]/card:px-4"
 
 type CardProps = React.ComponentProps<"div"> &
-  VariantProps<typeof cardVariants>
+  CardVariantProps
 
 function Card({ className, variant, size, ...props }: CardProps) {
   return (
