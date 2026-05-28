@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { X } from "lucide-react"
 
 import { Button, ButtonLink } from "."
 
@@ -9,11 +10,11 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["flat", "raised", "inset", "accent", "outline"],
+      options: ["flat", "raised", "inset", "accent", "outline", "ghost"],
     },
     size: {
       control: "select",
-      options: ["xs", "sm", "default", "lg"],
+      options: ["xs", "sm", "default", "lg", "icon"],
     },
     disabled: { control: "boolean" },
   },
@@ -56,6 +57,27 @@ export const Outline: Story = {
   render: (args) => onSurface(<Button {...args} />),
 }
 
+export const Ghost: Story = {
+  args: { variant: "ghost", children: "Ghost" },
+  render: (args) => onSurface(<Button {...args} />),
+}
+
+export const IconOnly: Story = {
+  render: () =>
+    onSurface(
+      <div className="flex items-center gap-4">
+        <Button variant="ghost" size="icon" aria-label="Close">
+          <X className="size-4" aria-hidden />
+        </Button>
+        <Button variant="accent" size="icon" aria-label="Add">
+          <span className="text-lg leading-none" aria-hidden>
+            +
+          </span>
+        </Button>
+      </div>
+    ),
+}
+
 export const AllVariants: Story = {
   render: () =>
     onSurface(
@@ -64,6 +86,7 @@ export const AllVariants: Story = {
         <Button variant="raised">Raised</Button>
         <Button variant="accent">Accent</Button>
         <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost</Button>
       </div>
     ),
 }

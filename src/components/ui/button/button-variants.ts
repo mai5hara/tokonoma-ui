@@ -4,8 +4,10 @@ const buttonTransition =
   "transition-[transform,box-shadow,background-color,border-color,color] duration-200 ease-out motion-reduce:transition-none"
 
 /**
- * flat | raised | inset — neumorphism on surface (no accent fill).
- * solid | accent | outline — filled or outlined actions.
+ * flat | raised | inset — neumorphism on surface.
+ * accent | outline — emphasis without neumorphism.
+ * ghost — no border or shadow (icon-only controls, quiet actions).
+ * Use size="icon" for square icon-only hit targets (pair with ghost or accent).
  */
 export const buttonVariants = cva(
   [
@@ -45,14 +47,27 @@ export const buttonVariants = cva(
           "hover:bg-accent/10 hover:text-accent",
           "active:scale-[0.98]",
         ],
+        ghost: [
+          "border border-transparent bg-transparent text-text-primary",
+          "hover:bg-surface",
+          "active:opacity-80",
+        ],
       },
       size: {
         xs: "h-7 px-2 text-xs",
         sm: "h-8 px-3 text-sm",
         default: "h-9 px-4 text-sm",
         lg: "h-10 px-5 text-base",
+        icon: "size-8 shrink-0 gap-0 p-0",
       },
     },
+    compoundVariants: [
+      {
+        size: "icon",
+        variant: "accent",
+        class: "rounded-md active:scale-[0.98]",
+      },
+    ],
     defaultVariants: {
       variant: "flat",
       size: "default",
