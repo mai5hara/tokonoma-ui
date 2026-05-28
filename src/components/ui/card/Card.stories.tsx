@@ -51,7 +51,7 @@ const cardBody = (
         depth shadows.
       </p>
     </CardContent>
-    <CardFooter className="border-t">
+    <CardFooter>
       <span className="text-text-subtle text-xs">Footer</span>
     </CardFooter>
   </>

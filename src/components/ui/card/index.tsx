@@ -2,7 +2,12 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-import { cardVariants, type CardVariantProps } from "./card-variants"
+import {
+  cardFooterAlign,
+  cardVariants,
+  type CardFooterAlign,
+  type CardVariantProps,
+} from "./card-variants"
 
 const cardSectionX = "px-6 group-data-[size=sm]/card:px-4"
 
@@ -75,13 +80,21 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+type CardFooterProps = React.ComponentProps<"div"> & {
+  align?: CardFooterAlign
+}
+
+function CardFooter({
+  className,
+  align = "start",
+  ...props
+}: CardFooterProps) {
   return (
     <div
       className={cn(
-        "flex items-center gap-3",
+        "flex flex-wrap items-center gap-3",
         cardSectionX,
-        "[.border-t]:border-t [.border-t]:border-border [.border-t]:pt-6 group-data-[size=sm]/card:[.border-t]:pt-4",
+        cardFooterAlign[align],
         className
       )}
       {...props}
@@ -113,4 +126,5 @@ export {
   CardContent,
   CardMedia,
 }
-export type { CardProps, CardHeaderProps }
+export type { CardProps, CardHeaderProps, CardFooterProps }
+export type { CardFooterAlign } from "./card-variants"

@@ -23,4 +23,11 @@ export const cardVariants = cva(
   }
 )
 
+export const cardFooterAlign = {
+  end: "justify-end",
+  center: "justify-center",
+  start: "justify-start",
+} as const
+
 export type CardVariantProps = VariantProps<typeof cardVariants>
+export type CardFooterAlign = keyof typeof cardFooterAlign
