@@ -69,22 +69,7 @@ export const Default: Story = {
   render: (args) => cardOnSurface(args),
 }
 
-export const Flat: Story = {
-  args: { variant: "flat" },
-  render: (args) => cardOnSurface(args),
-}
-
-export const Raised: Story = {
-  args: { variant: "raised" },
-  render: (args) => cardOnSurface(args),
-}
-
-export const Inset: Story = {
-  args: { variant: "inset" },
-  render: (args) => cardOnSurface(args),
-}
-
-export const AllVariants: Story = {
+export const Variants: Story = {
   render: () => (
     <div className="grid max-w-4xl gap-8 bg-surface p-8 md:grid-cols-3">
       <Card variant="flat">{cardBody}</Card>

@@ -37,32 +37,20 @@ export const Default: Story = {
   render: (args) => onSurface(<Button {...args} />),
 }
 
-export const Flat: Story = {
-  args: { variant: "flat", children: "Flat" },
-  render: (args) => onSurface(<Button {...args} />),
+export const Variants: Story = {
+  render: () =>
+    onSurface(
+      <div className="flex flex-wrap items-center gap-4">
+        <Button variant="flat">Flat</Button>
+        <Button variant="raised">Raised</Button>
+        <Button variant="accent">Accent</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost</Button>
+      </div>
+    ),
 }
 
-export const Raised: Story = {
-  args: { variant: "raised", children: "Raised" },
-  render: (args) => onSurface(<Button {...args} />),
-}
-
-export const Accent: Story = {
-  args: { variant: "accent", children: "Accent" },
-  render: (args) => onSurface(<Button {...args} />),
-}
-
-export const Outline: Story = {
-  args: { variant: "outline", children: "Outline" },
-  render: (args) => onSurface(<Button {...args} />),
-}
-
-export const Ghost: Story = {
-  args: { variant: "ghost", children: "Ghost" },
-  render: (args) => onSurface(<Button {...args} />),
-}
-
-export const IconOnly: Story = {
+export const Icon: Story = {
   render: () =>
     onSurface(
       <div className="flex items-center gap-4">
@@ -74,19 +62,6 @@ export const IconOnly: Story = {
             +
           </span>
         </Button>
-      </div>
-    ),
-}
-
-export const AllVariants: Story = {
-  render: () =>
-    onSurface(
-      <div className="flex flex-wrap items-center gap-4">
-        <Button variant="flat">Flat</Button>
-        <Button variant="raised">Raised</Button>
-        <Button variant="accent">Accent</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
       </div>
     ),
 }
