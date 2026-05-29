@@ -106,6 +106,8 @@
   --color-card-foreground: var(--color-ink-900);
   --color-muted-foreground: var(--color-ink-600);
   --color-ring: var(--color-ink-400);
+  /* Feedback — fixed across palettes so errors stay recognizable */
+  --color-error: #b84a4a;
 }
 
 :root {
