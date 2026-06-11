@@ -11,6 +11,7 @@ type DateRangePickerProps = {
     /** When set, applies error styling and renders helper text below. */
     errorMessage?: string;
     id?: string;
+    numberOfMonths?: number;
 } & FieldVariantProps;
 declare const DateRangePicker: React.ForwardRefExoticComponent<{
     value?: DateRange;
@@ -21,6 +22,7 @@ declare const DateRangePicker: React.ForwardRefExoticComponent<{
     /** When set, applies error styling and renders helper text below. */
     errorMessage?: string;
     id?: string;
+    numberOfMonths?: number;
 } & FieldVariantProps & React.RefAttributes<HTMLButtonElement>>;
 export { DateRangePicker };
 export type { DateRangePickerProps, FieldVariantProps as DateRangePickerVariantProps };
