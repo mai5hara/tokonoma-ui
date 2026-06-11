@@ -41,6 +41,13 @@ export type {
 export { Select } from "./components/ui/select"
 export type { SelectProps, SelectOption, SelectVariantProps } from "./components/ui/select"
 
+export { DateRangePicker } from "./components/ui/date-range-picker"
+export type {
+  DateRangePickerProps,
+  DateRangePickerValue,
+  DateRangePickerVariantProps,
+} from "./components/ui/date-range-picker"
+
 export {
   THEME_IDS,
   DEFAULT_THEME,

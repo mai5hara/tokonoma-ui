@@ -10,5 +10,7 @@ export { Modal, ModalTrigger, ModalContent, ModalHeader, ModalBody, ModalFooter,
 export type { ModalContentProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps, ModalContentSize, ModalDescriptionSize, ModalFooterAlign, ModalTextAlign, ModalTitleSize, } from './components/ui/modal';
 export { Select } from './components/ui/select';
 export type { SelectProps, SelectOption, SelectVariantProps } from './components/ui/select';
+export { DateRangePicker } from './components/ui/date-range-picker';
+export type { DateRangePickerProps, DateRangePickerValue, DateRangePickerVariantProps, } from './components/ui/date-range-picker';
 export { THEME_IDS, DEFAULT_THEME, setTheme, getTheme, setThemeWithPersistence, initTheme, } from './theme';
 export type { ThemeId } from './theme';
