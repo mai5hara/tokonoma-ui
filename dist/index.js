@@ -1914,41 +1914,43 @@ const cx = clsx, cva = (e, n) => (i) => {
 		rounded: "md"
 	}
 });
-var Button = React$1.forwardRef(({ className: e, variant: n, size: i, asChild: a = !1, type: o = "button", ...s }, c) => /* @__PURE__ */ jsx(a ? Slot$2 : "button", {
-	ref: c,
-	type: a ? void 0 : o,
+var Button = React$1.forwardRef(({ className: e, variant: n, size: i, rounded: a, asChild: o = !1, type: s = "button", ...c }, l) => /* @__PURE__ */ jsx(o ? Slot$2 : "button", {
+	ref: l,
+	type: o ? void 0 : s,
 	"data-variant": n,
 	"data-size": i,
 	className: cn(buttonVariants({
 		variant: n,
-		size: i
+		size: i,
+		rounded: a
 	}), e),
-	...s
+	...c
 }));
 Button.displayName = "Button";
-var ButtonLink = React$1.forwardRef(({ className: e, variant: n, size: i, external: a, href: o, target: s, rel: c, "aria-disabled": l, ...u }, d) => {
-	let p = a ?? (typeof o == "string" && /^https?:\/\//.test(o)), m = l === !0 || l === "true";
+var ButtonLink = React$1.forwardRef(({ className: e, variant: n, rounded: i, size: a, external: o, href: s, target: c, rel: l, "aria-disabled": u, ...d }, p) => {
+	let m = o ?? (typeof s == "string" && /^https?:\/\//.test(s)), h = u === !0 || u === "true";
 	return /* @__PURE__ */ jsx("a", {
-		ref: d,
-		href: m ? void 0 : o,
-		target: p ? "_blank" : s,
-		rel: p ? [
-			c,
+		ref: p,
+		href: h ? void 0 : s,
+		target: m ? "_blank" : c,
+		rel: m ? [
+			l,
 			"noopener",
 			"noreferrer"
-		].filter(Boolean).join(" ") : c,
-		"aria-disabled": l,
-		tabIndex: m ? -1 : u.tabIndex,
+		].filter(Boolean).join(" ") : l,
+		"aria-disabled": u,
+		tabIndex: h ? -1 : d.tabIndex,
 		"data-variant": n,
-		"data-size": i,
+		"data-size": a,
 		className: cn(buttonVariants({
 			variant: n,
-			size: i
-		}), m && "pointer-events-none opacity-50", e),
-		onClick: m ? (e) => {
-			e.preventDefault(), u.onClick?.(e);
-		} : u.onClick,
-		...u
+			size: a,
+			rounded: i
+		}), h && "pointer-events-none opacity-50", e),
+		onClick: h ? (e) => {
+			e.preventDefault(), d.onClick?.(e);
+		} : d.onClick,
+		...d
 	});
 });
 ButtonLink.displayName = "ButtonLink";
