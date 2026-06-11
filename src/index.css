@@ -92,6 +92,23 @@
    * Semantic tokens — registered for Tailwind (bg-surface, border-border, …).
    * Values are set per palette in src/theme/themes.css via [data-theme].
    */
+  /* Neutral palette */
+  --color-text-primary: var(--color-neutral-900);
+  --color-text-muted: var(--color-neutral-600);
+  --color-text-subtle: var(--color-neutral-500);
+  --color-surface: var(--color-neutral-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-neutral-200);
+  --color-border-strong: var(--color-neutral-400);
+  --color-accent: var(--color-neutral-600);
+  --color-accent-hover: var(--color-neutral-700);
+  --color-foreground: var(--color-neutral-900);
+  --color-card: var(--color-surface-elevated);
+  --color-card-foreground: var(--color-neutral-900);
+  --color-muted-foreground: var(--color-neutral-600);
+  --color-ring: var(--color-neutral-400);
+  
+  /* Ink palette */
   --color-text-primary: var(--color-ink-900);
   --color-text-muted: var(--color-ink-600);
   --color-text-subtle: var(--color-ink-500);
@@ -106,6 +123,54 @@
   --color-card-foreground: var(--color-ink-900);
   --color-muted-foreground: var(--color-ink-600);
   --color-ring: var(--color-ink-400);
+
+  /* Clay palette */
+  --color-text-primary: var(--color-clay-900);
+  --color-text-muted: var(--color-clay-600);
+  --color-text-subtle: var(--color-clay-500);
+  --color-surface: var(--color-clay-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-clay-200);
+  --color-border-strong: var(--color-clay-400);
+  --color-accent: var(--color-clay-500);
+  --color-accent-hover: var(--color-clay-600);
+  --color-foreground: var(--color-clay-900);
+  --color-card: var(--color-surface-elevated);
+  --color-card-foreground: var(--color-clay-900);
+  --color-muted-foreground: var(--color-clay-600);
+  --color-ring: var(--color-clay-400);
+
+  /* Moss palette */
+  --color-text-primary: var(--color-moss-900);
+  --color-text-muted: var(--color-moss-600);
+  --color-text-subtle: var(--color-moss-500);
+  --color-surface: var(--color-moss-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-moss-200);
+  --color-border-strong: var(--color-moss-400);
+  --color-accent: var(--color-moss-500);
+  --color-accent-hover: var(--color-moss-600);
+  --color-foreground: var(--color-moss-900);
+  --color-card: var(--color-surface-elevated);
+  --color-card-foreground: var(--color-moss-900);
+  --color-muted-foreground: var(--color-moss-600);
+  --color-ring: var(--color-moss-400);
+
+  /* Mist palette */
+  --color-text-primary: var(--color-mist-900);
+  --color-text-muted: var(--color-mist-600);
+  --color-text-subtle: var(--color-mist-500);
+  --color-surface: var(--color-mist-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-mist-200);
+  --color-border-strong: var(--color-mist-400);
+  --color-accent: var(--color-mist-500);
+  --color-accent-hover: var(--color-mist-600);
+  --color-foreground: var(--color-mist-900);
+  --color-card: var(--color-surface-elevated);
+  --color-card-foreground: var(--color-mist-900);
+  --color-muted-foreground: var(--color-mist-600);
+  --color-ring: var(--color-mist-400);
   /* Feedback — fixed across palettes so errors stay recognizable */
   --color-error: #b84a4a;
 }

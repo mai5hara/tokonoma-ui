@@ -79,6 +79,17 @@ export const Variants: Story = {
   },
 }
 
+export const Rounded: Story = {
+  render: () => onSurface(
+    <div className="flex w-full flex-col gap-1.5">
+      <Select options={countryOptions} rounded="sm" />
+      <Select options={countryOptions} rounded="md" />
+      <Select options={countryOptions} rounded="lg" />
+      <Select options={countryOptions} rounded="full" />
+    </div>
+  ),
+}
+
 export const WithLabel: Story = {
   render: function WithLabelStory() {
     const id = useId()

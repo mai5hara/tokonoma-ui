@@ -67,6 +67,17 @@ export const Password: Story = {
     ),
 }
 
+export const Rounded: Story = {
+
+  render: () => onSurface(
+    <div className="flex w-full flex-col gap-1.5">
+      <Input rounded="sm" placeholder="Rounded input" />
+      <Input rounded="md" placeholder="Rounded input" />
+      <Input rounded="lg" placeholder="Rounded input" />
+      <Input rounded="full" placeholder="Rounded input" />
+    </div>
+  ),
+}
 export const Error: Story = {
   render: () =>
     onSurface(
