@@ -16,6 +16,10 @@ const meta = {
       control: "select",
       options: ["xs", "sm", "default", "lg", "icon"],
     },
+    rounded: {
+      control: "select",
+      options: ["sm", "md", "lg", "full"],
+    },
     disabled: { control: "boolean" },
   },
   args: {
@@ -78,6 +82,19 @@ export const Sizes: Story = {
     ),
 }
 
+export const Rounded: Story = {
+
+  render: () =>
+    onSurface(
+      <div className="flex flex-wrap items-end gap-4">
+        <Button size="default" rounded="sm">Small</Button>
+        <Button size="default" rounded="md">Medium</Button>
+        <Button size="default" rounded="lg">Large</Button>
+        <Button size="default" rounded="full">Full</Button>
+      </div>
+    ),
+}
+
 export const Disabled: Story = {
   render: () =>
     onSurface(
@@ -110,6 +127,9 @@ export const Link: Story = {
         </ButtonLink>
         <ButtonLink variant="accent" href="https://example.com" external>
           External accent
+        </ButtonLink>
+        <ButtonLink variant="flat" rounded="full" href="#works">
+          Rounded
         </ButtonLink>
       </div>
     ),

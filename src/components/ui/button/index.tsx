@@ -12,7 +12,7 @@ type ButtonProps = React.ComponentProps<"button"> &
   }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, type = "button", ...props }, ref) => {
+  ({ className, variant, size, rounded, asChild = false, type = "button", ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
 
     return (
@@ -21,7 +21,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type={asChild ? undefined : type}
         data-variant={variant}
         data-size={size}
-        className={cn(buttonVariants({ variant, size }), className)}
+        className={cn(buttonVariants({ variant, size, rounded }), className)}
         {...props}
       />
     )
@@ -40,6 +40,7 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
     {
       className,
       variant,
+      rounded,
       size,
       external,
       href,
@@ -69,7 +70,7 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         data-variant={variant}
         data-size={size}
         className={cn(
-          buttonVariants({ variant, size }),
+          buttonVariants({ variant, size, rounded }),
           isDisabled && "pointer-events-none opacity-50",
           className
         )}
