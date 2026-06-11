@@ -1,5 +1,4 @@
 import { VariantProps } from 'class-variance-authority';
-import { ClassProp } from 'class-variance-authority/types';
 /**
  * flat | raised | inset — neumorphism on surface.
  * accent | outline — emphasis without neumorphism.
@@ -9,5 +8,6 @@ import { ClassProp } from 'class-variance-authority/types';
 export declare const buttonVariants: (props?: ({
     variant?: "flat" | "raised" | "inset" | "accent" | "outline" | "ghost" | null | undefined;
     size?: "xs" | "sm" | "default" | "lg" | "icon" | null | undefined;
-} & ClassProp) | undefined) => string;
+    rounded?: "sm" | "lg" | "md" | "full" | null | undefined;
+} & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export type ButtonVariantProps = VariantProps<typeof buttonVariants>;

@@ -1848,7 +1848,7 @@ const cx = clsx, cva = (e, n) => (i) => {
 		] : e;
 	}, []), i?.class, i?.className);
 }, buttonVariants = cva([
-	"inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md font-medium",
+	"inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 font-medium",
 	"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
 	"disabled:pointer-events-none disabled:opacity-50",
 	"aria-disabled:pointer-events-none aria-disabled:opacity-50",
@@ -1895,6 +1895,12 @@ const cx = clsx, cva = (e, n) => (i) => {
 			default: "h-9 px-4 text-sm",
 			lg: "h-10 px-5 text-base",
 			icon: "size-8 shrink-0 gap-0 p-0"
+		},
+		rounded: {
+			sm: "rounded-sm",
+			md: "rounded-md",
+			lg: "rounded-lg",
+			full: "rounded-full"
 		}
 	},
 	compoundVariants: [{
@@ -1904,7 +1910,8 @@ const cx = clsx, cva = (e, n) => (i) => {
 	}],
 	defaultVariants: {
 		variant: "flat",
-		size: "default"
+		size: "default",
+		rounded: "md"
 	}
 });
 var Button = React$1.forwardRef(({ className: e, variant: n, size: i, asChild: a = !1, type: o = "button", ...s }, c) => /* @__PURE__ */ jsx(a ? Slot$2 : "button", {
@@ -2118,7 +2125,7 @@ var mergeClasses = (...e) => e.filter((e, n, i) => !!e && e.trim() !== "" && i.i
 	key: "d8bk6v"
 }]]);
 const fieldVariants = cva([
-	"flex h-9 w-full min-w-0 items-center gap-2 rounded-md px-3 text-sm text-text-primary",
+	"flex h-9 w-full min-w-0 items-center gap-2 px-3 text-sm text-text-primary",
 	"focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-surface",
 	"has-disabled:cursor-not-allowed has-disabled:opacity-50",
 	"transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none"
@@ -2132,6 +2139,12 @@ const fieldVariants = cva([
 		invalid: {
 			true: "",
 			false: ""
+		},
+		rounded: {
+			sm: "rounded-sm",
+			md: "rounded-md",
+			lg: "rounded-lg",
+			full: "rounded-full"
 		}
 	},
 	compoundVariants: [
@@ -2153,51 +2166,53 @@ const fieldVariants = cva([
 	],
 	defaultVariants: {
 		variant: "border",
-		invalid: !1
+		invalid: !1,
+		rounded: "md"
 	}
 });
-var Input = React$1.forwardRef(({ className: e, variant: n, mode: i = "default", showPasswordToggle: a = !1, errorMessage: o, type: s = "text", id: l, ...d }, m) => {
-	let h = useId(), g = l ?? h, _ = `${g}-error`, v = !!o, y = i === "search", b = s === "password", [x, S] = useState(!1), C = b && a, w = C && x ? "text" : s ?? "text";
+var Input = React$1.forwardRef(({ className: e, variant: n, rounded: i, mode: a = "default", showPasswordToggle: o = !1, errorMessage: s, type: l = "text", id: d, ...m }, h) => {
+	let g = useId(), _ = d ?? g, v = `${_}-error`, y = !!s, b = a === "search", x = l === "password", [S, C] = useState(!1), w = x && o, T = w && S ? "text" : l ?? "text";
 	return /* @__PURE__ */ jsxs("div", {
 		className: "flex w-full flex-col gap-1.5",
 		children: [/* @__PURE__ */ jsxs("div", {
 			"data-variant": n,
-			"data-mode": i,
-			"data-invalid": v || void 0,
+			"data-mode": a,
+			"data-invalid": y || void 0,
 			className: cn(fieldVariants({
 				variant: n,
-				invalid: v
+				invalid: y,
+				rounded: i
 			}), e),
 			children: [
-				y ? /* @__PURE__ */ jsx(Search, {
+				b ? /* @__PURE__ */ jsx(Search, {
 					className: "size-4 shrink-0 text-text-muted",
 					"aria-hidden": !0
 				}) : null,
 				/* @__PURE__ */ jsx("input", {
-					ref: m,
-					id: g,
-					type: w,
-					"aria-invalid": v || void 0,
-					"aria-describedby": v ? _ : void 0,
-					className: cn("w-full bg-transparent text-sm text-text-primary placeholder:text-text-subtle", "outline-none disabled:cursor-not-allowed", C ? "pr-1" : ""),
-					...d
+					ref: h,
+					id: _,
+					type: T,
+					"aria-invalid": y || void 0,
+					"aria-describedby": y ? v : void 0,
+					className: cn("w-full bg-transparent text-sm text-text-primary placeholder:text-text-subtle", "outline-none disabled:cursor-not-allowed", w ? "pr-1" : ""),
+					...m
 				}),
-				C ? /* @__PURE__ */ jsx("button", {
+				w ? /* @__PURE__ */ jsx("button", {
 					type: "button",
 					className: "inline-flex size-5 shrink-0 items-center justify-center text-text-muted hover:text-text-primary",
-					onClick: () => S((e) => !e),
-					"aria-label": x ? "Hide password" : "Show password",
-					children: jsx(x ? EyeOff : Eye, {
+					onClick: () => C((e) => !e),
+					"aria-label": S ? "Hide password" : "Show password",
+					children: jsx(S ? EyeOff : Eye, {
 						className: "size-4",
 						"aria-hidden": !0
 					})
 				}) : null
 			]
-		}), o ? /* @__PURE__ */ jsx("p", {
-			id: _,
+		}), s ? /* @__PURE__ */ jsx("p", {
+			id: v,
 			role: "alert",
 			className: "text-xs text-error",
-			children: o
+			children: s
 		}) : null]
 	});
 });
@@ -5616,8 +5631,8 @@ const selectContent = [
 	"data-highlighted:bg-surface data-highlighted:text-text-primary",
 	"data-disabled:pointer-events-none data-disabled:opacity-50"
 ].join(" ");
-var Select = React$1.forwardRef(({ options: e, value: n, defaultValue: i, onValueChange: a, placeholder: o = "Select…", disabled: s = !1, errorMessage: l, id: u, variant: d }, m) => {
-	let h = useId(), g = u ?? h, _ = `${g}-error`, v = !!l;
+var Select = React$1.forwardRef(({ options: e, value: n, defaultValue: i, onValueChange: a, placeholder: o = "Select…", disabled: s = !1, errorMessage: l, id: u, variant: d, rounded: m }, h) => {
+	let g = useId(), _ = u ?? g, v = `${_}-error`, y = !!l;
 	return /* @__PURE__ */ jsxs("div", {
 		className: "flex w-full flex-col gap-1.5",
 		children: [/* @__PURE__ */ jsxs(Root2, {
@@ -5627,16 +5642,17 @@ var Select = React$1.forwardRef(({ options: e, value: n, defaultValue: i, onValu
 			disabled: s,
 			children: [/* @__PURE__ */ jsx("div", {
 				"data-variant": d,
-				"data-invalid": v || void 0,
+				"data-invalid": y || void 0,
 				className: fieldVariants({
 					variant: d,
-					invalid: v
+					invalid: y,
+					rounded: m
 				}),
 				children: /* @__PURE__ */ jsxs(Trigger, {
-					ref: m,
-					id: g,
-					"aria-invalid": v || void 0,
-					"aria-describedby": v ? _ : void 0,
+					ref: h,
+					id: _,
+					"aria-invalid": y || void 0,
+					"aria-describedby": y ? v : void 0,
 					className: "flex h-full w-full min-w-0 items-center justify-between gap-2 bg-transparent text-sm outline-none disabled:cursor-not-allowed",
 					children: [/* @__PURE__ */ jsx(Value, {
 						placeholder: o,
@@ -5670,7 +5686,7 @@ var Select = React$1.forwardRef(({ options: e, value: n, defaultValue: i, onValu
 				})
 			}) })]
 		}), l ? /* @__PURE__ */ jsx("p", {
-			id: _,
+			id: v,
 			role: "alert",
 			className: "text-xs text-error",
 			children: l
