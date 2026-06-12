@@ -1,3 +1,6 @@
+## 0.2.2
+- Add clear button to DateRangePicker
+
 ## 0.2.1
 - Fix DateRangePicker type
 
