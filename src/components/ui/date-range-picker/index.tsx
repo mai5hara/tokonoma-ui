@@ -3,19 +3,22 @@ import { useId, useState } from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
-import { type DateRange } from "react-day-picker"
 
 import { fieldVariants, type FieldVariantProps } from "../field-variants"
 
 import { Calendar } from "./calendar"
 import { dateRangePickerContent } from "./date-range-picker-variants"
 
-export type { DateRange as DateRangePickerValue }
+/** Public range value (mirrors react-day-picker's DateRange without exposing that dependency). */
+export type DateRangePickerValue = {
+  from: Date | undefined
+  to?: Date | undefined
+}
 
 type DateRangePickerProps = {
-  value?: DateRange
-  defaultValue?: DateRange
-  onValueChange?: (value: DateRange | undefined) => void
+  value?: DateRangePickerValue
+  defaultValue?: DateRangePickerValue
+  onValueChange?: (value: DateRangePickerValue | undefined) => void
   placeholder?: string
   disabled?: boolean
   /** When set, applies error styling and renders helper text below. */
@@ -25,7 +28,7 @@ type DateRangePickerProps = {
 } & FieldVariantProps
 
 function formatDateRange(
-  range: DateRange | undefined,
+  range: DateRangePickerValue | undefined,
   placeholder: string
 ): string {
   if (!range?.from) return placeholder
@@ -60,14 +63,14 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
     const errorId = `${pickerId}-error`
     const isInvalid = Boolean(errorMessage)
     const isControlled = value !== undefined
-    const [internalValue, setInternalValue] = useState<DateRange | undefined>(
-      defaultValue
-    )
+    const [internalValue, setInternalValue] = useState<
+      DateRangePickerValue | undefined
+    >(defaultValue)
     const [open, setOpen] = useState(false)
     const selected = isControlled ? value : internalValue
     const label = formatDateRange(selected, placeholder)
 
-    const handleSelect = (range: DateRange | undefined) => {
+    const handleSelect = (range: DateRangePickerValue | undefined) => {
       if (!isControlled) {
         setInternalValue(range)
       }

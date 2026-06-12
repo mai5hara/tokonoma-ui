@@ -1,11 +1,14 @@
-import { DateRange } from 'react-day-picker';
 import { FieldVariantProps } from '../field-variants';
 import * as React from "react";
-export type { DateRange as DateRangePickerValue };
+/** Public range value (mirrors react-day-picker's DateRange without exposing that dependency). */
+export type DateRangePickerValue = {
+    from: Date | undefined;
+    to?: Date | undefined;
+};
 type DateRangePickerProps = {
-    value?: DateRange;
-    defaultValue?: DateRange;
-    onValueChange?: (value: DateRange | undefined) => void;
+    value?: DateRangePickerValue;
+    defaultValue?: DateRangePickerValue;
+    onValueChange?: (value: DateRangePickerValue | undefined) => void;
     placeholder?: string;
     disabled?: boolean;
     /** When set, applies error styling and renders helper text below. */
@@ -14,9 +17,9 @@ type DateRangePickerProps = {
     numberOfMonths?: number;
 } & FieldVariantProps;
 declare const DateRangePicker: React.ForwardRefExoticComponent<{
-    value?: DateRange;
-    defaultValue?: DateRange;
-    onValueChange?: (value: DateRange | undefined) => void;
+    value?: DateRangePickerValue;
+    defaultValue?: DateRangePickerValue;
+    onValueChange?: (value: DateRangePickerValue | undefined) => void;
     placeholder?: string;
     disabled?: boolean;
     /** When set, applies error styling and renders helper text below. */
