@@ -9589,7 +9589,17 @@ function formatDateRange(e, t) {
 var DateRangePicker = React$1.forwardRef(({ value: e, defaultValue: t, onValueChange: n, placeholder: i = "Select date range…", disabled: a = !1, errorMessage: o, id: s, variant: c, rounded: u, numberOfMonths: d }, f) => {
 	let m = useId(), _ = s ?? m, v = `${_}-error`, y = !!o, b = e !== void 0, [x, S] = useState(t), [C, w] = useState(!1), T = b ? e : x, E = formatDateRange(T, i), D = (e) => {
 		b || S(e), n?.(e), e?.from && e?.to && w(!1);
-	};
+	}, O = (e) => {
+		e.preventDefault(), e.stopPropagation(), w(!1), b || S({
+			from: void 0,
+			to: void 0
+		}), n?.({
+			from: void 0,
+			to: void 0
+		});
+	}, k = () => {
+		a || w((e) => !e);
+	}, A = !!T?.from;
 	return /* @__PURE__ */ jsxs("div", {
 		className: "flex w-full flex-col gap-1.5",
 		children: [/* @__PURE__ */ jsxs(Root2, {
@@ -9597,7 +9607,7 @@ var DateRangePicker = React$1.forwardRef(({ value: e, defaultValue: t, onValueCh
 			onOpenChange: (e) => {
 				a || w(e);
 			},
-			children: [/* @__PURE__ */ jsx("div", {
+			children: [/* @__PURE__ */ jsxs("div", {
 				"data-variant": c,
 				"data-invalid": y || void 0,
 				className: fieldVariants({
@@ -9605,7 +9615,7 @@ var DateRangePicker = React$1.forwardRef(({ value: e, defaultValue: t, onValueCh
 					invalid: y,
 					rounded: u
 				}),
-				children: /* @__PURE__ */ jsxs(Trigger, {
+				children: [/* @__PURE__ */ jsx(Trigger, {
 					ref: f,
 					id: _,
 					type: "button",
@@ -9613,14 +9623,35 @@ var DateRangePicker = React$1.forwardRef(({ value: e, defaultValue: t, onValueCh
 					"aria-invalid": y || void 0,
 					"aria-describedby": y ? v : void 0,
 					className: "flex h-full w-full min-w-0 items-center justify-between gap-2 bg-transparent text-sm outline-none disabled:cursor-not-allowed",
-					children: [/* @__PURE__ */ jsx("span", {
+					children: /* @__PURE__ */ jsx("span", {
 						className: T?.from ? "truncate text-text-primary" : "truncate text-text-subtle",
 						children: E
-					}), /* @__PURE__ */ jsx(Calendar, {
-						className: "size-4 shrink-0 text-text-muted",
-						"aria-hidden": !0
+					})
+				}), /* @__PURE__ */ jsxs("div", {
+					className: "flex shrink-0 items-center gap-0.5",
+					children: [A ? /* @__PURE__ */ jsx(Button, {
+						variant: "ghost",
+						size: "icon",
+						"aria-label": "Clear date range",
+						className: "size-6",
+						disabled: a,
+						onClick: O,
+						children: /* @__PURE__ */ jsx(X, {
+							className: "size-4 text-text-muted",
+							"aria-hidden": !0
+						})
+					}) : null, /* @__PURE__ */ jsx("button", {
+						type: "button",
+						disabled: a,
+						"aria-label": "Open calendar",
+						className: "inline-flex size-6 shrink-0 items-center justify-center text-text-muted outline-none hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-50",
+						onClick: k,
+						children: /* @__PURE__ */ jsx(Calendar, {
+							className: "size-4",
+							"aria-hidden": !0
+						})
 					})]
-				})
+				})]
 			}), /* @__PURE__ */ jsx(Portal$1, { children: /* @__PURE__ */ jsx(Content2, {
 				className: dateRangePickerContent,
 				align: "start",

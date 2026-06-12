@@ -2,12 +2,13 @@ import * as React from "react"
 import { useId, useState } from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
 import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
+import { CalendarIcon, XIcon } from "lucide-react"
 
 import { fieldVariants, type FieldVariantProps } from "../field-variants"
 
 import { Calendar } from "./calendar"
 import { dateRangePickerContent } from "./date-range-picker-variants"
+import { Button } from "../button"
 
 /** Public range value (mirrors react-day-picker's DateRange without exposing that dependency). */
 export type DateRangePickerValue = {
@@ -81,6 +82,22 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
       }
     }
 
+    const handleClear = (event: React.MouseEvent) => {
+      event.preventDefault()
+      event.stopPropagation()
+      setOpen(false)
+      if (!isControlled) {
+        setInternalValue({ from: undefined, to: undefined })
+      }
+      onValueChange?.({ from: undefined, to: undefined })
+    }
+
+    const toggleOpen = () => {
+      if (!disabled) setOpen((prev) => !prev)
+    }
+
+    const hasSelection = Boolean(selected?.from)
+
     return (
       <div className="flex w-full flex-col gap-1.5">
         <PopoverPrimitive.Root
@@ -116,11 +133,30 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
               >
                 {label}
               </span>
-              <CalendarIcon
-                className="size-4 shrink-0 text-text-muted"
-                aria-hidden
-              />
             </PopoverPrimitive.Trigger>
+            <div className="flex shrink-0 items-center gap-0.5">
+              {hasSelection ? (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Clear date range"
+                  className="size-6"
+                  disabled={disabled}
+                  onClick={handleClear}
+                >
+                  <XIcon className="size-4 text-text-muted" aria-hidden />
+                </Button>
+              ) : null}
+              <button
+                type="button"
+                disabled={disabled}
+                aria-label="Open calendar"
+                className="inline-flex size-6 shrink-0 items-center justify-center text-text-muted outline-none hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                onClick={toggleOpen}
+              >
+                <CalendarIcon className="size-4" aria-hidden />
+              </button>
+            </div>
           </div>
 
           <PopoverPrimitive.Portal>
