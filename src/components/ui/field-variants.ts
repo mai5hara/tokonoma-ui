@@ -4,7 +4,7 @@ const fieldTransition =
   'transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none';
 
 /**
- * Shared field chrome for Input, Select, and future controls.
+ * Shared field chrome for Input, Select, DateRangePicker, and future controls.
  *
  * border — neutral bordered surface-elevated (default).
  * inset — soft inset depth on surface.

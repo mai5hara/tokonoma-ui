@@ -4,29 +4,37 @@ import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { format } from 'date-fns';
 import { CalendarIcon, XIcon } from 'lucide-react';
 
-import { fieldVariants, type FieldVariantProps } from '../field-variants';
+import { fieldVariants, type FieldAppearanceProps } from '../field-variants';
 
 import { Calendar } from './calendar';
 import { dateRangePickerContent } from './date-range-picker-variants';
 import { Button } from '../button';
 
-/** Public range value (mirrors react-day-picker's DateRange without exposing that dependency). */
+/** Selected date range (`from` / `to`). */
 export type DateRangePickerValue = {
+  /** Start date (inclusive). */
   from: Date | undefined;
+  /** End date (inclusive). May be omitted while the user is still selecting. */
   to?: Date | undefined;
 };
 
 type DateRangePickerProps = {
+  /** Current range. Pair with `onValueChange` for controlled usage. */
   value?: DateRangePickerValue;
+  /** Initial range when uncontrolled. */
   defaultValue?: DateRangePickerValue;
+  /** Called when the range changes. */
   onValueChange?: (value: DateRangePickerValue | undefined) => void;
+  /** Shown when no dates are selected. */
   placeholder?: string;
   disabled?: boolean;
   /** When set, applies error styling and renders helper text below. */
   errorMessage?: string;
+  /** Associates the trigger with an external {@link Label} via `htmlFor`. */
   id?: string;
+  /** Number of months shown in the calendar popover. Defaults to `1`. */
   numberOfMonths?: number;
-} & FieldVariantProps;
+} & FieldAppearanceProps;
 
 function formatDateRange(
   range: DateRangePickerValue | undefined,
@@ -43,6 +51,11 @@ function formatDateRange(
   return `${fromLabel} – ${toLabel}`;
 }
 
+/**
+ * Date range field with the same field chrome as {@link Input} and
+ * {@link Select}. Opens a calendar popover to pick start and end dates. Pair
+ * with {@link Label}.
+ */
 const DateRangePicker = React.forwardRef<
   HTMLButtonElement,
   DateRangePickerProps
@@ -105,7 +118,7 @@ const DateRangePicker = React.forwardRef<
       <div className="flex w-full flex-col gap-1.5">
         <PopoverPrimitive.Root
           open={disabled ? false : open}
-          onOpenChange={(next) => {
+          onOpenChange={(next: boolean) => {
             if (!disabled) setOpen(next);
           }}
         >
@@ -189,7 +202,5 @@ const DateRangePicker = React.forwardRef<
 DateRangePicker.displayName = 'DateRangePicker';
 
 export { DateRangePicker };
-export type {
-  DateRangePickerProps,
-  FieldVariantProps as DateRangePickerVariantProps,
-};
+export type { DateRangePickerProps };
+export type { FieldAppearanceProps as DateRangePickerVariantProps } from '../field-variants';

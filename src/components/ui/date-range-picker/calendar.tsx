@@ -12,10 +12,13 @@ const calendarEndMonth = new Date(currentYear + 5, 11);
 type CalendarProps = {
   selected?: DateRange;
   onSelect?: (range: DateRange | undefined) => void;
+  /** Month shown on first open when no range is selected. */
   defaultMonth?: Date;
+  /** Number of months shown side by side. Defaults to `1`. */
   numberOfMonths?: number;
 };
 
+/** Internal range calendar (react-day-picker). Not exported from the package. */
 function Calendar({
   selected,
   onSelect,
@@ -37,7 +40,7 @@ function Calendar({
       resetOnSelect
       classNames={calendarClassNames}
       components={{
-        Chevron: ({ className }) => (
+        Chevron: ({ className }: { className?: string }) => (
           <ChevronDown className={className} aria-hidden />
         ),
       }}
