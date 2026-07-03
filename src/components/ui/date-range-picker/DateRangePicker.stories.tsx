@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { DateRangePicker, type DateRangePickerValue } from '.';
 
 const fieldVariantDescription =
-  '`border` — neutral bordered surface. `inset` — soft inset on `surface`. `filled` — borderless fill.';
+  '`border` — neutral bordered surface. `raised` / `inset` — soft depth on `surface`. `filled` — borderless fill.';
 
 const meta = {
   title: 'Components/DateRangePicker',
@@ -23,10 +23,10 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['border', 'inset', 'filled'],
+      options: ['border', 'inset', 'raised', 'filled'],
       description: fieldVariantDescription,
       table: {
-        type: { summary: 'border | inset | filled' },
+        type: { summary: 'border | inset | raised | filled' },
         defaultValue: { summary: 'border' },
       },
     },

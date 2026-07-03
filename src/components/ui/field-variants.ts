@@ -24,6 +24,11 @@ export const fieldVariants = cva(
           'border border-border bg-surface-elevated hover:border-border-strong focus-within:border-border-strong focus-within:ring-ring/40',
         inset:
           'border border-transparent bg-surface shadow-[var(--shadow-button-inset)] focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40',
+        raised: [
+          'border border-transparent bg-surface shadow-[var(--shadow-button-raised)]',
+          '[background:var(--background-gradient-raised)]',
+          'focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40',
+        ],
         filled:
           'border border-transparent bg-surface text-text-primary hover:bg-surface-elevated focus-within:ring-ring/40',
       },
