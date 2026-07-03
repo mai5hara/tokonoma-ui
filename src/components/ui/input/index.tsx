@@ -28,6 +28,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     {
       className,
       variant,
+      rounded,
       mode = 'default',
       showPasswordToggle = false,
       errorMessage,
@@ -55,7 +56,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           data-mode={mode}
           data-invalid={isInvalid || undefined}
           className={cn(
-            inputVariants({ variant, invalid: isInvalid }),
+            inputVariants({ variant, invalid: isInvalid, rounded }),
             className,
           )}
         >

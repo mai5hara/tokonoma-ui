@@ -13,10 +13,10 @@ const buttonTransition =
  */
 export const buttonVariants = cva(
   [
-    'inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md font-medium',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
-    'disabled:pointer-events-none disabled:opacity-50',
-    'aria-disabled:pointer-events-none aria-disabled:opacity-50',
+    "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 font-medium",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+    "disabled:pointer-events-none disabled:opacity-50",
+    "aria-disabled:pointer-events-none aria-disabled:opacity-50",
     buttonTransition,
   ],
   {
@@ -62,6 +62,12 @@ export const buttonVariants = cva(
         lg: 'h-10 px-5 text-base',
         icon: 'size-8 shrink-0 gap-0 p-0',
       },
+      rounded: {
+        sm: "rounded-sm",
+        md: "rounded-md",
+        lg: "rounded-lg",
+        full: "rounded-full",
+      }
     },
     compoundVariants: [
       {
@@ -71,8 +77,9 @@ export const buttonVariants = cva(
       },
     ],
     defaultVariants: {
-      variant: 'flat',
-      size: 'default',
+      variant: "flat",
+      size: "default",
+      rounded: "md",
     },
   },
 );

@@ -50,6 +50,7 @@ const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
       errorMessage,
       id: idProp,
       variant,
+      rounded,
     },
     ref,
   ) => {
@@ -69,7 +70,7 @@ const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
           <div
             data-variant={variant}
             data-invalid={isInvalid || undefined}
-            className={fieldVariants({ variant, invalid: isInvalid })}
+            className={fieldVariants({ variant, invalid: isInvalid, rounded })}
           >
             <SelectPrimitive.Trigger
               ref={ref}
