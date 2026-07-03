@@ -12,9 +12,9 @@ const fieldTransition =
  */
 export const fieldVariants = cva(
   [
-    "flex h-9 w-full min-w-0 items-center gap-2 px-3 text-sm text-text-primary",
-    "focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-surface",
-    "has-disabled:cursor-not-allowed has-disabled:opacity-50",
+    'flex h-9 w-full min-w-0 items-center gap-2 px-3 text-sm text-text-primary',
+    'focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-surface',
+    'has-disabled:cursor-not-allowed has-disabled:opacity-50',
     fieldTransition,
   ],
   {
@@ -32,10 +32,10 @@ export const fieldVariants = cva(
         false: '',
       },
       rounded: {
-        sm: "rounded-sm",
-        md: "rounded-md",
-        lg: "rounded-lg",
-        full: "rounded-full",
+        sm: 'rounded-sm',
+        md: 'rounded-md',
+        lg: 'rounded-lg',
+        full: 'rounded-full',
       },
     },
     compoundVariants: [
@@ -61,7 +61,7 @@ export const fieldVariants = cva(
     defaultVariants: {
       variant: 'border',
       invalid: false,
-      rounded: "md",
+      rounded: 'md',
     },
   },
 );

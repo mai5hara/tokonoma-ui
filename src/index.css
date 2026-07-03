@@ -107,7 +107,7 @@
   --color-card-foreground: var(--color-neutral-900);
   --color-muted-foreground: var(--color-neutral-600);
   --color-ring: var(--color-neutral-400);
-  
+
   /* Ink palette */
   --color-text-primary: var(--color-ink-900);
   --color-text-muted: var(--color-ink-600);
