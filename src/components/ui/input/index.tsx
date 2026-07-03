@@ -4,10 +4,17 @@ import { Eye, EyeOff, Search } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-import { inputVariants, type InputVariantProps } from "./input-variants"
+import {
+  inputVariants,
+  type FieldAppearanceProps,
+} from "./input-variants"
 
 type InputProps = Omit<React.ComponentProps<"input">, "size"> &
-  InputVariantProps & {
+  FieldAppearanceProps & {
+    /**
+     * `search` prepends a search icon. Other input types use the native `type`
+     * prop (`text`, `password`, `email`, …).
+     */
     mode?: "default" | "search"
     /** Shows visibility toggle when `type="password"`. */
     showPasswordToggle?: boolean
@@ -15,6 +22,10 @@ type InputProps = Omit<React.ComponentProps<"input">, "size"> &
     errorMessage?: string
   }
 
+/**
+ * Text field with shared field chrome. Pairs with {@link Label}; colors follow
+ * the active theme.
+ */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
@@ -94,4 +105,5 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 Input.displayName = "Input"
 
 export { Input }
-export type { InputProps, InputVariantProps }
+export type { InputProps }
+export type { InputVariantProps, FieldAppearanceProps } from "./input-variants"

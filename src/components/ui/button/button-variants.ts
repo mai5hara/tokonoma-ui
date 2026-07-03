@@ -4,8 +4,10 @@ const buttonTransition =
   "transition-[transform,box-shadow,background-color,border-color,color] duration-200 ease-out motion-reduce:transition-none"
 
 /**
- * flat | raised | inset — neumorphism on surface.
- * accent | outline — emphasis without neumorphism.
+ * flat — neutral secondary: bordered surface-elevated, no shadow (cancel, quiet actions).
+ * raised | inset — soft depth on surface.
+ * accent — filled primary action.
+ * outline — accent secondary: accent border and label, transparent background.
  * ghost — no border or shadow (icon-only controls, quiet actions).
  * Use size="icon" for square icon-only hit targets (pair with ghost or accent).
  */

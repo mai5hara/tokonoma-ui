@@ -1,22 +1,58 @@
 import type { ReactNode } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { X } from "lucide-react"
 
 import { Button, ButtonLink } from "."
 
 const meta = {
   title: "Components/Button",
   component: Button,
+  subcomponents: {
+    ButtonLink,
+  },
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Primary action control. Colors follow the active theme. For links, use **ButtonLink** (see the Link story).",
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: "select",
       options: ["flat", "raised", "inset", "accent", "outline", "ghost"],
+      description:
+        "`flat` — neutral secondary (bordered surface, no depth). `raised` / `inset` — soft depth on `surface`. `accent` — filled primary. `outline` — accent secondary (accent border, transparent fill). `ghost` — borderless.",
+      table: {
+        type: { summary: "flat | raised | inset | accent | outline | ghost" },
+        defaultValue: { summary: "flat" },
+      },
     },
     size: {
       control: "select",
       options: ["xs", "sm", "default", "lg", "icon"],
+      description:
+        "Hit target size. Use `icon` with `ghost` or `accent` for icon-only buttons.",
+      table: {
+        type: { summary: "xs | sm | default | lg | icon" },
+        defaultValue: { summary: "default" },
+      },
     },
-    disabled: { control: "boolean" },
+    asChild: {
+      control: "boolean",
+      description:
+        "Merge button styles onto a single child element (e.g. `<a>`) via Radix Slot.",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Prevents interaction and dims the button.",
+    },
+    children: {
+      control: "text",
+      description: "Button label or icon content.",
+    },
+    className: { table: { disable: true } },
   },
   args: {
     variant: "flat",
@@ -37,71 +73,8 @@ export const Default: Story = {
   render: (args) => onSurface(<Button {...args} />),
 }
 
-export const Variants: Story = {
-  render: () =>
-    onSurface(
-      <div className="flex flex-wrap items-center gap-4">
-        <Button variant="flat">Flat</Button>
-        <Button variant="raised">Raised</Button>
-        <Button variant="accent">Accent</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-      </div>
-    ),
-}
-
-export const Icon: Story = {
-  render: () =>
-    onSurface(
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" aria-label="Close">
-          <X className="size-4" aria-hidden />
-        </Button>
-        <Button variant="accent" size="icon" aria-label="Add">
-          <span className="text-lg leading-none" aria-hidden>
-            +
-          </span>
-        </Button>
-      </div>
-    ),
-}
-
-export const Sizes: Story = {
-  render: () =>
-    onSurface(
-      <div className="flex flex-wrap items-end gap-4">
-        <Button size="xs">Extra small</Button>
-        <Button size="sm">Small</Button>
-        <Button size="default">Default</Button>
-        <Button size="lg">Large</Button>
-      </div>
-    ),
-}
-
-export const Disabled: Story = {
-  render: () =>
-    onSurface(
-      <div className="flex flex-wrap gap-4">
-        <Button variant="raised" disabled>
-          Raised
-        </Button>
-        <Button variant="accent" disabled>
-          Accent
-        </Button>
-      </div>
-    ),
-}
-
-export const AsChildLink: Story = {
-  render: () =>
-    onSurface(
-      <Button variant="accent" asChild>
-        <a href="#gallery">Gallery (Slot)</a>
-      </Button>
-    ),
-}
-
 export const Link: Story = {
+  parameters: { controls: { disable: true } },
   render: () =>
     onSurface(
       <div className="flex flex-wrap gap-4">

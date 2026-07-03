@@ -3,7 +3,7 @@ import * as SelectPrimitive from "@radix-ui/react-select"
 import { useId } from "react"
 import { Check, ChevronDown } from "lucide-react"
 
-import { fieldVariants, type FieldVariantProps } from "../field-variants"
+import { fieldVariants, type FieldAppearanceProps } from "../field-variants"
 
 import {
   selectContent,
@@ -15,21 +15,29 @@ import {
 export type SelectOption = {
   value: string
   label: string
+  /** Omit or disable options that cannot be selected. */
   disabled?: boolean
 }
 
 type SelectProps = {
+  /** Options shown in the dropdown. */
   options: SelectOption[]
   value?: string
   defaultValue?: string
   onValueChange?: (value: string) => void
+  /** Shown when no value is selected. */
   placeholder?: string
   disabled?: boolean
   /** When set, applies error styling and renders helper text below. */
   errorMessage?: string
+  /** Associates the trigger with an external {@link Label} via `htmlFor`. */
   id?: string
-} & FieldVariantProps
+} & FieldAppearanceProps
 
+/**
+ * Single-select dropdown with the same field chrome as {@link Input}. Pass an
+ * `options` array rather than composing items manually.
+ */
 const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
   (
     {
@@ -124,4 +132,5 @@ const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 Select.displayName = "Select"
 
 export { Select }
-export type { SelectProps, FieldVariantProps as SelectVariantProps }
+export type { SelectProps }
+export type { FieldAppearanceProps as SelectVariantProps } from "../field-variants"

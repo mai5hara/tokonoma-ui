@@ -8,10 +8,36 @@ import { Label } from "."
 const meta = {
   title: "Components/Label",
   component: Label,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Accessible form label. Always pair with a control via `htmlFor` and matching `id`.",
+      },
+    },
+  },
   argTypes: {
+    children: {
+      control: "text",
+      description: "Label text.",
+    },
+    htmlFor: {
+      control: "text",
+      description: "ID of the associated form control.",
+    },
     size: {
       control: "select",
       options: ["default", "sm"],
+      description: "Label text size. `sm` matches compact fields.",
+      table: {
+        type: { summary: "default | sm" },
+        defaultValue: { summary: "default" },
+      },
+    },
+    required: {
+      control: "boolean",
+      description: "Renders a required marker (`*`) after the label text.",
     },
   },
   args: {
@@ -32,14 +58,8 @@ export const Default: Story = {
   render: (args) => onSurface(<Label {...args} />),
 }
 
-export const Required: Story = {
-  args: {
-    required: true,
-  },
-  render: (args) => onSurface(<Label {...args} />),
-}
-
 export const WithInput: Story = {
+  parameters: { controls: { disable: true } },
   render: function WithInputStory() {
     const id = useId()
 
@@ -55,6 +75,7 @@ export const WithInput: Story = {
 }
 
 export const WithError: Story = {
+  parameters: { controls: { disable: true } },
   render: function WithErrorStory() {
     const id = useId()
 

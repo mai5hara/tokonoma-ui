@@ -5,12 +5,33 @@ import { cn } from "@/lib/utils"
 
 import { buttonVariants, type ButtonVariantProps } from "./button-variants"
 
+type ButtonAppearanceProps = {
+  /**
+   * Surface style.
+   * - `flat` — neutral secondary: bordered `surface-elevated`, no depth (e.g. cancel).
+   * - `raised` / `inset` — soft depth on `surface`.
+   * - `accent` — filled primary action.
+   * - `outline` — accent secondary: accent border and label on a transparent background.
+   * - `ghost` — borderless, quiet or icon-only actions.
+   */
+  variant?: NonNullable<ButtonVariantProps["variant"]>
+  /**
+   * Hit target size. Use `icon` with `ghost` or `accent` for square icon-only
+   * buttons (provide `aria-label`).
+   */
+  size?: NonNullable<ButtonVariantProps["size"]>
+}
+
 type ButtonProps = React.ComponentProps<"button"> &
-  ButtonVariantProps & {
+  ButtonAppearanceProps & {
     /** Merge styles onto the single child (e.g. `<a>`) via Radix Slot. */
     asChild?: boolean
   }
 
+/**
+ * Primary action control. Colors follow the active theme — choose `variant` and
+ * `size`, not palette colors.
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, type = "button", ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
@@ -30,11 +51,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button"
 
 type ButtonLinkProps = React.ComponentProps<"a"> &
-  ButtonVariantProps & {
-    /** Opens in a new tab with safe rel when true or href is http(s). */
+  ButtonAppearanceProps & {
+    /** Opens in a new tab with safe `rel` when true or `href` is http(s). */
     external?: boolean
   }
 
+/**
+ * Anchor styled as a button. Prefer over `Button asChild` when navigation is the
+ * primary action.
+ */
 const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
   (
     {
@@ -89,5 +114,5 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
 ButtonLink.displayName = "ButtonLink"
 
 export { Button, ButtonLink }
-export type { ButtonProps, ButtonLinkProps }
+export type { ButtonProps, ButtonLinkProps, ButtonAppearanceProps }
 export type { ButtonVariantProps } from "./button-variants"

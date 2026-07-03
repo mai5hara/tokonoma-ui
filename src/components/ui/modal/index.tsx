@@ -21,6 +21,8 @@ import {
 } from "./modal-variants"
 
 const Modal = DialogPrimitive.Root
+
+/** Unstyled trigger; use with `asChild` to wrap a {@link Button}. */
 const ModalTrigger = DialogPrimitive.Trigger
 
 const ModalTextAlignContext = React.createContext<ModalTextAlign>("start")
@@ -30,12 +32,17 @@ function useModalTextAlign() {
 }
 
 type ModalContentProps = {
+  /** Maximum panel width. */
   size?: ModalContentSize
-  /** Aligns title, description, and body text. Footer button row uses `ModalFooter` `align`. */
+  /**
+   * Aligns title, description, and body text. Footer button row uses
+   * {@link ModalFooter} `align`.
+   */
   textAlign?: ModalTextAlign
   children: React.ReactNode
 }
 
+/** Dialog panel with overlay. Compose with {@link ModalHeader}, {@link ModalBody}, and {@link ModalFooter}. */
 function ModalContent({
   size = "default",
   textAlign = "start",
@@ -58,12 +65,15 @@ function ModalContent({
 type ModalHeaderProps = {
   title: string
   description?: string
+  /** Title typography scale. */
   titleSize?: ModalTitleSize
+  /** Description typography scale. */
   descriptionSize?: ModalDescriptionSize
   /** Renders the default close control in the top-right corner. */
   showClose?: boolean
 }
 
+/** Accessible title and optional description. Inherits `textAlign` from {@link ModalContent}. */
 function ModalHeader({
   title,
   description,
@@ -113,6 +123,7 @@ type ModalBodyProps = {
   children: React.ReactNode
 }
 
+/** Scrollable content region between header and footer. */
 function ModalBody({ children }: ModalBodyProps) {
   const textAlign = useModalTextAlign()
 
@@ -126,10 +137,12 @@ function ModalBody({ children }: ModalBodyProps) {
 }
 
 type ModalFooterProps = {
+  /** Horizontal alignment of action buttons. */
   align?: ModalFooterAlign
   children: React.ReactNode
 }
 
+/** Action row. Use `flat` for cancel and `accent` for the primary action. */
 function ModalFooter({ align = "end", children }: ModalFooterProps) {
   return (
     <div

@@ -14,10 +14,29 @@ import {
 const meta = {
   title: "Components/Modal",
   component: Modal,
+  subcomponents: {
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+  },
+  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
+    docs: {
+      description: {
+        component:
+          "Dialog built on Radix. Compose `Modal` (root) with `ModalContent`, `ModalHeader`, `ModalBody`, and `ModalFooter`. Use `ModalTrigger` when controlled open state is not needed.",
+      },
+    },
+    controls: { disable: true },
   },
-} satisfies Meta<typeof Modal>
+  // Stories use custom `render`; args satisfy ModalContent's required `children` for types.
+  args: {
+    size: "default",
+    textAlign: "start",
+    children: null,
+  },
+} satisfies Meta<typeof ModalContent>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -80,36 +99,6 @@ export const WithTrigger: Story = {
         </ModalContent>
       </Modal>
     ),
-}
-
-export const TitleSizes: Story = {
-  render: function TitleSizesStory() {
-    const [open, setOpen] = useState(false)
-
-    return onSurface(
-      <>
-        <Button variant="flat" onClick={() => setOpen(true)}>
-          Open large title
-        </Button>
-        <Modal open={open} onOpenChange={setOpen}>
-          <ModalContent>
-            <ModalHeader
-              showClose
-              title="Larger heading"
-              titleSize="lg"
-              description="Description stays muted; only size is configurable."
-              descriptionSize="sm"
-            />
-            <ModalFooter>
-              <Button variant="accent" onClick={() => setOpen(false)}>
-                Done
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </>
-    )
-  },
 }
 
 export const CenteredConfirm: Story = {

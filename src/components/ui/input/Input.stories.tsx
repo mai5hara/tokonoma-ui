@@ -2,22 +2,66 @@ import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Input } from "."
 
+const fieldVariantDescription =
+  "`border` — neutral bordered surface. `inset` — soft inset on `surface`. `filled` — borderless fill."
+
 const meta = {
   title: "Components/Input",
   component: Input,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Text field with shared field chrome (same variants as **Select**). Pair with **Label** via `id` / `htmlFor`.",
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: "select",
       options: ["border", "inset", "filled"],
+      description: fieldVariantDescription,
+      table: {
+        type: { summary: "border | inset | filled" },
+        defaultValue: { summary: "border" },
+      },
     },
     mode: {
       control: "select",
       options: ["default", "search"],
+      description: "`search` prepends a search icon.",
+      table: {
+        type: { summary: "default | search" },
+        defaultValue: { summary: "default" },
+      },
     },
+    placeholder: {
+      control: "text",
+      description: "Placeholder text when empty.",
+    },
+    type: {
+      control: "select",
+      options: ["text", "email", "password", "search", "tel", "url"],
+      description: "Native input type. Use `showPasswordToggle` with `password`.",
+    },
+    showPasswordToggle: {
+      control: "boolean",
+      description: "Shows show/hide control when `type=\"password\"`.",
+      if: { arg: "type", eq: "password" },
+    },
+    errorMessage: {
+      control: "text",
+      description: "When set, applies error styling and helper text below.",
+    },
+    disabled: { control: "boolean" },
+    className: { table: { disable: true } },
   },
   args: {
     variant: "border",
     mode: "default",
+    type: "text",
+    showPasswordToggle: false,
     placeholder: "Type here...",
   },
 } satisfies Meta<typeof Input>
@@ -33,41 +77,8 @@ export const Default: Story = {
   render: (args) => onSurface(<Input {...args} />),
 }
 
-export const Variants: Story = {
-  render: () =>
-    onSurface(
-      <div className="space-y-4">
-        <Input variant="border" placeholder="Border input" />
-        <Input variant="inset" placeholder="Inset input" />
-        <Input variant="filled" placeholder="Filled input" />
-      </div>
-    ),
-}
-
-export const Search: Story = {
-  render: () =>
-    onSurface(
-      <div className="space-y-4">
-        <Input mode="search" placeholder="Search..." />
-      </div>
-    ),
-}
-
-export const Password: Story = {
-  render: () =>
-    onSurface(
-      <div className="space-y-4">
-        <Input type="password" placeholder="Password" />
-        <Input
-          type="password"
-          showPasswordToggle
-          placeholder="Password with toggle"
-        />
-      </div>
-    ),
-}
-
 export const Error: Story = {
+  parameters: { controls: { disable: true } },
   render: () =>
     onSurface(
       <div className="space-y-4">

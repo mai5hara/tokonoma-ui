@@ -3,7 +3,13 @@ import { cva, type VariantProps } from "class-variance-authority"
 const fieldTransition =
   "transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none"
 
-/** Shared field chrome for Input, Select, and future controls. */
+/**
+ * Shared field chrome for Input, Select, and future controls.
+ *
+ * border — neutral bordered surface-elevated (default).
+ * inset — soft inset depth on surface.
+ * filled — borderless fill on surface.
+ */
 export const fieldVariants = cva(
   [
     "flex h-9 w-full min-w-0 items-center gap-2 rounded-md px-3 text-sm text-text-primary",
@@ -54,3 +60,13 @@ export const fieldVariants = cva(
 )
 
 export type FieldVariantProps = VariantProps<typeof fieldVariants>
+
+export type FieldAppearanceProps = {
+  /**
+   * Field chrome style (shared with Select).
+   * - `border` — neutral bordered `surface-elevated` (default).
+   * - `inset` — soft inset depth on `surface`.
+   * - `filled` — borderless fill on `surface`.
+   */
+  variant?: NonNullable<FieldVariantProps["variant"]>
+}

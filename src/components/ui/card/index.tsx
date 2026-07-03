@@ -5,15 +5,15 @@ import { cn } from "@/lib/utils"
 import {
   cardFooterAlign,
   cardVariants,
+  type CardAppearanceProps,
   type CardFooterAlign,
-  type CardVariantProps,
 } from "./card-variants"
 
 const cardSectionX = "px-6 group-data-[size=sm]/card:px-4"
 
-type CardProps = React.ComponentProps<"div"> &
-  CardVariantProps
+type CardProps = React.ComponentProps<"div"> & CardAppearanceProps
 
+/** Content container with header, body, footer, and optional media slots. */
 function Card({ className, variant, size, ...props }: CardProps) {
   return (
     <div
@@ -30,6 +30,7 @@ type CardHeaderProps = React.ComponentProps<"div"> & {
   action?: React.ReactNode
 }
 
+/** Title row with optional `action` slot in the top-right corner. */
 function CardHeader({ className, action, children, ...props }: CardHeaderProps) {
   if (action) {
     return (
@@ -56,7 +57,10 @@ function CardTitle({
   className,
   as: Comp = "h3",
   ...props
-}: React.ComponentProps<"h3"> & { as?: "h2" | "h3" | "h4" | "div" }) {
+}: React.ComponentProps<"h3"> & {
+  /** Heading element. Defaults to `h3`. */
+  as?: "h2" | "h3" | "h4" | "div"
+}) {
   return (
     <Comp
       className={cn(
@@ -81,6 +85,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 type CardFooterProps = React.ComponentProps<"div"> & {
+  /** Horizontal alignment of footer content. */
   align?: CardFooterAlign
 }
 
@@ -126,5 +131,5 @@ export {
   CardContent,
   CardMedia,
 }
-export type { CardProps, CardHeaderProps, CardFooterProps }
+export type { CardProps, CardHeaderProps, CardFooterProps, CardAppearanceProps }
 export type { CardFooterAlign } from "./card-variants"

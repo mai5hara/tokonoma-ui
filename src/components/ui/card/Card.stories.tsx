@@ -15,15 +15,41 @@ import {
 const meta = {
   title: "Components/Card",
   component: Card,
+  subcomponents: {
+    CardHeader,
+    CardTitle,
+    CardFooter,
+  },
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Content container composed of `CardHeader`, `CardContent`, `CardFooter`, and optional `CardMedia`. Colors follow the active theme.",
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: "select",
       options: ["flat", "inset", "raised"],
+      description:
+        "`flat` — border only, no depth. `raised` / `inset` — soft depth on `surface`.",
+      table: {
+        type: { summary: "flat | raised | inset" },
+        defaultValue: { summary: "flat" },
+      },
     },
     size: {
       control: "select",
       options: ["default", "sm"],
+      description: "Padding density. `sm` for compact layouts.",
+      table: {
+        type: { summary: "default | sm" },
+        defaultValue: { summary: "default" },
+      },
     },
+    className: { table: { disable: true } },
   },
   args: {
     variant: "flat",
@@ -69,17 +95,8 @@ export const Default: Story = {
   render: (args) => cardOnSurface(args),
 }
 
-export const Variants: Story = {
-  render: () => (
-    <div className="grid max-w-4xl gap-8 bg-surface p-8 md:grid-cols-3">
-      <Card variant="flat">{cardBody}</Card>
-      <Card variant="raised">{cardBody}</Card>
-      <Card variant="inset">{cardBody}</Card>
-    </div>
-  ),
-}
-
 export const WithAction: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="max-w-md bg-surface p-8">
       <Card variant="flat">
@@ -105,6 +122,7 @@ export const WithAction: Story = {
 }
 
 export const WithMedia: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="max-w-md bg-surface p-8">
       <Card variant="raised">
