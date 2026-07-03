@@ -1,26 +1,26 @@
-import type { Meta, StoryObj } from "@storybook/react-vite"
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Typography } from "."
+import { Typography } from '.';
 
 const meta = {
-  title: "Foundations/Typography",
+  title: 'Foundations/Typography',
   component: Typography,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
     controls: {
       disable: true,
     },
     docs: {
       description: {
         component:
-          "Font families (Inter, Geist Mono), size scale, weights, line heights, and composite **text styles** for product UI. Tokens live in `@theme` in `index.css`.",
+          'Font families (Inter, Geist Mono), size scale, weights, line heights, and composite **text styles** for product UI. Tokens live in `@theme` in `index.css`.',
       },
     },
   },
-} satisfies Meta<typeof Typography>
+} satisfies Meta<typeof Typography>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const All: Story = {}
+export const All: Story = {};

@@ -1,20 +1,23 @@
-import * as React from "react"
+import * as React from 'react';
 
-import { labelVariants, type LabelVariantProps } from "./label-variants"
+import { labelVariants, type LabelVariantProps } from './label-variants';
 
 type LabelAppearanceProps = {
   /** Label text size. `sm` matches compact fields. */
-  size?: NonNullable<LabelVariantProps["size"]>
-}
+  size?: NonNullable<LabelVariantProps['size']>;
+};
 
-type LabelProps = Omit<React.ComponentProps<"label">, "children" | "className"> &
+type LabelProps = Omit<
+  React.ComponentProps<'label'>,
+  'children' | 'className'
+> &
   LabelAppearanceProps & {
-    children: React.ReactNode
+    children: React.ReactNode;
     /** ID of the associated form control (`htmlFor`). */
-    htmlFor: string
+    htmlFor: string;
     /** Renders a required marker (`*`) after the label text. */
-    required?: boolean
-  }
+    required?: boolean;
+  };
 
 /**
  * Accessible form label. Always pair with a control via `htmlFor` / `id`.
@@ -37,10 +40,10 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
           </>
         ) : null}
       </label>
-    )
-  }
-)
-Label.displayName = "Label"
+    );
+  },
+);
+Label.displayName = 'Label';
 
-export { Label }
-export type { LabelProps, LabelVariantProps, LabelAppearanceProps }
+export { Label };
+export type { LabelProps, LabelVariantProps, LabelAppearanceProps };

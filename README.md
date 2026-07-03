@@ -2,9 +2,9 @@
 
 A React design system for calm, tactile interfaces — soft-depth surfaces, switchable mood palettes, and a closed component API. Documented in Storybook.
 
-Named after *tokonoma* (床の間), the Japanese alcove for intentional display — quiet surfaces, focused content.
+Named after _tokonoma_ (床の間), the Japanese alcove for intentional display — quiet surfaces, focused content.
 
-**Storybook:** *link coming soon*
+**Storybook:** _link coming soon_
 
 **Stack:** React 19 · Radix UI · Tailwind CSS v4 · class-variance-authority (cva)
 
@@ -25,14 +25,14 @@ Implementation follows the same patterns as [shadcn/ui](https://ui.shadcn.com/) 
 
 ## Components
 
-| Component | Notes |
-|-----------|--------|
-| `Button` / `ButtonLink` | `flat` · `raised` · `inset` · `accent` · `outline` · `ghost` |
-| `Card` | `flat` · `raised` · `inset`; header, content, footer, and media slots |
-| `Input` | `border` · `inset` · `filled`; search and password modes |
-| `Label` | Accessible labels with optional required marker |
-| `Modal` | Dialog with header, body, and footer |
-| `Select` | Single select with an `options[]` API |
+| Component               | Notes                                                                 |
+| ----------------------- | --------------------------------------------------------------------- |
+| `Button` / `ButtonLink` | `flat` · `raised` · `inset` · `accent` · `outline` · `ghost`          |
+| `Card`                  | `flat` · `raised` · `inset`; header, content, footer, and media slots |
+| `Input`                 | `border` · `inset` · `filled`; search and password modes              |
+| `Label`                 | Accessible labels with optional required marker                       |
+| `Modal`                 | Dialog with header, body, and footer                                  |
+| `Select`                | Single select with an `options[]` API                                 |
 
 See **Storybook** for interactive examples of every variant.
 
@@ -63,10 +63,10 @@ Replace `v0.1.0` with the version you need. Release notes are on [GitHub Release
 Import styles once at your application entry:
 
 ```ts
-import "tokonoma-ui/styles.css"
-import { initTheme } from "tokonoma-ui"
+import 'tokonoma-ui/styles.css';
+import { initTheme } from 'tokonoma-ui';
 
-initTheme()
+initTheme();
 ```
 
 `initTheme()` applies the active palette (`ink` by default) and restores the user’s saved choice when available.
@@ -74,10 +74,10 @@ initTheme()
 ### Example
 
 ```tsx
-import { Button, Card, CardHeader, CardTitle, initTheme } from "tokonoma-ui"
-import "tokonoma-ui/styles.css"
+import { Button, Card, CardHeader, CardTitle, initTheme } from 'tokonoma-ui';
+import 'tokonoma-ui/styles.css';
 
-initTheme()
+initTheme();
 
 export function App() {
   return (
@@ -87,7 +87,7 @@ export function App() {
       </CardHeader>
       <Button variant="accent">Sample Button</Button>
     </Card>
-  )
+  );
 }
 ```
 
@@ -97,7 +97,7 @@ export function App() {
 
 ## Storybook
 
-Component documentation and live previews are published via Storybook (*URL coming soon*).
+Component documentation and live previews are published via Storybook (_URL coming soon_).
 
 ---
 

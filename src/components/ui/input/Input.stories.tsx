@@ -1,81 +1,82 @@
-import type { Meta, StoryObj } from "@storybook/react-vite"
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Input } from "."
+import { Input } from '.';
 
 const fieldVariantDescription =
-  "`border` — neutral bordered surface. `inset` — soft inset on `surface`. `filled` — borderless fill."
+  '`border` — neutral bordered surface. `inset` — soft inset on `surface`. `filled` — borderless fill.';
 
 const meta = {
-  title: "Components/Input",
+  title: 'Components/Input',
   component: Input,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          "Text field with shared field chrome (same variants as **Select**). Pair with **Label** via `id` / `htmlFor`.",
+          'Text field with shared field chrome (same variants as **Select**). Pair with **Label** via `id` / `htmlFor`.',
       },
     },
   },
   argTypes: {
     variant: {
-      control: "select",
-      options: ["border", "inset", "filled"],
+      control: 'select',
+      options: ['border', 'inset', 'filled'],
       description: fieldVariantDescription,
       table: {
-        type: { summary: "border | inset | filled" },
-        defaultValue: { summary: "border" },
+        type: { summary: 'border | inset | filled' },
+        defaultValue: { summary: 'border' },
       },
     },
     mode: {
-      control: "select",
-      options: ["default", "search"],
-      description: "`search` prepends a search icon.",
+      control: 'select',
+      options: ['default', 'search'],
+      description: '`search` prepends a search icon.',
       table: {
-        type: { summary: "default | search" },
-        defaultValue: { summary: "default" },
+        type: { summary: 'default | search' },
+        defaultValue: { summary: 'default' },
       },
     },
     placeholder: {
-      control: "text",
-      description: "Placeholder text when empty.",
+      control: 'text',
+      description: 'Placeholder text when empty.',
     },
     type: {
-      control: "select",
-      options: ["text", "email", "password", "search", "tel", "url"],
-      description: "Native input type. Use `showPasswordToggle` with `password`.",
+      control: 'select',
+      options: ['text', 'email', 'password', 'search', 'tel', 'url'],
+      description:
+        'Native input type. Use `showPasswordToggle` with `password`.',
     },
     showPasswordToggle: {
-      control: "boolean",
-      description: "Shows show/hide control when `type=\"password\"`.",
-      if: { arg: "type", eq: "password" },
+      control: 'boolean',
+      description: 'Shows show/hide control when `type="password"`.',
+      if: { arg: 'type', eq: 'password' },
     },
     errorMessage: {
-      control: "text",
-      description: "When set, applies error styling and helper text below.",
+      control: 'text',
+      description: 'When set, applies error styling and helper text below.',
     },
-    disabled: { control: "boolean" },
+    disabled: { control: 'boolean' },
     className: { table: { disable: true } },
   },
   args: {
-    variant: "border",
-    mode: "default",
-    type: "text",
+    variant: 'border',
+    mode: 'default',
+    type: 'text',
     showPasswordToggle: false,
-    placeholder: "Type here...",
+    placeholder: 'Type here...',
   },
-} satisfies Meta<typeof Input>
+} satisfies Meta<typeof Input>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 const onSurface = (node: React.ReactNode) => (
   <div className="max-w-md bg-surface p-8">{node}</div>
-)
+);
 
 export const Default: Story = {
   render: (args) => onSurface(<Input {...args} />),
-}
+};
 
 export const Error: Story = {
   parameters: { controls: { disable: true } },
@@ -99,6 +100,6 @@ export const Error: Story = {
           showPasswordToggle
           errorMessage="Password must be at least 8 characters."
         />
-      </div>
+      </div>,
     ),
-}
+};

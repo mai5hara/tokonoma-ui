@@ -1,7 +1,7 @@
-import { useState, type ReactNode } from "react"
-import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState, type ReactNode } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import {
   Modal,
   ModalBody,
@@ -9,45 +9,45 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTrigger,
-} from "."
+} from '.';
 
 const meta = {
-  title: "Components/Modal",
+  title: 'Components/Modal',
   component: Modal,
   subcomponents: {
     ModalContent,
     ModalHeader,
     ModalFooter,
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
     docs: {
       description: {
         component:
-          "Dialog built on Radix. Compose `Modal` (root) with `ModalContent`, `ModalHeader`, `ModalBody`, and `ModalFooter`. Use `ModalTrigger` when controlled open state is not needed.",
+          'Dialog built on Radix. Compose `Modal` (root) with `ModalContent`, `ModalHeader`, `ModalBody`, and `ModalFooter`. Use `ModalTrigger` when controlled open state is not needed.',
       },
     },
     controls: { disable: true },
   },
   // Stories use custom `render`; args satisfy ModalContent's required `children` for types.
   args: {
-    size: "default",
-    textAlign: "start",
+    size: 'default',
+    textAlign: 'start',
     children: null,
   },
-} satisfies Meta<typeof ModalContent>
+} satisfies Meta<typeof ModalContent>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 const onSurface = (node: ReactNode) => (
   <div className="min-h-[320px] bg-surface p-8">{node}</div>
-)
+);
 
 export const Default: Story = {
   render: function DefaultStory() {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
 
     return onSurface(
       <>
@@ -77,10 +77,10 @@ export const Default: Story = {
             </ModalFooter>
           </ModalContent>
         </Modal>
-      </>
-    )
+      </>,
+    );
   },
-}
+};
 
 export const WithTrigger: Story = {
   render: () =>
@@ -97,13 +97,13 @@ export const WithTrigger: Story = {
             </p>
           </ModalBody>
         </ModalContent>
-      </Modal>
+      </Modal>,
     ),
-}
+};
 
 export const CenteredConfirm: Story = {
   render: function CenteredConfirmStory() {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
 
     return onSurface(
       <>
@@ -132,14 +132,14 @@ export const CenteredConfirm: Story = {
             </ModalFooter>
           </ModalContent>
         </Modal>
-      </>
-    )
+      </>,
+    );
   },
-}
+};
 
 export const LongContent: Story = {
   render: function LongContentStory() {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
 
     return onSurface(
       <>
@@ -166,7 +166,7 @@ export const LongContent: Story = {
             </ModalFooter>
           </ModalContent>
         </Modal>
-      </>
-    )
+      </>,
+    );
   },
-}
+};

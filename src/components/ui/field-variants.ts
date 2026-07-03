@@ -1,7 +1,7 @@
-import { cva, type VariantProps } from "class-variance-authority"
+import { cva, type VariantProps } from 'class-variance-authority';
 
 const fieldTransition =
-  "transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none"
+  'transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none';
 
 /**
  * Shared field chrome for Input, Select, and future controls.
@@ -12,54 +12,54 @@ const fieldTransition =
  */
 export const fieldVariants = cva(
   [
-    "flex h-9 w-full min-w-0 items-center gap-2 rounded-md px-3 text-sm text-text-primary",
-    "focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-surface",
-    "has-disabled:cursor-not-allowed has-disabled:opacity-50",
+    'flex h-9 w-full min-w-0 items-center gap-2 rounded-md px-3 text-sm text-text-primary',
+    'focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-surface',
+    'has-disabled:cursor-not-allowed has-disabled:opacity-50',
     fieldTransition,
   ],
   {
     variants: {
       variant: {
         border:
-          "border border-border bg-surface-elevated hover:border-border-strong focus-within:border-border-strong focus-within:ring-ring/40",
+          'border border-border bg-surface-elevated hover:border-border-strong focus-within:border-border-strong focus-within:ring-ring/40',
         inset:
-          "border border-transparent bg-surface shadow-[var(--shadow-button-inset)] focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40",
+          'border border-transparent bg-surface shadow-[var(--shadow-button-inset)] focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40',
         filled:
-          "border border-transparent bg-surface text-text-primary hover:bg-surface-elevated focus-within:ring-ring/40",
+          'border border-transparent bg-surface text-text-primary hover:bg-surface-elevated focus-within:ring-ring/40',
       },
       invalid: {
-        true: "",
-        false: "",
+        true: '',
+        false: '',
       },
     },
     compoundVariants: [
       {
         invalid: true,
-        variant: "border",
+        variant: 'border',
         class:
-          "border-error hover:border-error focus-within:border-error focus-within:ring-error/40",
+          'border-error hover:border-error focus-within:border-error focus-within:ring-error/40',
       },
       {
         invalid: true,
-        variant: "inset",
+        variant: 'inset',
         class:
-          "border-error shadow-[var(--shadow-button-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-button-inset)] focus-within:ring-error/40",
+          'border-error shadow-[var(--shadow-button-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-button-inset)] focus-within:ring-error/40',
       },
       {
         invalid: true,
-        variant: "filled",
+        variant: 'filled',
         class:
-          "border border-error hover:bg-surface focus-within:ring-error/40",
+          'border border-error hover:bg-surface focus-within:ring-error/40',
       },
     ],
     defaultVariants: {
-      variant: "border",
+      variant: 'border',
       invalid: false,
     },
-  }
-)
+  },
+);
 
-export type FieldVariantProps = VariantProps<typeof fieldVariants>
+export type FieldVariantProps = VariantProps<typeof fieldVariants>;
 
 export type FieldAppearanceProps = {
   /**
@@ -68,5 +68,5 @@ export type FieldAppearanceProps = {
    * - `inset` — soft inset depth on `surface`.
    * - `filled` — borderless fill on `surface`.
    */
-  variant?: NonNullable<FieldVariantProps["variant"]>
-}
+  variant?: NonNullable<FieldVariantProps['variant']>;
+};

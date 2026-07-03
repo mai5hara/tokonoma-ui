@@ -1,9 +1,17 @@
-export const COLOR_STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
+export const COLOR_STEPS = [
+  50, 100, 200, 300, 400, 500, 600, 700, 800, 900,
+] as const;
 
 export type ColorStep = (typeof COLOR_STEPS)[number];
 export type ColorFamily = 'neutral' | 'ink' | 'clay' | 'moss' | 'mist';
 
-export const COLOR_FAMILIES: ColorFamily[] = ['neutral', 'ink', 'clay', 'moss', 'mist'];
+export const COLOR_FAMILIES: ColorFamily[] = [
+  'neutral',
+  'ink',
+  'clay',
+  'moss',
+  'mist',
+];
 
 /** Tailwind @theme variable, e.g. --color-ink-500 */
 export function colorThemeVar(family: ColorFamily, step: ColorStep): string {
@@ -21,7 +29,9 @@ export function colorTokenName(family: ColorFamily, step: ColorStep): string {
 
 export function readThemeColor(themeVar: string): string {
   if (typeof document === 'undefined') return '';
-  return getComputedStyle(document.documentElement).getPropertyValue(themeVar).trim();
+  return getComputedStyle(document.documentElement)
+    .getPropertyValue(themeVar)
+    .trim();
 }
 
 /** Literal class map so Tailwind generates every swatch utility */
