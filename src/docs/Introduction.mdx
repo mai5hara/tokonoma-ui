@@ -1,0 +1,32 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# tokonoma-ui
+
+A React design system for calm, tactile interfaces — soft-depth surfaces, switchable mood palettes, and a closed component API.
+
+Named after *tokonoma* (床の間), the Japanese alcove for intentional display — quiet surfaces, focused content.
+
+## Design principles
+
+- **Soft depth** — `flat`, `raised`, and `inset` variants with a neumorphic feel on `surface` backgrounds
+- **Palettes** — `ink`, `clay`, `moss`, `mist`, and `neutral`
+- **Closed API** — style through documented props (`variant`, `size`, …), not ad-hoc `className` overrides
+- **Aligned fields** — `Input` and `Select` share field chrome and error treatment
+
+## Using this Storybook
+
+Use the **Theme** toolbar to switch palettes — `ink` is the default. Semantic colors (`surface`, `text-primary`, `accent`, …) update automatically; you choose **variants** (`flat`, `raised`, `inset`, …), not per-component colors.
+
+Start under **Foundations**, then browse **Components** and use **Controls** to try variants. Most stories render on `bg-surface` — the page background components are designed for.
+
+Built on Radix, Tailwind, and cva — similar in spirit to [shadcn/ui](https://ui.shadcn.com/), with tokonoma-ui's themes and closed API on top.
+
+## Quick start
+
+1. Add `tokonoma-ui` to your app and pin a [release tag](https://github.com/mai5hara/tokonoma-ui/releases).
+2. At your app entry: `import "tokonoma-ui/styles.css"` and `initTheme()`.
+3. Import components and choose `variant` — the active theme sets colors.
+
+Full install steps and an example app are in the [repository README](https://github.com/mai5hara/tokonoma-ui).
