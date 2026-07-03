@@ -1,20 +1,17 @@
 import type { ReactNode } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
-import { Button, ButtonLink } from "."
+import { Button } from "."
 
 const meta = {
   title: "Components/Button",
   component: Button,
-  subcomponents: {
-    ButtonLink,
-  },
   tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
         component:
-          "Primary action control. Colors follow the active theme. For links, use **ButtonLink** (see the Link story).",
+          "Primary action control. Colors follow the active theme. For navigation, use **ButtonLink** (see **Components/Button/ButtonLink**).",
       },
     },
   },
@@ -71,19 +68,4 @@ const onSurface = (node: ReactNode) => (
 
 export const Default: Story = {
   render: (args) => onSurface(<Button {...args} />),
-}
-
-export const Link: Story = {
-  parameters: { controls: { disable: true } },
-  render: () =>
-    onSurface(
-      <div className="flex flex-wrap gap-4">
-        <ButtonLink variant="flat" href="#works">
-          Internal link
-        </ButtonLink>
-        <ButtonLink variant="accent" href="https://example.com" external>
-          External accent
-        </ButtonLink>
-      </div>
-    ),
 }

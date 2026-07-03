@@ -1,56 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
-import { ColorPalette, Colors } from '.';
+import { Colors } from "."
 
 const meta = {
-  title: 'Foundations/Colors',
+  title: "Foundations/Colors",
   component: Colors,
+  tags: ["autodocs"],
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
+    controls: {
+      disable: true,
+    },
+    docs: {
+      description: {
+        component:
+          "Primitive color scales (`ink`, `clay`, `moss`, `mist`, `neutral`) defined in `@theme`. Components use **semantic** tokens (`text-text-primary`, `bg-surface`, `text-accent`, …) that remap when you switch the **Theme** toolbar.",
+      },
+    },
   },
-} satisfies Meta<typeof Colors>;
+} satisfies Meta<typeof Colors>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const All: Story = {};
-
-export const Neutral: Story = {
-  render: () => (
-    <div className="min-h-screen bg-surface p-8">
-      <ColorPalette family="neutral" title="Neutral" />
-    </div>
-  ),
-};
-
-export const Ink: Story = {
-  render: () => (
-    <div className="min-h-screen bg-surface p-8">
-      <ColorPalette family="ink" title="Ink" />
-    </div>
-  ),
-};
-
-export const Clay: Story = {
-  render: () => (
-    <div className="min-h-screen bg-surface p-8">
-      <ColorPalette family="clay" title="Clay" />
-    </div>
-  ),
-};
-
-export const Moss: Story = {
-  render: () => (
-    <div className="min-h-screen bg-surface p-8">
-      <ColorPalette family="moss" title="Moss" />
-    </div>
-  ),
-};
-
-export const Mist: Story = {
-  render: () => (
-    <div className="min-h-screen bg-surface p-8">
-      <ColorPalette family="mist" title="Mist" />
-    </div>
-  ),
-};
+export const All: Story = {}

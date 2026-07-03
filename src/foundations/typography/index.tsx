@@ -155,6 +155,7 @@ export function TextStylesSection() {
   );
 }
 
+/** Typography primitives and composite text styles used across components. */
 export function Typography() {
   return (
     <div className="min-h-screen bg-surface p-8 text-text-primary">

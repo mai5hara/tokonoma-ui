@@ -52,6 +52,8 @@ Button.displayName = "Button"
 
 type ButtonLinkProps = React.ComponentProps<"a"> &
   ButtonAppearanceProps & {
+    /** Destination URL. Omitted when `aria-disabled` is set. */
+    href?: string
     /** Opens in a new tab with safe `rel` when true or `href` is http(s). */
     external?: boolean
   }

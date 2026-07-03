@@ -35,9 +35,11 @@ export function ColorSwatch({ family, step }: ColorSwatchProps) {
 }
 
 type ColorPaletteProps = {
-  family: ColorFamily;
-  title?: string;
-};
+  /** Primitive color family (`ink`, `clay`, `moss`, `mist`, `neutral`). */
+  family: ColorFamily
+  /** Section heading. Defaults to the capitalized family name. */
+  title?: string
+}
 
 export function ColorPalette({ family, title }: ColorPaletteProps) {
   const heading = title ?? family.charAt(0).toUpperCase() + family.slice(1);
@@ -54,6 +56,7 @@ export function ColorPalette({ family, title }: ColorPaletteProps) {
   );
 }
 
+/** Primitive palettes and semantic token reference. Use the Theme toolbar to preview remapped semantics. */
 export function Colors() {
   return (
     <div className="min-h-screen bg-surface p-8 text-text-primary">
