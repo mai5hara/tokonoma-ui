@@ -35,7 +35,9 @@ export function ColorSwatch({ family, step }: ColorSwatchProps) {
 }
 
 type ColorPaletteProps = {
+  /** Primitive color family (`ink`, `clay`, `moss`, `mist`, `neutral`). */
   family: ColorFamily;
+  /** Section heading. Defaults to the capitalized family name. */
   title?: string;
 };
 
@@ -44,7 +46,9 @@ export function ColorPalette({ family, title }: ColorPaletteProps) {
 
   return (
     <section className="space-y-4">
-      <h2 className="text-lg font-semibold tracking-tight text-text-primary">{heading}</h2>
+      <h2 className="text-lg font-semibold tracking-tight text-text-primary">
+        {heading}
+      </h2>
       <div className="flex flex-wrap gap-4">
         {COLOR_STEPS.map((step) => (
           <ColorSwatch key={step} family={family} step={step} />
@@ -54,6 +58,7 @@ export function ColorPalette({ family, title }: ColorPaletteProps) {
   );
 }
 
+/** Primitive palettes and semantic token reference. Use the Theme toolbar to preview remapped semantics. */
 export function Colors() {
   return (
     <div className="min-h-screen bg-surface p-8 text-text-primary">
@@ -61,10 +66,14 @@ export function Colors() {
         <h1 className="text-2xl font-semibold tracking-tight">Color palette</h1>
         <p className="text-sm text-text-muted">
           Primitives are defined in{' '}
-          <code className="rounded bg-ink-100 px-1 py-0.5 font-mono text-ink-800">@theme</code> in{' '}
-          <code className="font-mono text-ink-700">src/index.css</code>. Use semantic tokens (
+          <code className="rounded bg-ink-100 px-1 py-0.5 font-mono text-ink-800">
+            @theme
+          </code>{' '}
+          in <code className="font-mono text-ink-700">src/index.css</code>. Use
+          semantic tokens (
           <code className="font-mono text-ink-700">text-text-primary</code>,{' '}
-          <code className="font-mono text-ink-700">bg-surface</code>) in components.
+          <code className="font-mono text-ink-700">bg-surface</code>) in
+          components.
         </p>
       </header>
       <div className="space-y-12">

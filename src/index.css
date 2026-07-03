@@ -1,12 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap");
-@import "tailwindcss";
-@import "./theme/themes.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+@import './theme/themes.css';
 
 /* Primitive palette — single source of truth for Tailwind utilities (bg-ink-500, etc.) */
 @theme {
   /* Typography — primitives */
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
 
   --text-xs: 0.75rem;
   --text-xs--line-height: 1rem;
@@ -33,7 +33,7 @@
   --leading-normal: 1.5;
   --leading-relaxed: 1.625;
 
-  --color-neutral-50:  #fafaf9;
+  --color-neutral-50: #fafaf9;
   --color-neutral-100: #f5f5f4;
   --color-neutral-200: #e7e5e4;
   --color-neutral-300: #d6d3d1;
@@ -66,7 +66,7 @@
   --color-clay-800: #493329;
   --color-clay-900: #312119;
 
-  --color-moss-50:  #f5f7f4;
+  --color-moss-50: #f5f7f4;
   --color-moss-100: #e7ece5;
   --color-moss-200: #ced8ca;
   --color-moss-300: #aebea7;
@@ -77,7 +77,7 @@
   --color-moss-800: #343d2f;
   --color-moss-900: #23291f;
 
-  --color-mist-50:  #f7f7fa;
+  --color-mist-50: #f7f7fa;
   --color-mist-100: #ececf1;
   --color-mist-200: #d9d8e3;
   --color-mist-300: #bbb9cb;
@@ -107,7 +107,7 @@
   --color-card-foreground: var(--color-neutral-900);
   --color-muted-foreground: var(--color-neutral-600);
   --color-ring: var(--color-neutral-400);
-  
+
   /* Ink palette */
   --color-text-primary: var(--color-ink-900);
   --color-text-muted: var(--color-ink-600);

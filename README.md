@@ -1,75 +1,106 @@
-# React + TypeScript + Vite
+# tokonoma-ui
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React design system for calm, tactile interfaces — soft-depth surfaces, switchable mood palettes, and a closed component API. Documented in Storybook.
 
-Currently, two official plugins are available:
+Named after _tokonoma_ (床の間), the Japanese alcove for intentional display — quiet surfaces, focused content.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Storybook:** _link coming soon_
 
-## React Compiler
+**Stack:** React 19 · Radix UI · Tailwind CSS v4 · class-variance-authority (cva)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## Overview
 
-## Expanding the ESLint configuration
+tokonoma-ui is a compact component library with:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Soft depth visuals** — `flat`, `raised`, and `inset` variants with a neumorphic feel on `surface` backgrounds
+- **Switchable palettes** — `ink`, `clay`, `moss`, `mist`, and `neutral`
+- **Closed API** — appearance is controlled through documented props (`variant`, `size`, …), not ad-hoc class overrides
+- **Aligned form controls** — `Input` and `Select` share the same field styling and error treatment
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Implementation follows the same patterns as [shadcn/ui](https://ui.shadcn.com/) — Radix primitives, Tailwind CSS, and cva. tokonoma-ui layers product-specific **semantic themes**, **soft-depth variants**, a **closed component API**, and **versioned distribution** to a consumer application.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Components
+
+| Component               | Notes                                                                 |
+| ----------------------- | --------------------------------------------------------------------- |
+| `Button` / `ButtonLink` | `flat` · `raised` · `inset` · `accent` · `outline` · `ghost`          |
+| `Card`                  | `flat` · `raised` · `inset`; header, content, footer, and media slots |
+| `Input`                 | `border` · `inset` · `filled`; search and password modes              |
+| `Label`                 | Accessible labels with optional required marker                       |
+| `Modal`                 | Dialog with header, body, and footer                                  |
+| `Select`                | Single select with an `options[]` API                                 |
+
+See **Storybook** for interactive examples of every variant.
+
+---
+
+## Usage
+
+### Install
+
+Pin a release tag:
+
+```json
+{
+  "dependencies": {
+    "tokonoma-ui": "github:mai5hara/tokonoma-ui#v0.1.0"
+  }
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
 ```
+
+Replace `v0.1.0` with the version you need. Release notes are on [GitHub Releases](https://github.com/mai5hara/tokonoma-ui/releases).
+
+### Styles & theme
+
+Import styles once at your application entry:
+
+```ts
+import 'tokonoma-ui/styles.css';
+import { initTheme } from 'tokonoma-ui';
+
+initTheme();
+```
+
+`initTheme()` applies the active palette (`ink` by default) and restores the user’s saved choice when available.
+
+### Example
+
+```tsx
+import { Button, Card, CardHeader, CardTitle, initTheme } from 'tokonoma-ui';
+import 'tokonoma-ui/styles.css';
+
+initTheme();
+
+export function App() {
+  return (
+    <Card variant="raised">
+      <CardHeader>
+        <CardTitle>Sample Card</CardTitle>
+      </CardHeader>
+      <Button variant="accent">Sample Button</Button>
+    </Card>
+  );
+}
+```
+
+**Peer dependencies:** `react` and `react-dom` ^19.
+
+---
+
+## Storybook
+
+Component documentation and live previews are published via Storybook (_URL coming soon_).
+
+---
+
+## License
+
+MIT — see [LICENSE](./LICENSE).

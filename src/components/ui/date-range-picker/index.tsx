@@ -1,55 +1,71 @@
-import * as React from "react"
-import { useId, useState } from "react"
-import * as PopoverPrimitive from "@radix-ui/react-popover"
-import { format } from "date-fns"
-import { CalendarIcon, XIcon } from "lucide-react"
+import * as React from 'react';
+import { useId, useState } from 'react';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
+import { format } from 'date-fns';
+import { CalendarIcon, XIcon } from 'lucide-react';
 
-import { fieldVariants, type FieldVariantProps } from "../field-variants"
+import { fieldVariants, type FieldAppearanceProps } from '../field-variants';
 
-import { Calendar } from "./calendar"
-import { dateRangePickerContent } from "./date-range-picker-variants"
-import { Button } from "../button"
+import { Calendar } from './calendar';
+import { dateRangePickerContent } from './date-range-picker-variants';
+import { Button } from '../button';
 
-/** Public range value (mirrors react-day-picker's DateRange without exposing that dependency). */
+/** Selected date range (`from` / `to`). */
 export type DateRangePickerValue = {
-  from: Date | undefined
-  to?: Date | undefined
-}
+  /** Start date (inclusive). */
+  from: Date | undefined;
+  /** End date (inclusive). May be omitted while the user is still selecting. */
+  to?: Date | undefined;
+};
 
 type DateRangePickerProps = {
-  value?: DateRangePickerValue
-  defaultValue?: DateRangePickerValue
-  onValueChange?: (value: DateRangePickerValue | undefined) => void
-  placeholder?: string
-  disabled?: boolean
+  /** Current range. Pair with `onValueChange` for controlled usage. */
+  value?: DateRangePickerValue;
+  /** Initial range when uncontrolled. */
+  defaultValue?: DateRangePickerValue;
+  /** Called when the range changes. */
+  onValueChange?: (value: DateRangePickerValue | undefined) => void;
+  /** Shown when no dates are selected. */
+  placeholder?: string;
+  disabled?: boolean;
   /** When set, applies error styling and renders helper text below. */
-  errorMessage?: string
-  id?: string
-  numberOfMonths?: number
-} & FieldVariantProps
+  errorMessage?: string;
+  /** Associates the trigger with an external {@link Label} via `htmlFor`. */
+  id?: string;
+  /** Number of months shown in the calendar popover. Defaults to `1`. */
+  numberOfMonths?: number;
+} & FieldAppearanceProps;
 
 function formatDateRange(
   range: DateRangePickerValue | undefined,
-  placeholder: string
+  placeholder: string,
 ): string {
-  if (!range?.from) return placeholder
+  if (!range?.from) return placeholder;
 
-  const fromLabel = format(range.from, "MMM d, yyyy")
-  if (!range.to) return `${fromLabel} – …`
+  const fromLabel = format(range.from, 'MMM d, yyyy');
+  if (!range.to) return `${fromLabel} – …`;
 
-  const toLabel = format(range.to, "MMM d, yyyy")
-  if (fromLabel === toLabel) return fromLabel
+  const toLabel = format(range.to, 'MMM d, yyyy');
+  if (fromLabel === toLabel) return fromLabel;
 
-  return `${fromLabel} – ${toLabel}`
+  return `${fromLabel} – ${toLabel}`;
 }
 
-const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps>(
+/**
+ * Date range field with the same field chrome as {@link Input} and
+ * {@link Select}. Opens a calendar popover to pick start and end dates. Pair
+ * with {@link Label}.
+ */
+const DateRangePicker = React.forwardRef<
+  HTMLButtonElement,
+  DateRangePickerProps
+>(
   (
     {
       value,
       defaultValue,
       onValueChange,
-      placeholder = "Select date range…",
+      placeholder = 'Select date range…',
       disabled = false,
       errorMessage,
       id: idProp,
@@ -57,53 +73,53 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
       rounded,
       numberOfMonths,
     },
-    ref
+    ref,
   ) => {
-    const generatedId = useId()
-    const pickerId = idProp ?? generatedId
-    const errorId = `${pickerId}-error`
-    const isInvalid = Boolean(errorMessage)
-    const isControlled = value !== undefined
+    const generatedId = useId();
+    const pickerId = idProp ?? generatedId;
+    const errorId = `${pickerId}-error`;
+    const isInvalid = Boolean(errorMessage);
+    const isControlled = value !== undefined;
     const [internalValue, setInternalValue] = useState<
       DateRangePickerValue | undefined
-    >(defaultValue)
-    const [open, setOpen] = useState(false)
-    const selected = isControlled ? value : internalValue
-    const label = formatDateRange(selected, placeholder)
+    >(defaultValue);
+    const [open, setOpen] = useState(false);
+    const selected = isControlled ? value : internalValue;
+    const label = formatDateRange(selected, placeholder);
 
     const handleSelect = (range: DateRangePickerValue | undefined) => {
       if (!isControlled) {
-        setInternalValue(range)
+        setInternalValue(range);
       }
-      onValueChange?.(range)
+      onValueChange?.(range);
 
       if (range?.from && range?.to) {
-        setOpen(false)
+        setOpen(false);
       }
-    }
+    };
 
     const handleClear = (event: React.MouseEvent) => {
-      event.preventDefault()
-      event.stopPropagation()
-      setOpen(false)
+      event.preventDefault();
+      event.stopPropagation();
+      setOpen(false);
       if (!isControlled) {
-        setInternalValue({ from: undefined, to: undefined })
+        setInternalValue({ from: undefined, to: undefined });
       }
-      onValueChange?.({ from: undefined, to: undefined })
-    }
+      onValueChange?.({ from: undefined, to: undefined });
+    };
 
     const toggleOpen = () => {
-      if (!disabled) setOpen((prev) => !prev)
-    }
+      if (!disabled) setOpen((prev) => !prev);
+    };
 
-    const hasSelection = Boolean(selected?.from)
+    const hasSelection = Boolean(selected?.from);
 
     return (
       <div className="flex w-full flex-col gap-1.5">
         <PopoverPrimitive.Root
           open={disabled ? false : open}
-          onOpenChange={(next) => {
-            if (!disabled) setOpen(next)
+          onOpenChange={(next: boolean) => {
+            if (!disabled) setOpen(next);
           }}
         >
           <div
@@ -127,8 +143,8 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
               <span
                 className={
                   selected?.from
-                    ? "truncate text-text-primary"
-                    : "truncate text-text-subtle"
+                    ? 'truncate text-text-primary'
+                    : 'truncate text-text-subtle'
                 }
               >
                 {label}
@@ -165,7 +181,11 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
               align="start"
               sideOffset={4}
             >
-              <Calendar selected={selected} onSelect={handleSelect} numberOfMonths={numberOfMonths} />
+              <Calendar
+                selected={selected}
+                onSelect={handleSelect}
+                numberOfMonths={numberOfMonths}
+              />
             </PopoverPrimitive.Content>
           </PopoverPrimitive.Portal>
         </PopoverPrimitive.Root>
@@ -176,10 +196,11 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
           </p>
         ) : null}
       </div>
-    )
-  }
-)
-DateRangePicker.displayName = "DateRangePicker"
+    );
+  },
+);
+DateRangePicker.displayName = 'DateRangePicker';
 
-export { DateRangePicker }
-export type { DateRangePickerProps, FieldVariantProps as DateRangePickerVariantProps }
+export { DateRangePicker };
+export type { DateRangePickerProps };
+export type { FieldAppearanceProps as DateRangePickerVariantProps } from '../field-variants';

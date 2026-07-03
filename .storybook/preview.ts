@@ -1,8 +1,8 @@
-import type { Preview } from '@storybook/react-vite'
-import { useEffect } from 'react'
+import type { Preview } from '@storybook/react';
+import { useEffect } from 'react';
 
-import { THEME_IDS, setTheme, type ThemeId } from '../src/theme'
-import '../src/index.css'
+import { THEME_IDS, setTheme, type ThemeId } from '../src/theme';
+import '../src/index.css';
 
 const preview: Preview = {
   parameters: {
@@ -37,15 +37,15 @@ const preview: Preview = {
   },
   decorators: [
     (Story, { globals }) => {
-      const palette = (globals.palette as ThemeId | undefined) ?? 'ink'
+      const palette = (globals.palette as ThemeId | undefined) ?? 'ink';
 
       useEffect(() => {
-        setTheme(palette)
-      }, [palette])
+        setTheme(palette);
+      }, [palette]);
 
-      return Story()
+      return Story();
     },
   ],
-}
+};
 
 export default preview;

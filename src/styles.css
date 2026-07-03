@@ -1,4 +1,4 @@
-@import "./index.css";
+@import './index.css';
 
 @source "./components/**/*.{ts,tsx}";
 @source "./lib/**/*.ts";

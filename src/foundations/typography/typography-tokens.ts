@@ -24,32 +24,59 @@ export const FONT_SIZE_SCALE = [
   { token: 'lg', label: 'Lead', value: '1.125rem', className: 'text-lg' },
   { token: 'xl', label: 'Heading 2', value: '1.25rem', className: 'text-xl' },
   { token: '2xl', label: 'Heading 1', value: '1.5rem', className: 'text-2xl' },
-  { token: '3xl', label: 'Display Large', value: '1.875rem', className: 'text-3xl' },
+  {
+    token: '3xl',
+    label: 'Display Large',
+    value: '1.875rem',
+    className: 'text-3xl',
+  },
 ] as const;
 
 export const FONT_WEIGHTS = [
   { token: 'normal', label: 'Regular', value: 400, className: 'font-normal' },
   { token: 'medium', label: 'Medium', value: 500, className: 'font-medium' },
-  { token: 'semibold', label: 'Semibold', value: 600, className: 'font-semibold' },
+  {
+    token: 'semibold',
+    label: 'Semibold',
+    value: 600,
+    className: 'font-semibold',
+  },
   { token: 'bold', label: 'Bold', value: 700, className: 'font-bold' },
 ] as const;
 
 export const LINE_HEIGHTS = [
-  { token: 'tight', label: 'compact', value: '1.25', className: 'leading-tight' },
-  { token: 'normal', label: 'readable', value: '1.5', className: 'leading-normal' },
-  { token: 'relaxed', label: 'calm', value: '1.625', className: 'leading-relaxed' },
+  {
+    token: 'tight',
+    label: 'compact',
+    value: '1.25',
+    className: 'leading-tight',
+  },
+  {
+    token: 'normal',
+    label: 'readable',
+    value: '1.5',
+    className: 'leading-normal',
+  },
+  {
+    token: 'relaxed',
+    label: 'calm',
+    value: '1.625',
+    className: 'leading-relaxed',
+  },
 ] as const;
 
 export const TEXT_STYLES = [
   {
     name: 'Display',
     description: 'Hero / marketing headlines',
-    className: 'font-sans text-3xl font-bold leading-tight tracking-tight text-text-primary',
+    className:
+      'font-sans text-3xl font-bold leading-tight tracking-tight text-text-primary',
   },
   {
     name: 'Page Title',
     description: 'Top-level page headings',
-    className: 'font-sans text-2xl font-semibold leading-tight tracking-tight text-text-primary',
+    className:
+      'font-sans text-2xl font-semibold leading-tight tracking-tight text-text-primary',
   },
   {
     name: 'Section Heading',
@@ -59,7 +86,8 @@ export const TEXT_STYLES = [
   {
     name: 'Body',
     description: 'Default paragraph text',
-    className: 'font-sans text-base font-normal leading-normal text-text-primary',
+    className:
+      'font-sans text-base font-normal leading-normal text-text-primary',
   },
   {
     name: 'Body Small',
@@ -85,5 +113,7 @@ export const TEXT_STYLES = [
 
 export function readThemeValue(themeVar: string): string {
   if (typeof document === 'undefined') return '';
-  return getComputedStyle(document.documentElement).getPropertyValue(themeVar).trim();
+  return getComputedStyle(document.documentElement)
+    .getPropertyValue(themeVar)
+    .trim();
 }

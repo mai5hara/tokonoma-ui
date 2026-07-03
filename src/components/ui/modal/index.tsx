@@ -1,8 +1,8 @@
-import * as React from "react"
-import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { X } from "lucide-react"
+import * as React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { X } from 'lucide-react';
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 
 import {
   modalContentPanel,
@@ -18,27 +18,34 @@ import {
   type ModalFooterAlign,
   type ModalTextAlign,
   type ModalTitleSize,
-} from "./modal-variants"
+} from './modal-variants';
 
-const Modal = DialogPrimitive.Root
-const ModalTrigger = DialogPrimitive.Trigger
+const Modal = DialogPrimitive.Root;
 
-const ModalTextAlignContext = React.createContext<ModalTextAlign>("start")
+/** Unstyled trigger; use with `asChild` to wrap a {@link Button}. */
+const ModalTrigger = DialogPrimitive.Trigger;
+
+const ModalTextAlignContext = React.createContext<ModalTextAlign>('start');
 
 function useModalTextAlign() {
-  return React.useContext(ModalTextAlignContext)
+  return React.useContext(ModalTextAlignContext);
 }
 
 type ModalContentProps = {
-  size?: ModalContentSize
-  /** Aligns title, description, and body text. Footer button row uses `ModalFooter` `align`. */
-  textAlign?: ModalTextAlign
-  children: React.ReactNode
-}
+  /** Maximum panel width. */
+  size?: ModalContentSize;
+  /**
+   * Aligns title, description, and body text. Footer button row uses
+   * {@link ModalFooter} `align`.
+   */
+  textAlign?: ModalTextAlign;
+  children: React.ReactNode;
+};
 
+/** Dialog panel with overlay. Compose with {@link ModalHeader}, {@link ModalBody}, and {@link ModalFooter}. */
 function ModalContent({
-  size = "default",
-  textAlign = "start",
+  size = 'default',
+  textAlign = 'start',
   children,
 }: ModalContentProps) {
   return (
@@ -52,29 +59,32 @@ function ModalContent({
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </ModalTextAlignContext.Provider>
-  )
+  );
 }
 
 type ModalHeaderProps = {
-  title: string
-  description?: string
-  titleSize?: ModalTitleSize
-  descriptionSize?: ModalDescriptionSize
+  title: string;
+  description?: string;
+  /** Title typography scale. */
+  titleSize?: ModalTitleSize;
+  /** Description typography scale. */
+  descriptionSize?: ModalDescriptionSize;
   /** Renders the default close control in the top-right corner. */
-  showClose?: boolean
-}
+  showClose?: boolean;
+};
 
+/** Accessible title and optional description. Inherits `textAlign` from {@link ModalContent}. */
 function ModalHeader({
   title,
   description,
-  titleSize = "default",
-  descriptionSize = "default",
+  titleSize = 'default',
+  descriptionSize = 'default',
   showClose = false,
 }: ModalHeaderProps) {
-  const textAlign = useModalTextAlign()
+  const textAlign = useModalTextAlign();
   const heading = (
     <div
-      className={`flex min-w-0 flex-col gap-1 ${textAlign === "start" && showClose ? "pr-3" : ""}`}
+      className={`flex min-w-0 flex-col gap-1 ${textAlign === 'start' && showClose ? 'pr-3' : ''}`}
     >
       <DialogPrimitive.Title
         className={`${modalTitleSize[titleSize]} text-text-primary`}
@@ -89,12 +99,12 @@ function ModalHeader({
         </DialogPrimitive.Description>
       ) : null}
     </div>
-  )
+  );
 
-  const sectionClass = `pt-5 pb-2 ${modalSectionX} ${modalTextAlign[textAlign]}`
+  const sectionClass = `pt-5 pb-2 ${modalSectionX} ${modalTextAlign[textAlign]}`;
 
   if (!showClose) {
-    return <div className={sectionClass}>{heading}</div>
+    return <div className={sectionClass}>{heading}</div>;
   }
 
   return (
@@ -106,15 +116,16 @@ function ModalHeader({
         </Button>
       </DialogPrimitive.Close>
     </div>
-  )
+  );
 }
 
 type ModalBodyProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
+/** Scrollable content region between header and footer. */
 function ModalBody({ children }: ModalBodyProps) {
-  const textAlign = useModalTextAlign()
+  const textAlign = useModalTextAlign();
 
   return (
     <div
@@ -122,35 +133,44 @@ function ModalBody({ children }: ModalBodyProps) {
     >
       {children}
     </div>
-  )
+  );
 }
 
 type ModalFooterProps = {
-  align?: ModalFooterAlign
-  children: React.ReactNode
-}
+  /** Horizontal alignment of action buttons. */
+  align?: ModalFooterAlign;
+  children: React.ReactNode;
+};
 
-function ModalFooter({ align = "end", children }: ModalFooterProps) {
+/** Action row. Use `flat` for cancel and `accent` for the primary action. */
+function ModalFooter({ align = 'end', children }: ModalFooterProps) {
   return (
     <div
       className={`flex flex-wrap items-center gap-3 py-4 ${modalFooterAlign[align]} ${modalSectionX}`}
     >
       {children}
     </div>
-  )
+  );
 }
 
-export { Modal, ModalTrigger, ModalContent, ModalHeader, ModalBody, ModalFooter }
+export {
+  Modal,
+  ModalTrigger,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+};
 export type {
   ModalContentProps,
   ModalHeaderProps,
   ModalBodyProps,
   ModalFooterProps,
-}
+};
 export type {
   ModalContentSize,
   ModalDescriptionSize,
   ModalFooterAlign,
   ModalTextAlign,
   ModalTitleSize,
-} from "./modal-variants"
+} from './modal-variants';

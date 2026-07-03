@@ -1,45 +1,53 @@
-import * as React from "react"
-import { useId, useState } from "react"
-import { Eye, EyeOff, Search } from "lucide-react"
+import * as React from 'react';
+import { useId, useState } from 'react';
+import { Eye, EyeOff, Search } from 'lucide-react';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
-import { inputVariants, type InputVariantProps } from "./input-variants"
+import { inputVariants, type FieldAppearanceProps } from './input-variants';
 
-type InputProps = Omit<React.ComponentProps<"input">, "size"> &
-  InputVariantProps & {
-    mode?: "default" | "search"
+type InputProps = Omit<React.ComponentProps<'input'>, 'size'> &
+  FieldAppearanceProps & {
+    /**
+     * `search` prepends a search icon. Other input types use the native `type`
+     * prop (`text`, `password`, `email`, …).
+     */
+    mode?: 'default' | 'search';
     /** Shows visibility toggle when `type="password"`. */
-    showPasswordToggle?: boolean
+    showPasswordToggle?: boolean;
     /** When set, applies error styling and renders helper text below. */
-    errorMessage?: string
-  }
+    errorMessage?: string;
+  };
 
+/**
+ * Text field with shared field chrome. Pairs with {@link Label}; colors follow
+ * the active theme.
+ */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className,
       variant,
       rounded,
-      mode = "default",
+      mode = 'default',
       showPasswordToggle = false,
       errorMessage,
-      type = "text",
+      type = 'text',
       id: idProp,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const generatedId = useId()
-    const inputId = idProp ?? generatedId
-    const errorId = `${inputId}-error`
-    const isInvalid = Boolean(errorMessage)
-    const isSearch = mode === "search"
-    const isPasswordType = type === "password"
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-    const canTogglePassword = isPasswordType && showPasswordToggle
+    const generatedId = useId();
+    const inputId = idProp ?? generatedId;
+    const errorId = `${inputId}-error`;
+    const isInvalid = Boolean(errorMessage);
+    const isSearch = mode === 'search';
+    const isPasswordType = type === 'password';
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const canTogglePassword = isPasswordType && showPasswordToggle;
     const inputType =
-      canTogglePassword && isPasswordVisible ? "text" : (type ?? "text")
+      canTogglePassword && isPasswordVisible ? 'text' : (type ?? 'text');
 
     return (
       <div className="flex w-full flex-col gap-1.5">
@@ -49,7 +57,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           data-invalid={isInvalid || undefined}
           className={cn(
             inputVariants({ variant, invalid: isInvalid, rounded }),
-            className
+            className,
           )}
         >
           {isSearch ? (
@@ -62,9 +70,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             aria-invalid={isInvalid || undefined}
             aria-describedby={isInvalid ? errorId : undefined}
             className={cn(
-              "w-full bg-transparent text-sm text-text-primary placeholder:text-text-subtle",
-              "outline-none disabled:cursor-not-allowed",
-              canTogglePassword ? "pr-1" : ""
+              'w-full bg-transparent text-sm text-text-primary placeholder:text-text-subtle',
+              'outline-none disabled:cursor-not-allowed',
+              canTogglePassword ? 'pr-1' : '',
             )}
             {...props}
           />
@@ -73,7 +81,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               type="button"
               className="inline-flex size-5 shrink-0 items-center justify-center text-text-muted hover:text-text-primary"
               onClick={() => setIsPasswordVisible((prev) => !prev)}
-              aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+              aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
             >
               {isPasswordVisible ? (
                 <EyeOff className="size-4" aria-hidden />
@@ -89,10 +97,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </p>
         ) : null}
       </div>
-    )
-  }
-)
-Input.displayName = "Input"
+    );
+  },
+);
+Input.displayName = 'Input';
 
-export { Input }
-export type { InputProps, InputVariantProps }
+export { Input };
+export type { InputProps };
+export type { InputVariantProps, FieldAppearanceProps } from './input-variants';

@@ -1,19 +1,19 @@
-import * as React from "react"
+import * as React from 'react';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
 import {
   cardFooterAlign,
   cardVariants,
+  type CardAppearanceProps,
   type CardFooterAlign,
-  type CardVariantProps,
-} from "./card-variants"
+} from './card-variants';
 
-const cardSectionX = "px-6 group-data-[size=sm]/card:px-4"
+const cardSectionX = 'px-6 group-data-[size=sm]/card:px-4';
 
-type CardProps = React.ComponentProps<"div"> &
-  CardVariantProps
+type CardProps = React.ComponentProps<'div'> & CardAppearanceProps;
 
+/** Content container with header, body, footer, and optional media slots. */
 function Card({ className, variant, size, ...props }: CardProps) {
   return (
     <div
@@ -22,15 +22,21 @@ function Card({ className, variant, size, ...props }: CardProps) {
       className={cn(cardVariants({ variant, size }), className)}
       {...props}
     />
-  )
+  );
 }
 
-type CardHeaderProps = React.ComponentProps<"div"> & {
+type CardHeaderProps = React.ComponentProps<'div'> & {
   /** Top-right controls (buttons, menus, links). */
-  action?: React.ReactNode
-}
+  action?: React.ReactNode;
+};
 
-function CardHeader({ className, action, children, ...props }: CardHeaderProps) {
+/** Title row with optional `action` slot in the top-right corner. */
+function CardHeader({
+  className,
+  action,
+  children,
+  ...props
+}: CardHeaderProps) {
   if (action) {
     return (
       <div className={cn(cardSectionX, className)} {...props}>
@@ -39,82 +45,78 @@ function CardHeader({ className, action, children, ...props }: CardHeaderProps) 
           <div className="self-start justify-self-end">{action}</div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div
-      className={cn("flex flex-col gap-1", cardSectionX, className)}
+      className={cn('flex flex-col gap-1', cardSectionX, className)}
       {...props}
     >
       {children}
     </div>
-  )
+  );
 }
 
 function CardTitle({
   className,
-  as: Comp = "h3",
+  as: Comp = 'h3',
   ...props
-}: React.ComponentProps<"h3"> & { as?: "h2" | "h3" | "h4" | "div" }) {
+}: React.ComponentProps<'h3'> & {
+  /** Heading element. Defaults to `h3`. */
+  as?: 'h2' | 'h3' | 'h4' | 'div';
+}) {
   return (
     <Comp
       className={cn(
-        "text-base font-medium leading-snug text-text-primary group-data-[size=sm]/card:text-sm",
-        className
+        'text-base font-medium leading-snug text-text-primary group-data-[size=sm]/card:text-sm',
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
-function CardDescription({ className, ...props }: React.ComponentProps<"p">) {
-  return (
-    <p className={cn("text-sm text-text-muted", className)} {...props} />
-  )
+function CardDescription({ className, ...props }: React.ComponentProps<'p'>) {
+  return <p className={cn('text-sm text-text-muted', className)} {...props} />;
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div className={cn(cardSectionX, className)} {...props} />
-  )
+function CardContent({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div className={cn(cardSectionX, className)} {...props} />;
 }
 
-type CardFooterProps = React.ComponentProps<"div"> & {
-  align?: CardFooterAlign
-}
+type CardFooterProps = React.ComponentProps<'div'> & {
+  /** Horizontal alignment of footer content. */
+  align?: CardFooterAlign;
+};
 
-function CardFooter({
-  className,
-  align = "start",
-  ...props
-}: CardFooterProps) {
+function CardFooter({ className, align = 'start', ...props }: CardFooterProps) {
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-3",
+        'flex flex-wrap items-center gap-3',
         cardSectionX,
         cardFooterAlign[align],
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 /** Place first to bleed media to the top; top corners follow Card rounded-lg. */
-function CardMedia({ className, ...props }: React.ComponentProps<"div">) {
+function CardMedia({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       className={cn(
-        "-mt-6 w-full overflow-hidden group-data-[size=sm]/card:-mt-4",
-        "[&_img]:block [&_img]:size-full [&_img]:object-cover",
-        "rounded-t-lg",
-        className
+        '-mt-6 w-full overflow-hidden group-data-[size=sm]/card:-mt-4',
+        '[&_img]:block [&_img]:size-full [&_img]:object-cover',
+        'rounded-t-lg',
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -125,6 +127,11 @@ export {
   CardDescription,
   CardContent,
   CardMedia,
-}
-export type { CardProps, CardHeaderProps, CardFooterProps }
-export type { CardFooterAlign } from "./card-variants"
+};
+export type {
+  CardProps,
+  CardHeaderProps,
+  CardFooterProps,
+  CardAppearanceProps,
+};
+export type { CardFooterAlign } from './card-variants';
