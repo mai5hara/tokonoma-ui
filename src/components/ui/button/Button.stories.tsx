@@ -49,7 +49,6 @@ const meta = {
       control: 'text',
       description: 'Button label or icon content.',
     },
-    className: { table: { disable: true } },
     rounded: {
       control: 'select',
       options: ['sm', 'md', 'lg', 'full'],

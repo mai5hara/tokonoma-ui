@@ -49,7 +49,6 @@ const meta = {
         defaultValue: { summary: 'default' },
       },
     },
-    className: { table: { disable: true } },
   },
   args: {
     variant: 'flat',

@@ -51,7 +51,6 @@ const meta = {
       control: 'text',
       description: 'Link label.',
     },
-    className: { table: { disable: true } },
   },
   args: {
     variant: 'flat',

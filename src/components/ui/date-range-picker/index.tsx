@@ -150,13 +150,12 @@ const DateRangePicker = React.forwardRef<
                 {label}
               </span>
             </PopoverPrimitive.Trigger>
-            <div className="flex shrink-0 items-center gap-0.5">
+            <div className="flex shrink-0 items-center gap-0.5 [&_button]:size-6">
               {hasSelection ? (
                 <Button
                   variant="ghost"
                   size="icon"
                   aria-label="Clear date range"
-                  className="size-6"
                   disabled={disabled}
                   onClick={handleClear}
                 >
