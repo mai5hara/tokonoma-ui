@@ -1,7 +1,21 @@
 {
   "name": "tokonoma-ui",
   "private": false,
-  "version": "0.2.2",
+  "version": "0.2.3",
+  "description": "React design system with soft-depth surfaces, switchable palettes, and a closed component API.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mai5hara/tokonoma-ui.git"
+  },
+  "keywords": [
+    "react",
+    "design-system",
+    "components",
+    "tailwindcss",
+    "radix-ui",
+    "storybook"
+  ],
   "type": "module",
   "files": [
     "dist"

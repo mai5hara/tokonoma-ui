@@ -68,6 +68,10 @@ export const buttonVariants = cva(
         lg: 'rounded-lg',
         full: 'rounded-full',
       },
+      width: {
+        auto: 'w-auto',
+        full: 'w-full',
+      },
     },
     compoundVariants: [
       {
@@ -80,6 +84,7 @@ export const buttonVariants = cva(
       variant: 'flat',
       size: 'default',
       rounded: 'md',
+      width: 'auto',
     },
   },
 );

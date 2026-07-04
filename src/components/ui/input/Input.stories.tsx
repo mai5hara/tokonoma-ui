@@ -56,7 +56,6 @@ const meta = {
       description: 'When set, applies error styling and helper text below.',
     },
     disabled: { control: 'boolean' },
-    className: { table: { disable: true } },
   },
   args: {
     variant: 'border',

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 
 import { cn } from '@/lib/utils';
+import type { ClosedElementProps } from '@/lib/closed-api';
 
 import { buttonVariants, type ButtonVariantProps } from './button-variants';
 
@@ -22,9 +23,11 @@ type ButtonAppearanceProps = {
   size?: NonNullable<ButtonVariantProps['size']>;
   /** Corner radius. Defaults to `md`. */
   rounded?: NonNullable<ButtonVariantProps['rounded']>;
+  /** Horizontal span. `full` fills the container width. Defaults to `auto`. */
+  width?: NonNullable<ButtonVariantProps['width']>;
 };
 
-type ButtonProps = React.ComponentProps<'button'> &
+type ButtonProps = ClosedElementProps<React.ComponentProps<'button'>> &
   ButtonAppearanceProps & {
     /** Merge styles onto the single child (e.g. `<a>`) via Radix Slot. */
     asChild?: boolean;
@@ -37,10 +40,10 @@ type ButtonProps = React.ComponentProps<'button'> &
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      className,
       variant,
       size,
       rounded,
+      width,
       asChild = false,
       type = 'button',
       ...props
@@ -54,7 +57,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type={asChild ? undefined : type}
         data-variant={variant}
         data-size={size}
-        className={cn(buttonVariants({ variant, size, rounded }), className)}
+        data-width={width}
+        className={buttonVariants({ variant, size, rounded, width })}
         {...props}
       />
     );
@@ -62,7 +66,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = 'Button';
 
-type ButtonLinkProps = React.ComponentProps<'a'> &
+type ButtonLinkProps = ClosedElementProps<React.ComponentProps<'a'>> &
   ButtonAppearanceProps & {
     /** Destination URL. Omitted when `aria-disabled` is set. */
     href?: string;
@@ -77,10 +81,10 @@ type ButtonLinkProps = React.ComponentProps<'a'> &
 const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
   (
     {
-      className,
       variant,
       rounded,
       size,
+      width,
       external,
       href,
       target,
@@ -108,10 +112,10 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         tabIndex={isDisabled ? -1 : props.tabIndex}
         data-variant={variant}
         data-size={size}
+        data-width={width}
         className={cn(
-          buttonVariants({ variant, size, rounded }),
+          buttonVariants({ variant, size, rounded, width }),
           isDisabled && 'pointer-events-none opacity-50',
-          className,
         )}
         onClick={
           isDisabled

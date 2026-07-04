@@ -1,3 +1,10 @@
+## 0.2.3
+
+- Add MIT LICENSE and update README for public release
+- Add `width` (`auto` | `full`) to `Button` and `ButtonLink`
+- Remove `className` from public component props (closed API)
+- Add `raised` variant to form fields (`Input`, `Select`, `DateRangePicker`)
+
 ## 0.2.2
 
 - Add clear button to DateRangePicker

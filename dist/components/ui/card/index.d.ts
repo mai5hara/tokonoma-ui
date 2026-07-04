@@ -1,23 +1,28 @@
-import { CardFooterAlign, CardVariantProps } from './card-variants';
-import * as React from "react";
-type CardProps = React.ComponentProps<"div"> & CardVariantProps;
-declare function Card({ className, variant, size, ...props }: CardProps): React.JSX.Element;
-type CardHeaderProps = React.ComponentProps<"div"> & {
+import { ClosedElementProps } from '../../../lib/closed-api';
+import { CardAppearanceProps, CardFooterAlign } from './card-variants';
+import * as React from 'react';
+type CardProps = ClosedElementProps<React.ComponentProps<'div'>> & CardAppearanceProps;
+/** Content container with header, body, footer, and optional media slots. */
+declare function Card({ variant, size, ...props }: CardProps): import("react/jsx-runtime").JSX.Element;
+type CardHeaderProps = ClosedElementProps<React.ComponentProps<'div'>> & {
     /** Top-right controls (buttons, menus, links). */
     action?: React.ReactNode;
 };
-declare function CardHeader({ className, action, children, ...props }: CardHeaderProps): React.JSX.Element;
-declare function CardTitle({ className, as: Comp, ...props }: React.ComponentProps<"h3"> & {
-    as?: "h2" | "h3" | "h4" | "div";
-}): React.JSX.Element;
-declare function CardDescription({ className, ...props }: React.ComponentProps<"p">): React.JSX.Element;
-declare function CardContent({ className, ...props }: React.ComponentProps<"div">): React.JSX.Element;
-type CardFooterProps = React.ComponentProps<"div"> & {
+/** Title row with optional `action` slot in the top-right corner. */
+declare function CardHeader({ action, children, ...props }: CardHeaderProps): import("react/jsx-runtime").JSX.Element;
+declare function CardTitle({ as: Comp, ...props }: ClosedElementProps<React.ComponentProps<'h3'>> & {
+    /** Heading element. Defaults to `h3`. */
+    as?: 'h2' | 'h3' | 'h4' | 'div';
+}): import("react/jsx-runtime").JSX.Element;
+declare function CardDescription(props: ClosedElementProps<React.ComponentProps<'p'>>): import("react/jsx-runtime").JSX.Element;
+declare function CardContent(props: ClosedElementProps<React.ComponentProps<'div'>>): import("react/jsx-runtime").JSX.Element;
+type CardFooterProps = ClosedElementProps<React.ComponentProps<'div'>> & {
+    /** Horizontal alignment of footer content. */
     align?: CardFooterAlign;
 };
-declare function CardFooter({ className, align, ...props }: CardFooterProps): React.JSX.Element;
+declare function CardFooter({ align, ...props }: CardFooterProps): import("react/jsx-runtime").JSX.Element;
 /** Place first to bleed media to the top; top corners follow Card rounded-lg. */
-declare function CardMedia({ className, ...props }: React.ComponentProps<"div">): React.JSX.Element;
+declare function CardMedia(props: ClosedElementProps<React.ComponentProps<'div'>>): import("react/jsx-runtime").JSX.Element;
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardMedia, };
-export type { CardProps, CardHeaderProps, CardFooterProps };
+export type { CardProps, CardHeaderProps, CardFooterProps, CardAppearanceProps, };
 export type { CardFooterAlign } from './card-variants';

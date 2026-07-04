@@ -1909,6 +1909,10 @@ const cx = clsx, cva = (e, t) => (n) => {
 			md: "rounded-md",
 			lg: "rounded-lg",
 			full: "rounded-full"
+		},
+		width: {
+			auto: "w-auto",
+			full: "w-full"
 		}
 	},
 	compoundVariants: [{
@@ -1919,23 +1923,26 @@ const cx = clsx, cva = (e, t) => (n) => {
 	defaultVariants: {
 		variant: "flat",
 		size: "default",
-		rounded: "md"
+		rounded: "md",
+		width: "auto"
 	}
 });
-var Button = React$1.forwardRef(({ className: e, variant: t, size: n, rounded: i, asChild: a = !1, type: o = "button", ...s }, c) => /* @__PURE__ */ jsx(a ? Slot$3 : "button", {
+var Button = React$1.forwardRef(({ variant: e, size: t, rounded: n, width: i, asChild: a = !1, type: o = "button", ...s }, c) => /* @__PURE__ */ jsx(a ? Slot$3 : "button", {
 	ref: c,
 	type: a ? void 0 : o,
-	"data-variant": t,
-	"data-size": n,
-	className: cn(buttonVariants({
-		variant: t,
-		size: n,
-		rounded: i
-	}), e),
+	"data-variant": e,
+	"data-size": t,
+	"data-width": i,
+	className: buttonVariants({
+		variant: e,
+		size: t,
+		rounded: n,
+		width: i
+	}),
 	...s
 }));
 Button.displayName = "Button";
-var ButtonLink = React$1.forwardRef(({ className: e, variant: t, rounded: n, size: i, external: a, href: o, target: s, rel: c, "aria-disabled": l, ...u }, d) => {
+var ButtonLink = React$1.forwardRef(({ variant: e, rounded: t, size: n, width: i, external: a, href: o, target: s, rel: c, "aria-disabled": l, ...u }, d) => {
 	let f = a ?? (typeof o == "string" && /^https?:\/\//.test(o)), p = l === !0 || l === "true";
 	return /* @__PURE__ */ jsx("a", {
 		ref: d,
@@ -1948,13 +1955,15 @@ var ButtonLink = React$1.forwardRef(({ className: e, variant: t, rounded: n, siz
 		].filter(Boolean).join(" ") : c,
 		"aria-disabled": l,
 		tabIndex: p ? -1 : u.tabIndex,
-		"data-variant": t,
-		"data-size": i,
+		"data-variant": e,
+		"data-size": n,
+		"data-width": i,
 		className: cn(buttonVariants({
-			variant: t,
-			size: i,
-			rounded: n
-		}), p && "pointer-events-none opacity-50", e),
+			variant: e,
+			size: n,
+			rounded: t,
+			width: i
+		}), p && "pointer-events-none opacity-50"),
 		onClick: p ? (e) => {
 			e.preventDefault(), u.onClick?.(e);
 		} : u.onClick,
@@ -1984,69 +1993,69 @@ const cardVariants = cva("group/card flex flex-col overflow-hidden rounded-lg te
 	start: "justify-start"
 };
 var cardSectionX = "px-6 group-data-[size=sm]/card:px-4";
-function Card({ className: e, variant: t, size: n, ...i }) {
+function Card({ variant: e, size: t, ...n }) {
 	return /* @__PURE__ */ jsx("div", {
-		"data-variant": t,
-		"data-size": n,
-		className: cn(cardVariants({
-			variant: t,
-			size: n
-		}), e),
-		...i
+		"data-variant": e,
+		"data-size": t,
+		className: cardVariants({
+			variant: e,
+			size: t
+		}),
+		...n
 	});
 }
-function CardHeader({ className: e, action: t, children: n, ...i }) {
-	return t ? /* @__PURE__ */ jsx("div", {
-		className: cn(cardSectionX, e),
-		...i,
+function CardHeader({ action: e, children: t, ...n }) {
+	return e ? /* @__PURE__ */ jsx("div", {
+		className: cardSectionX,
+		...n,
 		children: /* @__PURE__ */ jsxs("div", {
 			className: "grid grid-cols-[1fr_auto] items-start gap-x-4 gap-y-1",
 			children: [/* @__PURE__ */ jsx("div", {
 				className: "flex min-w-0 flex-col gap-1",
-				children: n
+				children: t
 			}), /* @__PURE__ */ jsx("div", {
 				className: "self-start justify-self-end",
-				children: t
+				children: e
 			})]
 		})
 	}) : /* @__PURE__ */ jsx("div", {
-		className: cn("flex flex-col gap-1", cardSectionX, e),
-		...i,
-		children: n
+		className: `flex flex-col gap-1 ${cardSectionX}`,
+		...n,
+		children: t
 	});
 }
-function CardTitle({ className: e, as: t = "h3", ...n }) {
-	return /* @__PURE__ */ jsx(t, {
-		className: cn("text-base font-medium leading-snug text-text-primary group-data-[size=sm]/card:text-sm", e),
-		...n
+function CardTitle({ as: e = "h3", ...t }) {
+	return /* @__PURE__ */ jsx(e, {
+		className: "text-base font-medium leading-snug text-text-primary group-data-[size=sm]/card:text-sm",
+		...t
 	});
 }
-function CardDescription({ className: e, ...t }) {
+function CardDescription(e) {
 	return /* @__PURE__ */ jsx("p", {
-		className: cn("text-sm text-text-muted", e),
+		className: "text-sm text-text-muted",
+		...e
+	});
+}
+function CardContent(e) {
+	return /* @__PURE__ */ jsx("div", {
+		className: cardSectionX,
+		...e
+	});
+}
+function CardFooter({ align: e = "start", ...t }) {
+	return /* @__PURE__ */ jsx("div", {
+		className: `flex flex-wrap items-center gap-3 ${cardSectionX} ${cardFooterAlign[e]}`,
 		...t
 	});
 }
-function CardContent({ className: e, ...t }) {
+function CardMedia(e) {
 	return /* @__PURE__ */ jsx("div", {
-		className: cn(cardSectionX, e),
-		...t
-	});
-}
-function CardFooter({ className: e, align: t = "start", ...n }) {
-	return /* @__PURE__ */ jsx("div", {
-		className: cn("flex flex-wrap items-center gap-3", cardSectionX, cardFooterAlign[t], e),
-		...n
-	});
-}
-function CardMedia({ className: e, ...t }) {
-	return /* @__PURE__ */ jsx("div", {
-		className: cn("-mt-6 w-full overflow-hidden group-data-[size=sm]/card:-mt-4", "[&_img]:block [&_img]:size-full [&_img]:object-cover", "rounded-t-lg", e),
-		...t
+		className: "-mt-6 w-full overflow-hidden group-data-[size=sm]/card:-mt-4 [&_img]:block [&_img]:size-full [&_img]:object-cover rounded-t-lg",
+		...e
 	});
 }
 /**
-* @license lucide-react v1.17.0 - ISC
+* @license lucide-react v1.16.0 - ISC
 *
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
@@ -2165,6 +2174,11 @@ const fieldVariants = cva([
 		variant: {
 			border: "border border-border bg-surface-elevated hover:border-border-strong focus-within:border-border-strong focus-within:ring-ring/40",
 			inset: "border border-transparent bg-surface shadow-[var(--shadow-button-inset)] focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40",
+			raised: [
+				"border border-transparent bg-surface shadow-[var(--shadow-button-raised)]",
+				"[background:var(--background-gradient-raised)]",
+				"focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40"
+			],
 			filled: "border border-transparent bg-surface text-text-primary hover:bg-surface-elevated focus-within:ring-ring/40"
 		},
 		invalid: {
@@ -2201,49 +2215,49 @@ const fieldVariants = cva([
 		rounded: "md"
 	}
 });
-var Input = React$1.forwardRef(({ className: e, variant: t, rounded: n, mode: i = "default", showPasswordToggle: a = !1, errorMessage: o, type: s = "text", id: c, ...u }, d) => {
-	let f = useId(), m = c ?? f, _ = `${m}-error`, v = !!o, y = i === "search", b = s === "password", [x, S] = useState(!1), C = b && a, w = C && x ? "text" : s ?? "text";
+var Input = React$1.forwardRef(({ variant: e, rounded: t, mode: n = "default", showPasswordToggle: i = !1, errorMessage: a, type: o = "text", id: s, ...c }, u) => {
+	let d = useId(), f = s ?? d, m = `${f}-error`, _ = !!a, v = n === "search", y = o === "password", [b, x] = useState(!1), S = y && i, C = S && b ? "text" : o ?? "text";
 	return /* @__PURE__ */ jsxs("div", {
 		className: "flex w-full flex-col gap-1.5",
 		children: [/* @__PURE__ */ jsxs("div", {
-			"data-variant": t,
-			"data-mode": i,
-			"data-invalid": v || void 0,
-			className: cn(fieldVariants({
-				variant: t,
-				invalid: v,
-				rounded: n
-			}), e),
+			"data-variant": e,
+			"data-mode": n,
+			"data-invalid": _ || void 0,
+			className: fieldVariants({
+				variant: e,
+				invalid: _,
+				rounded: t
+			}),
 			children: [
-				y ? /* @__PURE__ */ jsx(Search, {
+				v ? /* @__PURE__ */ jsx(Search, {
 					className: "size-4 shrink-0 text-text-muted",
 					"aria-hidden": !0
 				}) : null,
 				/* @__PURE__ */ jsx("input", {
-					ref: d,
-					id: m,
-					type: w,
-					"aria-invalid": v || void 0,
-					"aria-describedby": v ? _ : void 0,
-					className: cn("w-full bg-transparent text-sm text-text-primary placeholder:text-text-subtle", "outline-none disabled:cursor-not-allowed", C ? "pr-1" : ""),
-					...u
+					ref: u,
+					id: f,
+					type: C,
+					"aria-invalid": _ || void 0,
+					"aria-describedby": _ ? m : void 0,
+					className: cn("w-full bg-transparent text-sm text-text-primary placeholder:text-text-subtle", "outline-none disabled:cursor-not-allowed", S ? "pr-1" : ""),
+					...c
 				}),
-				C ? /* @__PURE__ */ jsx("button", {
+				S ? /* @__PURE__ */ jsx("button", {
 					type: "button",
 					className: "inline-flex size-5 shrink-0 items-center justify-center text-text-muted hover:text-text-primary",
-					onClick: () => S((e) => !e),
-					"aria-label": x ? "Hide password" : "Show password",
-					children: jsx(x ? EyeOff : Eye, {
+					onClick: () => x((e) => !e),
+					"aria-label": b ? "Hide password" : "Show password",
+					children: jsx(b ? EyeOff : Eye, {
 						className: "size-4",
 						"aria-hidden": !0
 					})
 				}) : null
 			]
-		}), o ? /* @__PURE__ */ jsx("p", {
-			id: _,
+		}), a ? /* @__PURE__ */ jsx("p", {
+			id: m,
 			role: "alert",
 			className: "text-xs text-error",
-			children: o
+			children: a
 		}) : null]
 	});
 });
@@ -2491,7 +2505,7 @@ function useCallbackRef$1(t) {
 		n.current = t;
 	}), React$1.useMemo(() => (...e) => n.current?.(...e), []);
 }
-function useEscapeKeydown$1(t, n = globalThis?.document) {
+function useEscapeKeydown(t, n = globalThis?.document) {
 	let i = useCallbackRef$1(t);
 	React$1.useEffect(() => {
 		let e = (e) => {
@@ -2512,7 +2526,7 @@ var DISMISSABLE_LAYER_NAME$1 = "DismissableLayer", CONTEXT_UPDATE$1 = "dismissab
 		let t = e.target;
 		[...d.branches].some((e) => e.contains(t)) || (s?.(e), c?.(e), e.defaultPrevented || l?.());
 	}, m);
-	return useEscapeKeydown$1((e) => {
+	return useEscapeKeydown((e) => {
 		x === d.layers.size - 1 && (a?.(e), !e.defaultPrevented && l && (e.preventDefault(), l()));
 	}, m), React$1.useEffect(() => {
 		if (f) return i && (d.layersWithOutsidePointerEventsDisabled.size === 0 && (originalBodyPointerEvents$1 = m.body.style.pointerEvents, m.body.style.pointerEvents = "none"), d.layersWithOutsidePointerEventsDisabled.add(f)), d.layers.add(f), dispatchUpdate$1(), () => {
@@ -5906,53 +5920,67 @@ function useCallbackRef(t) {
 		n.current = t;
 	}), React$1.useMemo(() => ((...e) => n.current?.(...e)), []);
 }
-function useEscapeKeydown(t, n = globalThis?.document) {
-	let i = useCallbackRef(t);
-	React$1.useEffect(() => {
-		let e = (e) => {
-			e.key === "Escape" && i(e);
-		};
-		return n.addEventListener("keydown", e, { capture: !0 }), () => n.removeEventListener("keydown", e, { capture: !0 });
-	}, [i, n]);
+var useLayoutEffect2 = globalThis?.document ? React$1.useLayoutEffect : () => {}, useReactEffectEvent = React$1.useEffectEvent, useReactInsertionEffect = React$1.useInsertionEffect;
+function useEffectEvent(t) {
+	if (typeof useReactEffectEvent == "function") return useReactEffectEvent(t);
+	let n = React$1.useRef(() => {
+		throw Error("Cannot call an event handler while rendering.");
+	});
+	return typeof useReactInsertionEffect == "function" ? useReactInsertionEffect(() => {
+		n.current = t;
+	}) : useLayoutEffect2(() => {
+		n.current = t;
+	}), React$1.useMemo(() => ((...e) => n.current?.(...e)), []);
 }
 var DISMISSABLE_LAYER_NAME = "DismissableLayer", CONTEXT_UPDATE = "dismissableLayer.update", POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside", FOCUS_OUTSIDE = "dismissableLayer.focusOutside", originalBodyPointerEvents, DismissableLayerContext = React$1.createContext({
 	layers: /* @__PURE__ */ new Set(),
 	layersWithOutsidePointerEventsDisabled: /* @__PURE__ */ new Set(),
-	branches: /* @__PURE__ */ new Set()
+	branches: /* @__PURE__ */ new Set(),
+	dismissableSurfaces: /* @__PURE__ */ new Set()
 }), DismissableLayer = React$1.forwardRef((t, n) => {
-	let { disableOutsidePointerEvents: i = !1, onEscapeKeyDown: a, onPointerDownOutside: o, onFocusOutside: s, onInteractOutside: c, onDismiss: l, ...u } = t, d = React$1.useContext(DismissableLayerContext), [f, p] = React$1.useState(null), m = f?.ownerDocument ?? globalThis?.document, [, g] = React$1.useState({}), _ = useComposedRefs(n, (e) => p(e)), v = Array.from(d.layers), [y] = [...d.layersWithOutsidePointerEventsDisabled].slice(-1), b = v.indexOf(y), x = f ? v.indexOf(f) : -1, S = d.layersWithOutsidePointerEventsDisabled.size > 0, C = x >= b, w = usePointerDownOutside((e) => {
-		let t = e.target, n = [...d.branches].some((e) => e.contains(t));
-		!C || n || (o?.(e), c?.(e), e.defaultPrevented || l?.());
-	}, m), T = useFocusOutside((e) => {
+	let { disableOutsidePointerEvents: i = !1, deferPointerDownOutside: a = !1, onEscapeKeyDown: o, onPointerDownOutside: s, onFocusOutside: c, onInteractOutside: l, onDismiss: u, ...d } = t, f = React$1.useContext(DismissableLayerContext), [p, m] = React$1.useState(null), g = p?.ownerDocument ?? globalThis?.document, [, _] = React$1.useState({}), v = useComposedRefs(n, m), y = Array.from(f.layers), [b] = [...f.layersWithOutsidePointerEventsDisabled].slice(-1), x = y.indexOf(b), S = p ? y.indexOf(p) : -1, C = f.layersWithOutsidePointerEventsDisabled.size > 0, w = S >= x, T = React$1.useRef(!1), E = usePointerDownOutside((e) => {
 		let t = e.target;
-		[...d.branches].some((e) => e.contains(t)) || (s?.(e), c?.(e), e.defaultPrevented || l?.());
-	}, m);
-	return useEscapeKeydown((e) => {
-		x === d.layers.size - 1 && (a?.(e), !e.defaultPrevented && l && (e.preventDefault(), l()));
-	}, m), React$1.useEffect(() => {
-		if (f) return i && (d.layersWithOutsidePointerEventsDisabled.size === 0 && (originalBodyPointerEvents = m.body.style.pointerEvents, m.body.style.pointerEvents = "none"), d.layersWithOutsidePointerEventsDisabled.add(f)), d.layers.add(f), dispatchUpdate(), () => {
-			i && (d.layersWithOutsidePointerEventsDisabled.delete(f), d.layersWithOutsidePointerEventsDisabled.size === 0 && (m.body.style.pointerEvents = originalBodyPointerEvents));
+		if (!(t instanceof Node)) return;
+		let n = [...f.branches].some((e) => e.contains(t));
+		!w || n || (s?.(e), l?.(e), e.defaultPrevented || u?.());
+	}, {
+		ownerDocument: g,
+		deferPointerDownOutside: a,
+		isDeferredPointerDownOutsideRef: T,
+		dismissableSurfaces: f.dismissableSurfaces
+	}), D = useFocusOutside((e) => {
+		if (a && T.current) return;
+		let t = e.target;
+		[...f.branches].some((e) => e.contains(t)) || (c?.(e), l?.(e), e.defaultPrevented || u?.());
+	}, g), O = p ? S === y.length - 1 : !1, k = useEffectEvent((e) => {
+		e.key === "Escape" && (o?.(e), !e.defaultPrevented && u && (e.preventDefault(), u()));
+	});
+	return React$1.useEffect(() => {
+		if (O) return g.addEventListener("keydown", k, { capture: !0 }), () => g.removeEventListener("keydown", k, { capture: !0 });
+	}, [g, O]), React$1.useEffect(() => {
+		if (p) return i && (f.layersWithOutsidePointerEventsDisabled.size === 0 && (originalBodyPointerEvents = g.body.style.pointerEvents, g.body.style.pointerEvents = "none"), f.layersWithOutsidePointerEventsDisabled.add(p)), f.layers.add(p), dispatchUpdate(), () => {
+			i && (f.layersWithOutsidePointerEventsDisabled.delete(p), f.layersWithOutsidePointerEventsDisabled.size === 0 && (g.body.style.pointerEvents = originalBodyPointerEvents));
 		};
 	}, [
-		f,
-		m,
+		p,
+		g,
 		i,
-		d
+		f
 	]), React$1.useEffect(() => () => {
-		f && (d.layers.delete(f), d.layersWithOutsidePointerEventsDisabled.delete(f), dispatchUpdate());
-	}, [f, d]), React$1.useEffect(() => {
-		let e = () => g({});
+		p && (f.layers.delete(p), f.layersWithOutsidePointerEventsDisabled.delete(p), dispatchUpdate());
+	}, [p, f]), React$1.useEffect(() => {
+		let e = () => _({});
 		return document.addEventListener(CONTEXT_UPDATE, e), () => document.removeEventListener(CONTEXT_UPDATE, e);
 	}, []), /* @__PURE__ */ jsx(Primitive.div, {
-		...u,
-		ref: _,
+		...d,
+		ref: v,
 		style: {
-			pointerEvents: S ? C ? "auto" : "none" : void 0,
+			pointerEvents: C ? w ? "auto" : "none" : void 0,
 			...t.style
 		},
-		onFocusCapture: composeEventHandlers(t.onFocusCapture, T.onFocusCapture),
-		onBlurCapture: composeEventHandlers(t.onBlurCapture, T.onBlurCapture),
-		onPointerDownCapture: composeEventHandlers(t.onPointerDownCapture, w.onPointerDownCapture)
+		onFocusCapture: composeEventHandlers(t.onFocusCapture, D.onFocusCapture),
+		onBlurCapture: composeEventHandlers(t.onBlurCapture, D.onBlurCapture),
+		onPointerDownCapture: composeEventHandlers(t.onPointerDownCapture, E.onPointerDownCapture)
 	});
 });
 DismissableLayer.displayName = DISMISSABLE_LAYER_NAME;
@@ -5969,24 +5997,58 @@ var BRANCH_NAME = "DismissableLayerBranch", DismissableLayerBranch = React$1.for
 	});
 });
 DismissableLayerBranch.displayName = BRANCH_NAME;
-function usePointerDownOutside(t, n = globalThis?.document) {
-	let i = useCallbackRef(t), a = React$1.useRef(!1), o = React$1.useRef(() => {});
+function usePointerDownOutside(t, n) {
+	let { ownerDocument: i = globalThis?.document, deferPointerDownOutside: a = !1, isDeferredPointerDownOutsideRef: o, dismissableSurfaces: s } = n, c = useCallbackRef(t), l = React$1.useRef(!1), u = React$1.useRef(!1), d = React$1.useRef(/* @__PURE__ */ new Map()), f = React$1.useRef(() => {});
 	return React$1.useEffect(() => {
-		let e = (e) => {
-			if (e.target && !a.current) {
-				let t = function() {
-					handleAndDispatchCustomEvent(POINTER_DOWN_OUTSIDE, i, a, { discrete: !0 });
-				}, a = { originalEvent: e };
-				e.pointerType === "touch" ? (n.removeEventListener("click", o.current), o.current = t, n.addEventListener("click", o.current, { once: !0 })) : t();
-			} else n.removeEventListener("click", o.current);
-			a.current = !1;
-		}, t = window.setTimeout(() => {
-			n.addEventListener("pointerdown", e);
+		function e() {
+			u.current = !1, o.current = !1, d.current.clear();
+		}
+		function t() {
+			return Array.from(d.current.values()).some(Boolean);
+		}
+		function n(e) {
+			if (!u.current) return;
+			let t = e.target;
+			t instanceof Node && [...s].some((e) => e.contains(t)) || d.current.set(e.type, !0), e.type === "click" && window.setTimeout(() => {
+				u.current && f.current();
+			}, 0);
+		}
+		function p(e) {
+			u.current && d.current.set(e.type, !1);
+		}
+		let m = (n) => {
+			if (n.target && !l.current) {
+				let s = function() {
+					i.removeEventListener("click", f.current);
+					let n = t();
+					e(), n || handleAndDispatchCustomEvent(POINTER_DOWN_OUTSIDE, c, l, { discrete: !0 });
+				}, l = { originalEvent: n };
+				u.current = !0, o.current = a && n.button === 0, d.current.clear(), !a || n.button !== 0 ? s() : (i.removeEventListener("click", f.current), f.current = s, i.addEventListener("click", f.current, { once: !0 }));
+			} else i.removeEventListener("click", f.current), e();
+			l.current = !1;
+		}, h = [
+			"pointerup",
+			"mousedown",
+			"mouseup",
+			"touchstart",
+			"touchend",
+			"click"
+		];
+		for (let e of h) i.addEventListener(e, n, !0), i.addEventListener(e, p);
+		let g = window.setTimeout(() => {
+			i.addEventListener("pointerdown", m);
 		}, 0);
 		return () => {
-			window.clearTimeout(t), n.removeEventListener("pointerdown", e), n.removeEventListener("click", o.current);
+			window.clearTimeout(g), i.removeEventListener("pointerdown", m), i.removeEventListener("click", f.current);
+			for (let e of h) i.removeEventListener(e, n, !0), i.removeEventListener(e, p);
 		};
-	}, [n, i]), { onPointerDownCapture: () => a.current = !0 };
+	}, [
+		i,
+		c,
+		a,
+		o,
+		s
+	]), { onPointerDownCapture: () => l.current = !0 };
 }
 function useFocusOutside(t, n = globalThis?.document) {
 	let i = useCallbackRef(t), a = React$1.useRef(!1);
@@ -6033,7 +6095,7 @@ var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount", AUTOFOCUS_ON_UNMOUNT = "
 	bubbles: !1,
 	cancelable: !0
 }, FOCUS_SCOPE_NAME = "FocusScope", FocusScope = React$1.forwardRef((t, n) => {
-	let { loop: i = !1, trapped: a = !1, onMountAutoFocus: o, onUnmountAutoFocus: s, ...c } = t, [l, u] = React$1.useState(null), d = useCallbackRef(o), f = useCallbackRef(s), p = React$1.useRef(null), m = useComposedRefs(n, (e) => u(e)), g = React$1.useRef({
+	let { loop: i = !1, trapped: a = !1, onMountAutoFocus: o, onUnmountAutoFocus: s, ...c } = t, [l, u] = React$1.useState(null), d = useCallbackRef(o), f = useCallbackRef(s), p = React$1.useRef(null), m = useComposedRefs(n, u), g = React$1.useRef({
 		paused: !1,
 		pause() {
 			this.paused = !0;
@@ -6166,7 +6228,7 @@ function arrayRemove(e, t) {
 function removeLinks(e) {
 	return e.filter((e) => e.tagName !== "A");
 }
-var useLayoutEffect2 = globalThis?.document ? React$1.useLayoutEffect : () => {}, useReactId = React$1.useId || (() => void 0), count = 0;
+var useReactId = React$1.useId || (() => void 0), count = 0;
 function useId$1(t) {
 	let [n, i] = React$1.useState(useReactId());
 	return useLayoutEffect2(() => {
@@ -6242,15 +6304,15 @@ var ANCHOR_NAME$1 = "PopperAnchor", PopperAnchor = React$1.forwardRef((t, n) => 
 });
 PopperAnchor.displayName = ANCHOR_NAME$1;
 var CONTENT_NAME$1 = "PopperContent", [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME$1), PopperContent = React$1.forwardRef((t, n) => {
-	let { __scopePopper: i, side: a = "bottom", sideOffset: o = 0, align: s = "center", alignOffset: c = 0, arrowPadding: l = 0, avoidCollisions: u = !0, collisionBoundary: d, collisionPadding: f = 0, sticky: p = "partial", hideWhenDetached: m = !1, updatePositionStrategy: g = "optimized", onPlaced: _, ...v } = t, y = usePopperContext(CONTENT_NAME$1, i), [b, x] = React$1.useState(null), S = useComposedRefs(n, (e) => x(e)), [C, w] = React$1.useState(null), T = useSize(C), E = T?.width ?? 0, D = T?.height ?? 0, O = a + (s === "center" ? "" : "-" + s), k = typeof f == "number" ? f : {
+	let { __scopePopper: i, side: a = "bottom", sideOffset: o = 0, align: s = "center", alignOffset: c = 0, arrowPadding: l = 0, avoidCollisions: u = !0, collisionBoundary: d = [], collisionPadding: f = 0, sticky: p = "partial", hideWhenDetached: m = !1, updatePositionStrategy: g = "optimized", onPlaced: _, ...v } = t, y = usePopperContext(CONTENT_NAME$1, i), [b, x] = React$1.useState(null), S = useComposedRefs(n, x), [C, w] = React$1.useState(null), T = useSize(C), E = T?.width ?? 0, D = T?.height ?? 0, O = a + (s === "center" ? "" : "-" + s), k = typeof f == "number" ? f : {
 		top: 0,
 		right: 0,
 		bottom: 0,
 		left: 0,
 		...f
-	}, A = d ? Array.isArray(d) ? d : [d] : void 0, j = A !== void 0 && A.length > 0, M = {
+	}, A = Array.isArray(d) ? d : [d], j = A.length > 0, M = {
 		padding: k,
-		boundary: A?.filter(isNotNull),
+		boundary: A.filter(isNotNull),
 		altBoundary: j
 	}, { refs: N, floatingStyles: P, placement: F, isPositioned: I, middlewareData: L } = useFloating({
 		strategy: "fixed",
@@ -6286,7 +6348,8 @@ var CONTENT_NAME$1 = "PopperContent", [PopperContentProvider, useContentContext]
 			}),
 			m && hide({
 				strategy: "referenceHidden",
-				...M
+				...M,
+				boundary: j ? M.boundary : void 0
 			})
 		]
 	}), R = y.setPlacementState;
@@ -6668,6 +6731,7 @@ var Slot = /* @__PURE__ */ createSlot("PopoverContent.RemoveScroll"), PopoverCon
 			onPointerDownOutside: l,
 			onFocusOutside: u,
 			onDismiss: () => p.onOpenChange(!1),
+			deferPointerDownOutside: !0,
 			children: /* @__PURE__ */ jsx(Content, {
 				"data-state": getState(p.open),
 				role: "dialog",
@@ -9210,34 +9274,34 @@ function DayPicker(e) {
 		...n,
 		today: l.today()
 	});
-	let { captionLayout: m, mode: h, navLayout: g, numberOfMonths: _ = 1, onDayBlur: v, onDayClick: y, onDayFocus: b, onDayKeyDown: x, onDayMouseEnter: S, onDayMouseLeave: C, onNextClick: w, onPrevClick: T, showWeekNumber: E, styles: D } = n, { formatCaption: O, formatDay: k, formatMonthDropdown: A, formatWeekNumber: j, formatWeekNumberHeader: M, formatWeekdayName: N, formatYearDropdown: P } = s, F = useCalendar(n, l), { days: I, months: L, navStart: R, navEnd: z, previousMonth: B, nextMonth: V, goToMonth: H } = F, U = createGetModifiers(I, n, R, z, l), { isSelected: W, select: G, selected: K } = useSelection(n, l) ?? {}, { blur: q, focused: J, isFocusTarget: Y, moveFocus: Z, setFocused: Q } = useFocus(n, F, U, W ?? (() => !1), l), { labelDayButton: ug, labelGridcell: dg, labelGrid: fg, labelMonthDropdown: pg, labelNav: mg, labelPrevious: hg, labelNext: gg, labelWeekday: _g, labelWeekNumber: vg, labelWeekNumberHeader: yg, labelYearDropdown: bg } = c, xg = useMemo(() => getWeekdays(l, n.ISOWeek, n.broadcastCalendar, n.today), [
+	let { captionLayout: m, mode: h, navLayout: g, numberOfMonths: _ = 1, onDayBlur: v, onDayClick: y, onDayFocus: b, onDayKeyDown: x, onDayMouseEnter: S, onDayMouseLeave: C, onNextClick: w, onPrevClick: T, showWeekNumber: E, styles: D } = n, { formatCaption: O, formatDay: k, formatMonthDropdown: A, formatWeekNumber: j, formatWeekNumberHeader: M, formatWeekdayName: N, formatYearDropdown: P } = s, F = useCalendar(n, l), { days: I, months: L, navStart: R, navEnd: z, previousMonth: B, nextMonth: V, goToMonth: H } = F, U = createGetModifiers(I, n, R, z, l), { isSelected: W, select: G, selected: K } = useSelection(n, l) ?? {}, { blur: q, focused: J, isFocusTarget: Y, moveFocus: Z, setFocused: Q } = useFocus(n, F, U, W ?? (() => !1), l), { labelDayButton: fg, labelGridcell: pg, labelGrid: mg, labelMonthDropdown: hg, labelNav: gg, labelPrevious: _g, labelNext: vg, labelWeekday: yg, labelWeekNumber: bg, labelWeekNumberHeader: xg, labelYearDropdown: Sg } = c, Cg = useMemo(() => getWeekdays(l, n.ISOWeek, n.broadcastCalendar, n.today), [
 		l,
 		n.ISOWeek,
 		n.broadcastCalendar,
 		n.today
-	]), Sg = h !== void 0 || y !== void 0, $ = useCallback(() => {
+	]), wg = h !== void 0 || y !== void 0, $ = useCallback(() => {
 		B && (H(B), T?.(B));
 	}, [
 		B,
 		H,
 		T
-	]), Cg = useCallback(() => {
+	]), Tg = useCallback(() => {
 		V && (H(V), w?.(V));
 	}, [
 		H,
 		V,
 		w
-	]), wg = useCallback((e, t) => (n) => {
+	]), Eg = useCallback((e, t) => (n) => {
 		n.preventDefault(), n.stopPropagation(), Q(e), !t.disabled && (G?.(e.date, t, n), y?.(e.date, t, n));
 	}, [
 		G,
 		y,
 		Q
-	]), Tg = useCallback((e, t) => (n) => {
+	]), Dg = useCallback((e, t) => (n) => {
 		Q(e), b?.(e.date, t, n);
-	}, [b, Q]), Eg = useCallback((e, t) => (n) => {
+	}, [b, Q]), Og = useCallback((e, t) => (n) => {
 		q(), v?.(e.date, t, n);
-	}, [q, v]), Dg = useCallback((e, t) => (i) => {
+	}, [q, v]), kg = useCallback((e, t) => (i) => {
 		let a = {
 			ArrowLeft: [i.shiftKey ? "month" : "day", n.dir === "rtl" ? "after" : "before"],
 			ArrowRight: [i.shiftKey ? "month" : "day", n.dir === "rtl" ? "before" : "after"],
@@ -9258,17 +9322,17 @@ function DayPicker(e) {
 		Z,
 		x,
 		n.dir
-	]), Og = useCallback((e, t) => (n) => {
+	]), Ag = useCallback((e, t) => (n) => {
 		S?.(e.date, t, n);
-	}, [S]), kg = useCallback((e, t) => (n) => {
+	}, [S]), jg = useCallback((e, t) => (n) => {
 		C?.(e.date, t, n);
-	}, [C]), Ag = useCallback((e, t) => (n) => {
+	}, [C]), Mg = useCallback((e, t) => (n) => {
 		let i = Number(n.target.value), a = l.setMonth(l.startOfMonth(e), i);
 		H(l.addMonths(a, -t));
-	}, [l, H]), jg = useCallback((e, t) => (n) => {
+	}, [l, H]), Ng = useCallback((e, t) => (n) => {
 		let i = Number(n.target.value), a = l.setYear(l.startOfMonth(e), i);
 		H(l.addMonths(a, -t));
-	}, [l, H]), { className: Mg, style: Ng } = useMemo(() => ({
+	}, [l, H]), { className: Pg, style: Fg } = useMemo(() => ({
 		className: [p[UI.Root], n.className].filter(Boolean).join(" "),
 		style: {
 			...D?.[UI.Root],
@@ -9279,20 +9343,20 @@ function DayPicker(e) {
 		n.className,
 		n.style,
 		D
-	]), Pg = getDataAttributes(n), Fg = (e) => {
+	]), Ig = getDataAttributes(n), Lg = (e) => {
 		let t = D?.[UI.Dropdown], n = D?.[e];
 		if (!(!t && !n)) return {
 			...t,
 			...n
 		};
-	}, Ig = useRef(null);
-	useAnimation(Ig, !!n.animate, {
+	}, Rg = useRef(null);
+	useAnimation(Rg, !!n.animate, {
 		classNames: p,
 		months: L,
 		focused: J,
 		dateLib: l
 	});
-	let Lg = {
+	let zg = {
 		dayPickerProps: n,
 		selected: K,
 		select: G,
@@ -9308,10 +9372,10 @@ function DayPicker(e) {
 		labels: c,
 		formatters: s
 	};
-	return React.createElement(dayPickerContext.Provider, { value: Lg }, React.createElement(a.Root, {
-		rootRef: n.animate ? Ig : void 0,
-		className: Mg,
-		style: Ng,
+	return React.createElement(dayPickerContext.Provider, { value: zg }, React.createElement(a.Root, {
+		rootRef: n.animate ? Rg : void 0,
+		className: Pg,
+		style: Fg,
 		dir: n.dir,
 		id: n.id,
 		lang: n.lang ?? u.code,
@@ -9320,7 +9384,7 @@ function DayPicker(e) {
 		role: n.role,
 		"aria-label": n["aria-label"],
 		"aria-labelledby": n["aria-labelledby"],
-		...Pg
+		...Ig
 	}, React.createElement(a.Months, {
 		className: p[UI.Months],
 		style: D?.[UI.Months]
@@ -9328,9 +9392,9 @@ function DayPicker(e) {
 		"data-animated-nav": n.animate ? "true" : void 0,
 		className: p[UI.Nav],
 		style: D?.[UI.Nav],
-		"aria-label": mg(),
+		"aria-label": gg(),
 		onPreviousClick: $,
-		onNextClick: Cg,
+		onNextClick: Tg,
 		previousMonth: B,
 		nextMonth: V
 	}), L.map((e, i) => {
@@ -9348,7 +9412,7 @@ function DayPicker(e) {
 			style: D?.[UI.PreviousMonthButton],
 			tabIndex: B ? void 0 : -1,
 			"aria-disabled": B ? void 0 : !0,
-			"aria-label": hg(B),
+			"aria-label": _g(B),
 			onClick: $,
 			"data-animated-button": n.animate ? "true" : void 0
 		}, React.createElement(a.Chevron, {
@@ -9369,20 +9433,20 @@ function DayPicker(e) {
 			let i = m === "dropdown" || m === "dropdown-months" ? React.createElement(a.MonthsDropdown, {
 				key: "month",
 				className: p[UI.MonthsDropdown],
-				"aria-label": pg(),
+				"aria-label": hg(),
 				disabled: !!n.disableNavigation,
-				onChange: Ag(e.date, o),
+				onChange: Mg(e.date, o),
 				options: getMonthOptions(e.date, R, z, s, l),
-				style: Fg(UI.MonthsDropdown),
+				style: Lg(UI.MonthsDropdown),
 				value: l.getMonth(e.date)
 			}) : React.createElement("span", { key: "month" }, A(e.date, l)), c = m === "dropdown" || m === "dropdown-years" ? React.createElement(a.YearsDropdown, {
 				key: "year",
 				className: p[UI.YearsDropdown],
-				"aria-label": bg(l.options),
+				"aria-label": Sg(l.options),
 				disabled: !!n.disableNavigation,
-				onChange: jg(e.date, o),
+				onChange: Ng(e.date, o),
 				options: getYearOptions(R, z, s, l, !!n.reverseYears),
-				style: Fg(UI.YearsDropdown),
+				style: Lg(UI.YearsDropdown),
 				value: l.getYear(e.date)
 			}) : React.createElement("span", { key: "year" }, P(e.date, l));
 			return l.getMonthYearOrder() === "year-first" ? [c, i] : [i, c];
@@ -9412,8 +9476,8 @@ function DayPicker(e) {
 			style: D?.[UI.NextMonthButton],
 			tabIndex: V ? void 0 : -1,
 			"aria-disabled": V ? void 0 : !0,
-			"aria-label": gg(V),
-			onClick: Cg,
+			"aria-label": vg(V),
+			onClick: Tg,
 			"data-animated-button": n.animate ? "true" : void 0
 		}, React.createElement(a.Chevron, {
 			disabled: V ? void 0 : !0,
@@ -9424,15 +9488,15 @@ function DayPicker(e) {
 			"data-animated-nav": n.animate ? "true" : void 0,
 			className: p[UI.Nav],
 			style: D?.[UI.Nav],
-			"aria-label": mg(),
+			"aria-label": gg(),
 			onPreviousClick: $,
-			onNextClick: Cg,
+			onNextClick: Tg,
 			previousMonth: B,
 			nextMonth: V
 		}), React.createElement(a.MonthGrid, {
 			role: "grid",
 			"aria-multiselectable": h === "multiple" || h === "range",
-			"aria-label": fg(e.date, l.options, l) || void 0,
+			"aria-label": mg(e.date, l.options, l) || void 0,
 			className: p[UI.MonthGrid],
 			style: D?.[UI.MonthGrid]
 		}, !n.hideWeekdays && React.createElement(a.Weekdays, {
@@ -9440,12 +9504,12 @@ function DayPicker(e) {
 			className: p[UI.Weekdays],
 			style: D?.[UI.Weekdays]
 		}, E && React.createElement(a.WeekNumberHeader, {
-			"aria-label": yg(l.options),
+			"aria-label": xg(l.options),
 			className: p[UI.WeekNumberHeader],
 			style: D?.[UI.WeekNumberHeader],
 			scope: "col"
-		}, M()), xg.map((e) => React.createElement(a.Weekday, {
-			"aria-label": _g(e, l.options, l),
+		}, M()), Cg.map((e) => React.createElement(a.Weekday, {
+			"aria-label": yg(e, l.options, l),
 			className: p[UI.Weekday],
 			key: String(e),
 			style: D?.[UI.Weekday],
@@ -9462,7 +9526,7 @@ function DayPicker(e) {
 		}, E && React.createElement(a.WeekNumber, {
 			week: e,
 			style: D?.[UI.WeekNumber],
-			"aria-label": vg(e.weekNumber, { locale: u }),
+			"aria-label": bg(e.weekNumber, { locale: u }),
 			className: p[UI.WeekNumber],
 			scope: "row",
 			role: "rowheader"
@@ -9472,7 +9536,7 @@ function DayPicker(e) {
 				let { from: e, to: t } = K;
 				o[SelectionState.range_start] = !!(e && t && l.isSameDay(i, e)), o[SelectionState.range_end] = !!(e && t && l.isSameDay(i, t)), o[SelectionState.range_middle] = rangeIncludesDate(K, i, !0, l);
 			}
-			let s = getStyleForModifiers(o, D, n.modifiersStyles), c = getClassNamesForModifiers(o, p, n.modifiersClassNames), u = !Sg && !o.hidden ? dg(i, o, l.options, l) : void 0;
+			let s = getStyleForModifiers(o, D, n.modifiersStyles), c = getClassNamesForModifiers(o, p, n.modifiersClassNames), u = !wg && !o.hidden ? pg(i, o, l.options, l) : void 0;
 			return React.createElement(a.Day, {
 				key: `${e.isoDate}_${e.displayMonthId}`,
 				day: e,
@@ -9490,7 +9554,7 @@ function DayPicker(e) {
 				"data-outside": e.outside || void 0,
 				"data-focused": o.focused || void 0,
 				"data-today": o.today || void 0
-			}, !o.hidden && Sg ? React.createElement(a.DayButton, {
+			}, !o.hidden && wg ? React.createElement(a.DayButton, {
 				className: p[UI.DayButton],
 				style: D?.[UI.DayButton],
 				type: "button",
@@ -9499,13 +9563,13 @@ function DayPicker(e) {
 				disabled: !o.focused && o.disabled || void 0,
 				"aria-disabled": o.focused && o.disabled || void 0,
 				tabIndex: Y(e) ? 0 : -1,
-				"aria-label": ug(i, o, l.options, l),
-				onClick: wg(e, o),
-				onBlur: Eg(e, o),
-				onFocus: Tg(e, o),
-				onKeyDown: Dg(e, o),
-				onMouseEnter: Og(e, o),
-				onMouseLeave: kg(e, o)
+				"aria-label": fg(i, o, l.options, l),
+				onClick: Eg(e, o),
+				onBlur: Og(e, o),
+				onFocus: Dg(e, o),
+				onKeyDown: kg(e, o),
+				onMouseEnter: Ag(e, o),
+				onMouseLeave: jg(e, o)
 			}, k(i, l.options, l)) : !o.hidden && k(e.date, l.options, l));
 		}))))));
 	})), n.footer && React.createElement(a.Footer, {
@@ -9628,12 +9692,11 @@ var DateRangePicker = React$1.forwardRef(({ value: e, defaultValue: t, onValueCh
 						children: E
 					})
 				}), /* @__PURE__ */ jsxs("div", {
-					className: "flex shrink-0 items-center gap-0.5",
+					className: "flex shrink-0 items-center gap-0.5 [&_button]:size-6",
 					children: [A ? /* @__PURE__ */ jsx(Button, {
 						variant: "ghost",
 						size: "icon",
 						"aria-label": "Clear date range",
-						className: "size-6",
 						disabled: a,
 						onClick: O,
 						children: /* @__PURE__ */ jsx(X, {

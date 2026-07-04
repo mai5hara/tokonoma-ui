@@ -3,10 +3,13 @@ import { useId, useState } from 'react';
 import { Eye, EyeOff, Search } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import type { ClosedElementProps } from '@/lib/closed-api';
 
 import { inputVariants, type FieldAppearanceProps } from './input-variants';
 
-type InputProps = Omit<React.ComponentProps<'input'>, 'size'> &
+type InputProps = ClosedElementProps<
+  Omit<React.ComponentProps<'input'>, 'size'>
+> &
   FieldAppearanceProps & {
     /**
      * `search` prepends a search icon. Other input types use the native `type`
@@ -26,7 +29,6 @@ type InputProps = Omit<React.ComponentProps<'input'>, 'size'> &
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      className,
       variant,
       rounded,
       mode = 'default',
@@ -55,10 +57,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           data-variant={variant}
           data-mode={mode}
           data-invalid={isInvalid || undefined}
-          className={cn(
-            inputVariants({ variant, invalid: isInvalid, rounded }),
-            className,
-          )}
+          className={inputVariants({ variant, invalid: isInvalid, rounded })}
         >
           {isSearch ? (
             <Search className="size-4 shrink-0 text-text-muted" aria-hidden />

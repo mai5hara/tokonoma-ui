@@ -49,15 +49,24 @@ const meta = {
       control: 'text',
       description: 'Button label or icon content.',
     },
-    className: { table: { disable: true } },
     rounded: {
       control: 'select',
       options: ['sm', 'md', 'lg', 'full'],
+    },
+    width: {
+      control: 'select',
+      options: ['auto', 'full'],
+      description: 'Horizontal span. `full` fills the container width.',
+      table: {
+        type: { summary: 'auto | full' },
+        defaultValue: { summary: 'auto' },
+      },
     },
   },
   args: {
     variant: 'flat',
     size: 'default',
+    width: 'auto',
     disabled: false,
     children: 'Button',
   },
