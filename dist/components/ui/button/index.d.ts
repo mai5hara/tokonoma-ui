@@ -18,6 +18,8 @@ type ButtonAppearanceProps = {
     size?: NonNullable<ButtonVariantProps['size']>;
     /** Corner radius. Defaults to `md`. */
     rounded?: NonNullable<ButtonVariantProps['rounded']>;
+    /** Horizontal span. `full` fills the container width. Defaults to `auto`. */
+    width?: NonNullable<ButtonVariantProps['width']>;
 };
 type ButtonProps = ClosedElementProps<React.ComponentProps<'button'>> & ButtonAppearanceProps & {
     /** Merge styles onto the single child (e.g. `<a>`) via Radix Slot. */

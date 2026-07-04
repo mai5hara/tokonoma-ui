@@ -23,6 +23,8 @@ type ButtonAppearanceProps = {
   size?: NonNullable<ButtonVariantProps['size']>;
   /** Corner radius. Defaults to `md`. */
   rounded?: NonNullable<ButtonVariantProps['rounded']>;
+  /** Horizontal span. `full` fills the container width. Defaults to `auto`. */
+  width?: NonNullable<ButtonVariantProps['width']>;
 };
 
 type ButtonProps = ClosedElementProps<React.ComponentProps<'button'>> &
@@ -37,7 +39,15 @@ type ButtonProps = ClosedElementProps<React.ComponentProps<'button'>> &
  */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { variant, size, rounded, asChild = false, type = 'button', ...props },
+    {
+      variant,
+      size,
+      rounded,
+      width,
+      asChild = false,
+      type = 'button',
+      ...props
+    },
     ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
@@ -47,7 +57,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type={asChild ? undefined : type}
         data-variant={variant}
         data-size={size}
-        className={buttonVariants({ variant, size, rounded })}
+        data-width={width}
+        className={buttonVariants({ variant, size, rounded, width })}
         {...props}
       />
     );
@@ -73,6 +84,7 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
       variant,
       rounded,
       size,
+      width,
       external,
       href,
       target,
@@ -100,8 +112,9 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         tabIndex={isDisabled ? -1 : props.tabIndex}
         data-variant={variant}
         data-size={size}
+        data-width={width}
         className={cn(
-          buttonVariants({ variant, size, rounded }),
+          buttonVariants({ variant, size, rounded, width }),
           isDisabled && 'pointer-events-none opacity-50',
         )}
         onClick={

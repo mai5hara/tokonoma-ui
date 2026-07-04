@@ -11,5 +11,6 @@ export declare const buttonVariants: (props?: ({
     variant?: "flat" | "raised" | "inset" | "accent" | "outline" | "ghost" | null | undefined;
     size?: "xs" | "sm" | "default" | "lg" | "icon" | null | undefined;
     rounded?: "sm" | "lg" | "md" | "full" | null | undefined;
+    width?: "full" | "auto" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export type ButtonVariantProps = VariantProps<typeof buttonVariants>;

@@ -1909,6 +1909,10 @@ const cx = clsx, cva = (e, t) => (n) => {
 			md: "rounded-md",
 			lg: "rounded-lg",
 			full: "rounded-full"
+		},
+		width: {
+			auto: "w-auto",
+			full: "w-full"
 		}
 	},
 	compoundVariants: [{
@@ -1919,46 +1923,51 @@ const cx = clsx, cva = (e, t) => (n) => {
 	defaultVariants: {
 		variant: "flat",
 		size: "default",
-		rounded: "md"
+		rounded: "md",
+		width: "auto"
 	}
 });
-var Button = React$1.forwardRef(({ variant: e, size: t, rounded: n, asChild: i = !1, type: a = "button", ...o }, s) => /* @__PURE__ */ jsx(i ? Slot$3 : "button", {
-	ref: s,
-	type: i ? void 0 : a,
+var Button = React$1.forwardRef(({ variant: e, size: t, rounded: n, width: i, asChild: a = !1, type: o = "button", ...s }, c) => /* @__PURE__ */ jsx(a ? Slot$3 : "button", {
+	ref: c,
+	type: a ? void 0 : o,
 	"data-variant": e,
 	"data-size": t,
+	"data-width": i,
 	className: buttonVariants({
 		variant: e,
 		size: t,
-		rounded: n
+		rounded: n,
+		width: i
 	}),
-	...o
+	...s
 }));
 Button.displayName = "Button";
-var ButtonLink = React$1.forwardRef(({ variant: e, rounded: t, size: n, external: i, href: a, target: o, rel: s, "aria-disabled": c, ...l }, u) => {
-	let d = i ?? (typeof a == "string" && /^https?:\/\//.test(a)), f = c === !0 || c === "true";
+var ButtonLink = React$1.forwardRef(({ variant: e, rounded: t, size: n, width: i, external: a, href: o, target: s, rel: c, "aria-disabled": l, ...u }, d) => {
+	let f = a ?? (typeof o == "string" && /^https?:\/\//.test(o)), p = l === !0 || l === "true";
 	return /* @__PURE__ */ jsx("a", {
-		ref: u,
-		href: f ? void 0 : a,
-		target: d ? "_blank" : o,
-		rel: d ? [
-			s,
+		ref: d,
+		href: p ? void 0 : o,
+		target: f ? "_blank" : s,
+		rel: f ? [
+			c,
 			"noopener",
 			"noreferrer"
-		].filter(Boolean).join(" ") : s,
-		"aria-disabled": c,
-		tabIndex: f ? -1 : l.tabIndex,
+		].filter(Boolean).join(" ") : c,
+		"aria-disabled": l,
+		tabIndex: p ? -1 : u.tabIndex,
 		"data-variant": e,
 		"data-size": n,
+		"data-width": i,
 		className: cn(buttonVariants({
 			variant: e,
 			size: n,
-			rounded: t
-		}), f && "pointer-events-none opacity-50"),
-		onClick: f ? (e) => {
-			e.preventDefault(), l.onClick?.(e);
-		} : l.onClick,
-		...l
+			rounded: t,
+			width: i
+		}), p && "pointer-events-none opacity-50"),
+		onClick: p ? (e) => {
+			e.preventDefault(), u.onClick?.(e);
+		} : u.onClick,
+		...u
 	});
 });
 ButtonLink.displayName = "ButtonLink";

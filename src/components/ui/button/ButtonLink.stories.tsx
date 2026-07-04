@@ -51,10 +51,20 @@ const meta = {
       control: 'text',
       description: 'Link label.',
     },
+    width: {
+      control: 'select',
+      options: ['auto', 'full'],
+      description: 'Horizontal span. `full` fills the container width.',
+      table: {
+        type: { summary: 'auto | full' },
+        defaultValue: { summary: 'auto' },
+      },
+    },
   },
   args: {
     variant: 'flat',
     size: 'default',
+    width: 'auto',
     href: '#destination',
     external: false,
     children: 'Link',
