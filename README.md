@@ -4,7 +4,7 @@ A React design system for calm, tactile interfaces — soft-depth surfaces, swit
 
 Named after _tokonoma_ (床の間), the Japanese alcove for intentional display — quiet surfaces, focused content.
 
-**Storybook:** _link coming soon_
+**Storybook:** [mai5hara.github.io/tokonoma-ui](https://mai5hara.github.io/tokonoma-ui/)
 
 **Stack:** React 19 · Radix UI · Tailwind CSS v4 · class-variance-authority (cva)
 
@@ -16,8 +16,8 @@ tokonoma-ui is a compact component library with:
 
 - **Soft depth visuals** — `flat`, `raised`, and `inset` variants with a neumorphic feel on `surface` backgrounds
 - **Switchable palettes** — `ink`, `clay`, `moss`, `mist`, and `neutral`
-- **Closed API** — appearance is controlled through documented props (`variant`, `size`, …), not ad-hoc class overrides
-- **Aligned form controls** — `Input` and `Select` share the same field styling and error treatment
+- **Closed API** — appearance is controlled through documented props (`variant`, `size`, `rounded`, …), not `className` on components
+- **Aligned form controls** — `Input`, `Select`, and `DateRangePicker` share the same field styling and error treatment
 
 Implementation follows the same patterns as [shadcn/ui](https://ui.shadcn.com/) — Radix primitives, Tailwind CSS, and cva. tokonoma-ui layers product-specific **semantic themes**, **soft-depth variants**, a **closed component API**, and **versioned distribution** to a consumer application.
 
@@ -29,10 +29,11 @@ Implementation follows the same patterns as [shadcn/ui](https://ui.shadcn.com/) 
 | ----------------------- | --------------------------------------------------------------------- |
 | `Button` / `ButtonLink` | `flat` · `raised` · `inset` · `accent` · `outline` · `ghost`          |
 | `Card`                  | `flat` · `raised` · `inset`; header, content, footer, and media slots |
-| `Input`                 | `border` · `inset` · `filled`; search and password modes              |
+| `Input`                 | `border` · `inset` · `raised` · `filled`; search and password modes   |
 | `Label`                 | Accessible labels with optional required marker                       |
 | `Modal`                 | Dialog with header, body, and footer                                  |
 | `Select`                | Single select with an `options[]` API                                 |
+| `DateRangePicker`       | Date range field with calendar popover                                |
 
 See **Storybook** for interactive examples of every variant.
 
@@ -47,7 +48,7 @@ Pin a release tag:
 ```json
 {
   "dependencies": {
-    "tokonoma-ui": "github:mai5hara/tokonoma-ui#v0.1.0"
+    "tokonoma-ui": "github:mai5hara/tokonoma-ui#v0.2.2"
   }
 }
 ```
@@ -56,7 +57,7 @@ Pin a release tag:
 pnpm install
 ```
 
-Replace `v0.1.0` with the version you need. Release notes are on [GitHub Releases](https://github.com/mai5hara/tokonoma-ui/releases).
+Replace `v0.2.2` with the version you need. Release notes are on [GitHub Releases](https://github.com/mai5hara/tokonoma-ui/releases).
 
 ### Styles & theme
 
@@ -91,13 +92,15 @@ export function App() {
 }
 ```
 
-**Peer dependencies:** `react` and `react-dom` ^19.
+**Peer dependencies:** `react` and `react-dom` ^19. Radix UI, Lucide, and other runtime dependencies are bundled in the published `dist` build.
 
 ---
 
 ## Storybook
 
-Component documentation and live previews are published via Storybook (_URL coming soon_).
+Component documentation and live previews:
+
+**https://mai5hara.github.io/tokonoma-ui/**
 
 ---
 
