@@ -18,7 +18,7 @@ export type {
   CardProps,
   CardHeaderProps,
   CardFooterProps,
-  CardFooterAlign,
+  CardContentProps,
 } from './components/ui/card';
 
 export { Input } from './components/ui/input';
