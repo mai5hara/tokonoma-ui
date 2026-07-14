@@ -48,7 +48,7 @@ Pin a release tag:
 ```json
 {
   "dependencies": {
-    "tokonoma-ui": "github:mai5hara/tokonoma-ui#v0.2.2"
+    "tokonoma-ui": "github:mai5hara/tokonoma-ui#v0.2.4"
   }
 }
 ```
@@ -57,7 +57,7 @@ Pin a release tag:
 pnpm install
 ```
 
-Replace `v0.2.2` with the version you need. Release notes are on [GitHub Releases](https://github.com/mai5hara/tokonoma-ui/releases).
+Replace `v0.2.4` with the version you need. Release notes are on [GitHub Releases](https://github.com/mai5hara/tokonoma-ui/releases).
 
 ### Styles & theme
 

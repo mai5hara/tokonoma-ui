@@ -1987,11 +1987,33 @@ const cardVariants = cva("group/card flex flex-col overflow-hidden rounded-lg te
 		variant: "flat",
 		size: "default"
 	}
-}), cardFooterAlign = {
-	end: "justify-end",
-	center: "justify-center",
-	start: "justify-start"
-};
+}), cardSectionVariants = cva("flex min-w-0 px-6 group-data-[size=sm]/card:px-4", {
+	variants: {
+		direction: {
+			col: "flex-col",
+			row: "flex-row flex-wrap items-center"
+		},
+		gap: {
+			0: "gap-0",
+			1: "gap-1",
+			2: "gap-2",
+			3: "gap-3",
+			4: "gap-4",
+			6: "gap-6",
+			8: "gap-8"
+		},
+		align: {
+			start: "justify-start",
+			center: "justify-center",
+			end: "justify-end"
+		}
+	},
+	defaultVariants: {
+		direction: "col",
+		gap: "0",
+		align: "start"
+	}
+});
 var cardSectionX = "px-6 group-data-[size=sm]/card:px-4";
 function Card({ variant: e, size: t, ...n }) {
 	return /* @__PURE__ */ jsx("div", {
@@ -2036,16 +2058,28 @@ function CardDescription(e) {
 		...e
 	});
 }
-function CardContent(e) {
+function CardContent({ direction: e, gap: t, ...n }) {
 	return /* @__PURE__ */ jsx("div", {
-		className: cardSectionX,
-		...e
+		"data-direction": e,
+		"data-gap": t,
+		className: cardSectionVariants({
+			direction: e,
+			gap: t
+		}),
+		...n
 	});
 }
-function CardFooter({ align: e = "start", ...t }) {
+function CardFooter({ direction: e = "row", gap: t = "3", align: n, ...i }) {
 	return /* @__PURE__ */ jsx("div", {
-		className: `flex flex-wrap items-center gap-3 ${cardSectionX} ${cardFooterAlign[e]}`,
-		...t
+		"data-direction": e,
+		"data-gap": t,
+		"data-align": n,
+		className: cardSectionVariants({
+			direction: e,
+			gap: t,
+			align: n
+		}),
+		...i
 	});
 }
 function CardMedia(e) {
