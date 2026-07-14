@@ -18,6 +18,7 @@ const meta = {
   subcomponents: {
     CardHeader,
     CardTitle,
+    CardContent,
     CardFooter,
   },
   tags: ['autodocs'],

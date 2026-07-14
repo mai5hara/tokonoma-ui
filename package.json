@@ -1,7 +1,7 @@
 {
   "name": "tokonoma-ui",
   "private": false,
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "React design system with soft-depth surfaces, switchable palettes, and a closed component API.",
   "license": "MIT",
   "repository": {

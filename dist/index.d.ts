@@ -1,7 +1,7 @@
 export { Button, ButtonLink } from './components/ui/button';
 export type { ButtonProps, ButtonLinkProps, ButtonVariantProps, } from './components/ui/button';
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardMedia, } from './components/ui/card';
-export type { CardProps, CardHeaderProps, CardFooterProps, CardFooterAlign, } from './components/ui/card';
+export type { CardProps, CardHeaderProps, CardFooterProps, CardContentProps, } from './components/ui/card';
 export { Input } from './components/ui/input';
 export type { InputProps, InputVariantProps } from './components/ui/input';
 export { Label } from './components/ui/label';

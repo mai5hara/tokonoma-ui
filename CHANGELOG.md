@@ -1,3 +1,7 @@
+## 0.2.4
+
+- Add `direction` and `gap` layout props to `CardContent` and `CardFooter` (shared section variants)
+
 ## 0.2.3
 
 - Add MIT LICENSE and update README for public release

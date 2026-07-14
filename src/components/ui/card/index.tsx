@@ -3,10 +3,10 @@ import * as React from 'react';
 import type { ClosedElementProps } from '@/lib/closed-api';
 
 import {
-  cardFooterAlign,
+  cardSectionVariants,
   cardVariants,
   type CardAppearanceProps,
-  type CardFooterAlign,
+  type CardSectionVariantProps,
 } from './card-variants';
 
 const cardSectionX = 'px-6 group-data-[size=sm]/card:px-4';
@@ -70,19 +70,53 @@ function CardDescription(props: ClosedElementProps<React.ComponentProps<'p'>>) {
   return <p className="text-sm text-text-muted" {...props} />;
 }
 
-function CardContent(props: ClosedElementProps<React.ComponentProps<'div'>>) {
-  return <div className={cardSectionX} {...props} />;
+type CardContentProps = ClosedElementProps<React.ComponentProps<'div'>> & {
+  /** Flex direction for children. Defaults to `col`. */
+  direction?: NonNullable<CardSectionVariantProps['direction']>;
+  /**
+   * Gap between children (Tailwind scale). Defaults to `0`.
+   * Maps to `gap-0` … `gap-8`.
+   */
+  gap?: NonNullable<CardSectionVariantProps['gap']>;
+};
+
+/** Main body slot. Use `direction` and `gap` to lay out multiple children. */
+function CardContent({ direction, gap, ...props }: CardContentProps) {
+  return (
+    <div
+      data-direction={direction}
+      data-gap={gap}
+      className={cardSectionVariants({ direction, gap })}
+      {...props}
+    />
+  );
 }
 
 type CardFooterProps = ClosedElementProps<React.ComponentProps<'div'>> & {
-  /** Horizontal alignment of footer content. */
-  align?: CardFooterAlign;
+  /** Flex direction for children. Defaults to `row`. */
+  direction?: NonNullable<CardSectionVariantProps['direction']>;
+  /**
+   * Gap between children (Tailwind scale). Defaults to `3`.
+   * Maps to `gap-0` … `gap-8`.
+   */
+  gap?: NonNullable<CardSectionVariantProps['gap']>;
+  /** Main-axis alignment when `direction="row"`. Defaults to `start`. */
+  align?: NonNullable<CardSectionVariantProps['align']>;
 };
 
-function CardFooter({ align = 'start', ...props }: CardFooterProps) {
+/** Footer slot for actions. Defaults to a horizontal row with `gap="3"`. */
+function CardFooter({
+  direction = 'row',
+  gap = '3',
+  align,
+  ...props
+}: CardFooterProps) {
   return (
     <div
-      className={`flex flex-wrap items-center gap-3 ${cardSectionX} ${cardFooterAlign[align]}`}
+      data-direction={direction}
+      data-gap={gap}
+      data-align={align}
+      className={cardSectionVariants({ direction, gap, align })}
       {...props}
     />
   );
@@ -110,7 +144,7 @@ export {
 export type {
   CardProps,
   CardHeaderProps,
+  CardContentProps,
   CardFooterProps,
   CardAppearanceProps,
 };
-export type { CardFooterAlign } from './card-variants';

@@ -8,12 +8,13 @@ export declare const cardVariants: (props?: ({
     variant?: "flat" | "raised" | "inset" | null | undefined;
     size?: "sm" | "default" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
-export declare const cardFooterAlign: {
-    readonly end: "justify-end";
-    readonly center: "justify-center";
-    readonly start: "justify-start";
-};
+export declare const cardSectionVariants: (props?: ({
+    direction?: "col" | "row" | null | undefined;
+    gap?: "0" | "1" | "2" | "3" | "4" | "6" | "8" | null | undefined;
+    align?: "center" | "start" | "end" | null | undefined;
+} & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export type CardVariantProps = VariantProps<typeof cardVariants>;
+export type CardSectionVariantProps = VariantProps<typeof cardSectionVariants>;
 export type CardAppearanceProps = {
     /**
      * Surface style.
@@ -27,4 +28,3 @@ export type CardAppearanceProps = {
      */
     size?: NonNullable<CardVariantProps['size']>;
 };
-export type CardFooterAlign = keyof typeof cardFooterAlign;
