@@ -54,6 +54,15 @@ export type {
   SelectVariantProps,
 } from './components/ui/select';
 
+export { RadioGroup, Radio } from './components/ui/radio';
+export type {
+  RadioGroupProps,
+  RadioProps,
+  RadioAppearanceProps,
+  RadioItemVariantProps,
+  RadioGroupVariantProps,
+} from './components/ui/radio';
+
 export { DateRangePicker } from './components/ui/date-range-picker';
 export type {
   DateRangePickerProps,
