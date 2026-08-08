@@ -1,3 +1,17 @@
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from './components/ui/accordion';
+export type {
+  AccordionProps,
+  AccordionItemProps,
+  AccordionTriggerProps,
+  AccordionContentProps,
+  AccordionAppearanceProps,
+} from './components/ui/accordion';
+
 export { Button, ButtonLink } from './components/ui/button';
 export type {
   ButtonProps,
