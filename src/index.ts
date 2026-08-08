@@ -61,6 +61,12 @@ export type {
   DateRangePickerVariantProps,
 } from './components/ui/date-range-picker';
 
+export { PhotoUpload } from './components/ui/photo-upload';
+export type {
+  PhotoUploadProps,
+  PhotoUploadVariantProps,
+} from './components/ui/photo-upload';
+
 export {
   THEME_IDS,
   DEFAULT_THEME,

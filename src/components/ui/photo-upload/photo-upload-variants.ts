@@ -1,21 +1,17 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const fieldTransition =
+const photoUploadTransition =
   'transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none';
 
 /**
- * Shared field chrome for Input, Select, DateRangePicker, PhotoUpload, and future controls.
- *
- * border — neutral bordered surface-elevated (default).
- * inset — soft inset depth on surface.
- * filled — borderless fill on surface.
+ * Shared upload chrome — mirrors field variants with a taller drop zone.
  */
-export const fieldVariants = cva(
+export const photoUploadVariants = cva(
   [
-    'flex h-9 w-full min-w-0 items-center gap-2 px-3 text-sm text-text-primary',
+    'relative flex w-full min-w-0 overflow-hidden text-sm text-text-primary',
     'focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-surface',
     'has-disabled:cursor-not-allowed has-disabled:opacity-50',
-    fieldTransition,
+    photoUploadTransition,
   ],
   {
     variants: {
@@ -30,7 +26,7 @@ export const fieldVariants = cva(
           'focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40',
         ],
         filled:
-          'border border-transparent bg-surface text-text-primary hover:bg-surface-elevated focus-within:ring-ring/40',
+          'border border-transparent bg-surface hover:bg-surface-elevated focus-within:ring-ring/40',
       },
       invalid: {
         true: '',
@@ -41,6 +37,10 @@ export const fieldVariants = cva(
         md: 'rounded-md',
         lg: 'rounded-lg',
         full: 'rounded-full',
+      },
+      empty: {
+        true: 'aspect-[5/3] items-center justify-center px-3 py-3',
+        false: 'aspect-[5/3] p-0',
       },
     },
     compoundVariants: [
@@ -58,6 +58,12 @@ export const fieldVariants = cva(
       },
       {
         invalid: true,
+        variant: 'raised',
+        class:
+          'border border-error focus-within:border-error focus-within:ring-error/40',
+      },
+      {
+        invalid: true,
         variant: 'filled',
         class:
           'border border-error hover:bg-surface focus-within:ring-error/40',
@@ -67,20 +73,9 @@ export const fieldVariants = cva(
       variant: 'border',
       invalid: false,
       rounded: 'md',
+      empty: true,
     },
   },
 );
 
-export type FieldVariantProps = VariantProps<typeof fieldVariants>;
-
-export type FieldAppearanceProps = {
-  /**
-   * Field chrome style (shared with Select).
-   * - `border` — neutral bordered `surface-elevated` (default).
-   * - `inset` — soft inset depth on `surface`.
-   * - `filled` — borderless fill on `surface`.
-   */
-  variant?: NonNullable<FieldVariantProps['variant']>;
-  /** Corner radius. Defaults to `md`. */
-  rounded?: NonNullable<FieldVariantProps['rounded']>;
-};
+export type PhotoUploadVariantProps = VariantProps<typeof photoUploadVariants>;
