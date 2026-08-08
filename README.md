@@ -31,6 +31,10 @@ Implementation follows the same patterns as [shadcn/ui](https://ui.shadcn.com/) 
 | `Card`                  | `flat` · `raised` · `inset`; header, content, footer, and media slots |
 | `Input`                 | `border` · `inset` · `raised` · `filled`; search and password modes   |
 | `Label`                 | Accessible labels with optional required marker                       |
+| `Field`                 | Layout wrapper for `vertical` / `horizontal` stacks                   |
+| `RadioGroup` / `Radio`  | `plain` · `border` · `filled` · `inset`                               |
+| `PhotoUpload`           | Single-image upload with full-width preview                           |
+| `Accordion`             | `border` · `underline` · `filled` · `accent`; chevron / plus          |
 | `Modal`                 | Dialog with header, body, and footer                                  |
 | `Select`                | Single select with an `options[]` API                                 |
 | `DateRangePicker`       | Date range field with calendar popover                                |
@@ -48,7 +52,7 @@ Pin a release tag:
 ```json
 {
   "dependencies": {
-    "tokonoma-ui": "github:mai5hara/tokonoma-ui#v0.2.4"
+    "tokonoma-ui": "github:mai5hara/tokonoma-ui#v0.2.5"
   }
 }
 ```
@@ -57,7 +61,7 @@ Pin a release tag:
 pnpm install
 ```
 
-Replace `v0.2.4` with the version you need. Release notes are on [GitHub Releases](https://github.com/mai5hara/tokonoma-ui/releases).
+Replace `v0.2.5` with the version you need. Release notes are on [GitHub Releases](https://github.com/mai5hara/tokonoma-ui/releases).
 
 ### Styles & theme
 

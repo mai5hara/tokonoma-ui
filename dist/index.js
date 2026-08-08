@@ -3,82 +3,167 @@ import React, { createContext, createElement, forwardRef, useCallback, useContex
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import * as ReactDOM$1 from "react-dom";
 import ReactDOM from "react-dom";
-var __defProp = Object.defineProperty, __export = (e) => {
+var __defProp$18 = Object.defineProperty, __export = (e) => {
 	let t = {};
-	for (var n in e) __defProp(t, n, {
+	for (var n in e) __defProp$18(t, n, {
 		get: e[n],
 		enumerable: !0
 	});
 	return t;
-};
-function setRef$2(e, t) {
+}, __defProp$17 = Object.defineProperty, __name$17 = (e, t) => __defProp$17(e, "name", {
+	value: t,
+	configurable: !0
+});
+/* @__NO_SIDE_EFFECTS__ */
+function createContext2$1(t, n) {
+	let i = React$1.createContext(n);
+	i.displayName = t + "Context";
+	let a = /* @__PURE__ */ __name$17((t) => {
+		let { children: n, ...a } = t, o = React$1.useMemo(() => a, Object.values(a));
+		return /* @__PURE__ */ jsx(i.Provider, {
+			value: o,
+			children: n
+		});
+	}, "Provider");
+	a.displayName = t + "Provider";
+	function o(a, o = {}) {
+		let { optional: s = !1 } = o, c = React$1.useContext(i);
+		if (c) return c;
+		if (n !== void 0) return n;
+		if (!s) throw Error(`\`${a}\` must be used within \`${t}\``);
+	}
+	return __name$17(o, "useContext"), [a, o];
+}
+__name$17(createContext2$1, "createContext");
+/* @__NO_SIDE_EFFECTS__ */
+function createContextScope$1(t, n = []) {
+	let i = [];
+	function a(n, a) {
+		let o = React$1.createContext(a);
+		o.displayName = n + "Context";
+		let s = i.length;
+		i = [...i, a];
+		let c = /* @__PURE__ */ __name$17((n) => {
+			let { scope: i, children: a, ...c } = n, l = i?.[t]?.[s] || o, u = React$1.useMemo(() => c, Object.values(c));
+			return /* @__PURE__ */ jsx(l.Provider, {
+				value: u,
+				children: a
+			});
+		}, "Provider");
+		c.displayName = n + "Provider";
+		function l(i, c, l = {}) {
+			let { optional: u = !1 } = l, d = c?.[t]?.[s] || o, f = React$1.useContext(d);
+			if (f) return f;
+			if (a !== void 0) return a;
+			if (!u) throw Error(`\`${i}\` must be used within \`${n}\``);
+		}
+		return __name$17(l, "useContext"), [c, l];
+	}
+	__name$17(a, "createContext");
+	let o = /* @__PURE__ */ __name$17(() => {
+		let n = i.map((t) => React$1.createContext(t));
+		return /* @__PURE__ */ __name$17(function(i) {
+			let a = i?.[t] || n;
+			return React$1.useMemo(() => ({ [`__scope${t}`]: {
+				...i,
+				[t]: a
+			} }), [i, a]);
+		}, "useScope");
+	}, "createScope");
+	return o.scopeName = t, [a, composeContextScopes$2(o, ...n)];
+}
+__name$17(createContextScope$1, "createContextScope");
+function composeContextScopes$2(...t) {
+	let n = t[0];
+	if (t.length === 1) return n;
+	let i = /* @__PURE__ */ __name$17(() => {
+		let i = t.map((e) => ({
+			useScope: e(),
+			scopeName: e.scopeName
+		}));
+		return /* @__PURE__ */ __name$17(function(t) {
+			let a = i.reduce((e, { useScope: n, scopeName: i }) => {
+				let a = n(t)[`__scope${i}`];
+				return {
+					...e,
+					...a
+				};
+			}, {});
+			return React$1.useMemo(() => ({ [`__scope${n.scopeName}`]: a }), [a]);
+		}, "useComposedScopes");
+	}, "createScope");
+	return i.scopeName = n.scopeName, i;
+}
+__name$17(composeContextScopes$2, "composeContextScopes");
+var __defProp$16 = Object.defineProperty, __name$16 = (e, t) => __defProp$16(e, "name", {
+	value: t,
+	configurable: !0
+});
+function setRef$4(e, t) {
 	if (typeof e == "function") return e(t);
 	e != null && (e.current = t);
 }
-function composeRefs$1(...e) {
+__name$16(setRef$4, "setRef");
+function composeRefs$2(...e) {
 	return (t) => {
 		let n = !1, i = e.map((e) => {
-			let i = setRef$2(e, t);
+			let i = setRef$4(e, t);
 			return !n && typeof i == "function" && (n = !0), i;
 		});
 		if (n) return () => {
 			for (let t = 0; t < i.length; t++) {
 				let n = i[t];
-				typeof n == "function" ? n() : setRef$2(e[t], null);
+				typeof n == "function" ? n() : setRef$4(e[t], null);
 			}
 		};
 	};
 }
+__name$16(composeRefs$2, "composeRefs");
 function useComposedRefs$1(...t) {
-	return React$1.useCallback(composeRefs$1(...t), t);
+	return React$1.useCallback(composeRefs$2(...t), t);
 }
-var REACT_LAZY_TYPE$1 = Symbol.for("react.lazy"), use$1 = React$1.use;
-function isPromiseLike$1(e) {
-	return typeof e == "object" && !!e && "then" in e;
-}
-function isLazyComponent$1(e) {
-	return typeof e == "object" && !!e && "$$typeof" in e && e.$$typeof === REACT_LAZY_TYPE$1 && "_payload" in e && isPromiseLike$1(e._payload);
-}
+__name$16(useComposedRefs$1, "useComposedRefs");
+var __defProp$15 = Object.defineProperty, __name$15 = (e, t) => __defProp$15(e, "name", {
+	value: t,
+	configurable: !0
+});
 /* @__NO_SIDE_EFFECTS__ */
-function createSlot$2(t) {
-	let n = /* @__PURE__ */ createSlotClone$1(t), i = React$1.forwardRef((t, i) => {
-		let { children: a, ...o } = t;
-		isLazyComponent$1(a) && typeof use$1 == "function" && (a = use$1(a._payload));
-		let s = React$1.Children.toArray(a), c = s.find(isSlottable$2);
-		if (c) {
-			let t = c.props.children, a = s.map((n) => n === c ? React$1.Children.count(t) > 1 ? React$1.Children.only(null) : React$1.isValidElement(t) ? t.props.children : null : n);
-			return /* @__PURE__ */ jsx(n, {
-				...o,
-				ref: i,
-				children: React$1.isValidElement(t) ? React$1.cloneElement(t, void 0, a) : null
-			});
+function createSlot$3(t) {
+	let n = React$1.forwardRef((n, i) => {
+		let { children: a, ...o } = n, s = null, c = !1, l = [];
+		isLazyComponent$2(a) && typeof use$2 == "function" && (a = use$2(a._payload)), React$1.Children.forEach(a, (e) => {
+			if (isSlottable$3(e)) {
+				c = !0;
+				let t = e, n = "child" in t.props ? t.props.child : t.props.children;
+				isLazyComponent$2(n) && typeof use$2 == "function" && (n = use$2(n._payload)), s = getSlottableElementFromSlottable$1(t, n), l.push(s?.props?.children);
+			} else l.push(e);
+		}), s ? s = React$1.cloneElement(s, void 0, l) : !c && React$1.Children.count(a) === 1 && React$1.isValidElement(a) && (s = a);
+		let u = s ? getElementRef$6(s) : void 0, d = useComposedRefs$1(i, u);
+		if (!s) {
+			if (a || a === 0) throw Error(c ? createSlottableError$1(t) : createSlotError$1(t));
+			return a;
 		}
-		return /* @__PURE__ */ jsx(n, {
-			...o,
-			ref: i,
-			children: a
-		});
+		let f = mergeProps$3(o, s.props ?? {});
+		return s.type !== React$1.Fragment && (f.ref = i ? d : u), React$1.cloneElement(s, f);
 	});
-	return i.displayName = `${t}.Slot`, i;
+	return n.displayName = `${t}.Slot`, n;
 }
-var Slot$3 = /* @__PURE__ */ createSlot$2("Slot");
+__name$15(createSlot$3, "createSlot");
+var SLOTTABLE_IDENTIFIER$3 = Symbol.for("radix.slottable");
 /* @__NO_SIDE_EFFECTS__ */
-function createSlotClone$1(t) {
-	let n = React$1.forwardRef((t, n) => {
-		let { children: i, ...a } = t;
-		if (isLazyComponent$1(i) && typeof use$1 == "function" && (i = use$1(i._payload)), React$1.isValidElement(i)) {
-			let t = getElementRef$4(i), o = mergeProps$2(a, i.props);
-			return i.type !== React$1.Fragment && (o.ref = n ? composeRefs$1(n, t) : t), React$1.cloneElement(i, o);
-		}
-		return React$1.Children.count(i) > 1 ? React$1.Children.only(null) : null;
-	});
-	return n.displayName = `${t}.SlotClone`, n;
+function createSlottable(e) {
+	let t = /* @__PURE__ */ __name$15((e) => "child" in e ? e.children(e.child) : e.children, "Slottable");
+	return t.displayName = `${e}.Slottable`, t.__radixId = SLOTTABLE_IDENTIFIER$3, t;
 }
-var SLOTTABLE_IDENTIFIER$2 = Symbol("radix.slottable");
-function isSlottable$2(t) {
-	return React$1.isValidElement(t) && typeof t.type == "function" && "__radixId" in t.type && t.type.__radixId === SLOTTABLE_IDENTIFIER$2;
-}
-function mergeProps$2(e, t) {
+__name$15(createSlottable, "createSlottable");
+var getSlottableElementFromSlottable$1 = /* @__PURE__ */ __name$15((t, n) => {
+	if ("child" in t.props) {
+		let n = t.props.child;
+		return React$1.isValidElement(n) ? React$1.cloneElement(n, void 0, t.props.children(n.props.children)) : null;
+	}
+	return React$1.isValidElement(n) ? n : null;
+}, "getSlottableElementFromSlottable");
+function mergeProps$3(e, t) {
 	let n = { ...t };
 	for (let i in t) {
 		let a = e[i], o = t[i];
@@ -95,10 +180,1087 @@ function mergeProps$2(e, t) {
 		...n
 	};
 }
-function getElementRef$4(e) {
+__name$15(mergeProps$3, "mergeProps");
+function getElementRef$6(e) {
 	let t = Object.getOwnPropertyDescriptor(e.props, "ref")?.get, n = t && "isReactWarning" in t && t.isReactWarning;
 	return n ? e.ref : (t = Object.getOwnPropertyDescriptor(e, "ref")?.get, n = t && "isReactWarning" in t && t.isReactWarning, n ? e.props.ref : e.props.ref || e.ref);
 }
+__name$15(getElementRef$6, "getElementRef");
+function isSlottable$3(t) {
+	return React$1.isValidElement(t) && typeof t.type == "function" && "__radixId" in t.type && t.type.__radixId === SLOTTABLE_IDENTIFIER$3;
+}
+__name$15(isSlottable$3, "isSlottable");
+var REACT_LAZY_TYPE$2 = Symbol.for("react.lazy");
+function isLazyComponent$2(e) {
+	return typeof e == "object" && !!e && "$$typeof" in e && e.$$typeof === REACT_LAZY_TYPE$2 && "_payload" in e && isPromiseLike$2(e._payload);
+}
+__name$15(isLazyComponent$2, "isLazyComponent");
+function isPromiseLike$2(e) {
+	return typeof e == "object" && !!e && "then" in e;
+}
+__name$15(isPromiseLike$2, "isPromiseLike");
+var createSlotError$1 = /* @__PURE__ */ __name$15((e) => `${e} failed to slot onto its children. Expected a single React element child or \`Slottable\`.`, "createSlotError"), createSlottableError$1 = /* @__PURE__ */ __name$15((e) => `${e} failed to slot onto its \`Slottable\`. Expected \`Slottable\` to receive a single React element child.`, "createSlottableError"), use$2 = React$1.use, __defProp$14 = Object.defineProperty, __name$14 = (e, t) => __defProp$14(e, "name", {
+	value: t,
+	configurable: !0
+});
+/* @__NO_SIDE_EFFECTS__ */
+function createCollection(t) {
+	let n = t + "CollectionProvider", [i, a] = /* @__PURE__ */ createContextScope$1(n), [o, s] = i(n, {
+		collectionRef: { current: null },
+		itemMap: /* @__PURE__ */ new Map()
+	}), c = /* @__PURE__ */ __name$14((t) => {
+		let { scope: n, children: i } = t, a = React$1.useRef(null), s = React$1.useRef(/* @__PURE__ */ new Map()).current;
+		return /* @__PURE__ */ jsx(o, {
+			scope: n,
+			itemMap: s,
+			collectionRef: a,
+			children: i
+		});
+	}, "CollectionProvider");
+	c.displayName = n;
+	let l = t + "CollectionSlot", u = /* @__PURE__ */ createSlot$3(l), d = React$1.forwardRef((e, t) => {
+		let { scope: n, children: i } = e;
+		return /* @__PURE__ */ jsx(u, {
+			ref: useComposedRefs$1(t, s(l, n).collectionRef),
+			children: i
+		});
+	});
+	d.displayName = l;
+	let f = t + "CollectionItemSlot", p = "data-radix-collection-item", m = /* @__PURE__ */ createSlot$3(f), g = React$1.forwardRef((t, n) => {
+		let { scope: i, children: a, ...o } = t, c = React$1.useRef(null), l = useComposedRefs$1(n, c), u = s(f, i);
+		return React$1.useEffect(() => (u.itemMap.set(c, {
+			ref: c,
+			...o
+		}), () => void u.itemMap.delete(c))), /* @__PURE__ */ jsx(m, {
+			[p]: "",
+			ref: l,
+			children: a
+		});
+	});
+	g.displayName = f;
+	function _(n) {
+		let i = s(t + "CollectionConsumer", n);
+		return React$1.useCallback(() => {
+			let e = i.collectionRef.current;
+			if (!e) return [];
+			let t = Array.from(e.querySelectorAll(`[${p}]`));
+			return Array.from(i.itemMap.values()).sort((e, n) => t.indexOf(e.ref.current) - t.indexOf(n.ref.current));
+		}, [i.collectionRef, i.itemMap]);
+	}
+	return __name$14(_, "useCollection"), [
+		{
+			Provider: c,
+			Slot: d,
+			ItemSlot: g
+		},
+		_,
+		a
+	];
+}
+__name$14(createCollection, "createCollection");
+var __instanciated = /* @__PURE__ */ new WeakMap(), OrderedDict = class e extends Map {
+	static #e = __name$14(this, "OrderedDict");
+	#t;
+	constructor(e) {
+		super(e), this.#t = [...super.keys()], __instanciated.set(this, !0);
+	}
+	set(e, t) {
+		return __instanciated.get(this) && (this.has(e) ? this.#t[this.#t.indexOf(e)] = e : this.#t.push(e)), super.set(e, t), this;
+	}
+	insert(e, t, n) {
+		let i = this.has(t), a = this.#t.length, o = toSafeInteger(e), s = o >= 0 ? o : a + o, c = s < 0 || s >= a ? -1 : s;
+		if (c === this.size || i && c === this.size - 1 || c === -1) return this.set(t, n), this;
+		let l = this.size + (i ? 0 : 1);
+		o < 0 && s++;
+		let u = [...this.#t], d, f = !1;
+		for (let e = s; e < l; e++) if (s === e) {
+			let a = u[e];
+			u[e] === t && (a = u[e + 1]), i && this.delete(t), d = this.get(a), this.set(t, n);
+		} else {
+			!f && u[e - 1] === t && (f = !0);
+			let n = u[f ? e : e - 1], i = d;
+			d = this.get(n), this.delete(n), this.set(n, i);
+		}
+		return this;
+	}
+	with(t, n, i) {
+		let a = new e(this);
+		return a.insert(t, n, i), a;
+	}
+	before(e) {
+		let t = this.#t.indexOf(e) - 1;
+		if (!(t < 0)) return this.entryAt(t);
+	}
+	setBefore(e, t, n) {
+		let i = this.#t.indexOf(e);
+		return i === -1 ? this : this.insert(i, t, n);
+	}
+	after(e) {
+		let t = this.#t.indexOf(e);
+		if (t = t === -1 || t === this.size - 1 ? -1 : t + 1, t !== -1) return this.entryAt(t);
+	}
+	setAfter(e, t, n) {
+		let i = this.#t.indexOf(e);
+		return i === -1 ? this : this.insert(i + 1, t, n);
+	}
+	first() {
+		return this.entryAt(0);
+	}
+	last() {
+		return this.entryAt(-1);
+	}
+	clear() {
+		return this.#t = [], super.clear();
+	}
+	delete(e) {
+		let t = super.delete(e);
+		return t && this.#t.splice(this.#t.indexOf(e), 1), t;
+	}
+	deleteAt(e) {
+		let t = this.keyAt(e);
+		return t === void 0 ? !1 : this.delete(t);
+	}
+	at(e) {
+		let t = at(this.#t, e);
+		if (t !== void 0) return this.get(t);
+	}
+	entryAt(e) {
+		let t = at(this.#t, e);
+		if (t !== void 0) return [t, this.get(t)];
+	}
+	indexOf(e) {
+		return this.#t.indexOf(e);
+	}
+	keyAt(e) {
+		return at(this.#t, e);
+	}
+	from(e, t) {
+		let n = this.indexOf(e);
+		if (n === -1) return;
+		let i = n + t;
+		return i < 0 && (i = 0), i >= this.size && (i = this.size - 1), this.at(i);
+	}
+	keyFrom(e, t) {
+		let n = this.indexOf(e);
+		if (n === -1) return;
+		let i = n + t;
+		return i < 0 && (i = 0), i >= this.size && (i = this.size - 1), this.keyAt(i);
+	}
+	find(e, t) {
+		let n = 0;
+		for (let i of this) {
+			if (Reflect.apply(e, t, [
+				i,
+				n,
+				this
+			])) return i;
+			n++;
+		}
+	}
+	findIndex(e, t) {
+		let n = 0;
+		for (let i of this) {
+			if (Reflect.apply(e, t, [
+				i,
+				n,
+				this
+			])) return n;
+			n++;
+		}
+		return -1;
+	}
+	filter(t, n) {
+		let i = [], a = 0;
+		for (let e of this) Reflect.apply(t, n, [
+			e,
+			a,
+			this
+		]) && i.push(e), a++;
+		return new e(i);
+	}
+	map(t, n) {
+		let i = [], a = 0;
+		for (let e of this) i.push([e[0], Reflect.apply(t, n, [
+			e,
+			a,
+			this
+		])]), a++;
+		return new e(i);
+	}
+	reduce(...e) {
+		let [t, n] = e, i = 0, a = n ?? this.at(0);
+		for (let n of this) a = i === 0 && e.length === 1 ? n : Reflect.apply(t, this, [
+			a,
+			n,
+			i,
+			this
+		]), i++;
+		return a;
+	}
+	reduceRight(...e) {
+		let [t, n] = e, i = n ?? this.at(-1);
+		for (let n = this.size - 1; n >= 0; n--) {
+			let a = this.at(n);
+			i = n === this.size - 1 && e.length === 1 ? a : Reflect.apply(t, this, [
+				i,
+				a,
+				n,
+				this
+			]);
+		}
+		return i;
+	}
+	toSorted(t) {
+		return new e([...this.entries()].sort(t));
+	}
+	toReversed() {
+		let t = new e();
+		for (let e = this.size - 1; e >= 0; e--) {
+			let n = this.keyAt(e), i = this.get(n);
+			t.set(n, i);
+		}
+		return t;
+	}
+	toSpliced(...t) {
+		let n = [...this.entries()];
+		return n.splice(...t), new e(n);
+	}
+	slice(t, n) {
+		let i = new e(), a = this.size - 1;
+		if (t === void 0) return i;
+		t < 0 && (t += this.size), n !== void 0 && n > 0 && (a = n - 1);
+		for (let e = t; e <= a; e++) {
+			let t = this.keyAt(e), n = this.get(t);
+			i.set(t, n);
+		}
+		return i;
+	}
+	every(e, t) {
+		let n = 0;
+		for (let i of this) {
+			if (!Reflect.apply(e, t, [
+				i,
+				n,
+				this
+			])) return !1;
+			n++;
+		}
+		return !0;
+	}
+	some(e, t) {
+		let n = 0;
+		for (let i of this) {
+			if (Reflect.apply(e, t, [
+				i,
+				n,
+				this
+			])) return !0;
+			n++;
+		}
+		return !1;
+	}
+};
+function at(e, t) {
+	if ("at" in Array.prototype) return Array.prototype.at.call(e, t);
+	let n = toSafeIndex(e, t);
+	return n === -1 ? void 0 : e[n];
+}
+__name$14(at, "at");
+function toSafeIndex(e, t) {
+	let n = e.length, i = toSafeInteger(t), a = i >= 0 ? i : n + i;
+	return a < 0 || a >= n ? -1 : a;
+}
+__name$14(toSafeIndex, "toSafeIndex");
+function toSafeInteger(e) {
+	return e !== e || e === 0 ? 0 : Math.trunc(e);
+}
+__name$14(toSafeInteger, "toSafeInteger");
+/* @__NO_SIDE_EFFECTS__ */
+function createCollection2(t) {
+	let n = t + "CollectionProvider", [i, a] = /* @__PURE__ */ createContextScope$1(n), [o, s] = i(n, {
+		collectionElement: null,
+		collectionRef: { current: null },
+		collectionRefObject: { current: null },
+		itemMap: new OrderedDict(),
+		setItemMap: /* @__PURE__ */ __name$14(() => void 0, "setItemMap")
+	}), c = /* @__PURE__ */ __name$14(({ state: e, ...t }) => e ? /* @__PURE__ */ jsx(u, {
+		...t,
+		state: e
+	}) : /* @__PURE__ */ jsx(l, { ...t }), "CollectionProvider");
+	c.displayName = n;
+	let l = /* @__PURE__ */ __name$14((e) => {
+		let t = v();
+		return /* @__PURE__ */ jsx(u, {
+			...e,
+			state: t
+		});
+	}, "CollectionInit");
+	l.displayName = n + "Init";
+	let u = /* @__PURE__ */ __name$14((t) => {
+		let { scope: n, children: i, state: a } = t, s = React$1.useRef(null), [c, l] = React$1.useState(null), u = useComposedRefs$1(s, l), [d, f] = a;
+		return React$1.useEffect(() => {
+			if (!c) return;
+			let e = getChildListObserver(() => {});
+			return e.observe(c, {
+				childList: !0,
+				subtree: !0
+			}), () => {
+				e.disconnect();
+			};
+		}, [c]), /* @__PURE__ */ jsx(o, {
+			scope: n,
+			itemMap: d,
+			setItemMap: f,
+			collectionRef: u,
+			collectionRefObject: s,
+			collectionElement: c,
+			children: i
+		});
+	}, "CollectionProviderImpl");
+	u.displayName = n + "Impl";
+	let d = t + "CollectionSlot", f = /* @__PURE__ */ createSlot$3(d), p = React$1.forwardRef((e, t) => {
+		let { scope: n, children: i } = e;
+		return /* @__PURE__ */ jsx(f, {
+			ref: useComposedRefs$1(t, s(d, n).collectionRef),
+			children: i
+		});
+	});
+	p.displayName = d;
+	let m = t + "CollectionItemSlot", g = /* @__PURE__ */ createSlot$3(m), _ = React$1.forwardRef((t, n) => {
+		let { scope: i, children: a, ...o } = t, c = React$1.useRef(null), [l, u] = React$1.useState(null), d = useComposedRefs$1(n, c, u), { setItemMap: f } = s(m, i), p = React$1.useRef(o);
+		shallowEqual(p.current, o) || (p.current = o);
+		let _ = p.current;
+		return React$1.useEffect(() => {
+			let e = _;
+			return f((t) => l ? t.has(l) ? t.set(l, {
+				...e,
+				element: l
+			}).toSorted(sortByDocumentPosition) : (t.set(l, {
+				...e,
+				element: l
+			}), t.toSorted(sortByDocumentPosition)) : t), () => {
+				f((e) => !l || !e.has(l) ? e : (e.delete(l), new OrderedDict(e)));
+			};
+		}, [
+			l,
+			_,
+			f
+		]), /* @__PURE__ */ jsx(g, {
+			"data-radix-collection-item": "",
+			ref: d,
+			children: a
+		});
+	});
+	_.displayName = m;
+	function v() {
+		return React$1.useState(new OrderedDict());
+	}
+	__name$14(v, "useInitCollection");
+	function y(e) {
+		let { itemMap: n } = s(t + "CollectionConsumer", e);
+		return n;
+	}
+	return __name$14(y, "useCollection"), [{
+		Provider: c,
+		Slot: p,
+		ItemSlot: _
+	}, {
+		createCollectionScope: a,
+		useCollection: y,
+		useInitCollection: v
+	}];
+}
+__name$14(createCollection2, "createCollection");
+function shallowEqual(e, t) {
+	if (e === t) return !0;
+	if (typeof e != "object" || typeof t != "object" || e == null || t == null) return !1;
+	let n = Object.keys(e), i = Object.keys(t);
+	if (n.length !== i.length) return !1;
+	for (let i of n) if (!Object.prototype.hasOwnProperty.call(t, i) || e[i] !== t[i]) return !1;
+	return !0;
+}
+__name$14(shallowEqual, "shallowEqual");
+function isElementPreceding(e, t) {
+	return !!(t.compareDocumentPosition(e) & Node.DOCUMENT_POSITION_PRECEDING);
+}
+__name$14(isElementPreceding, "isElementPreceding");
+function sortByDocumentPosition(e, t) {
+	return !e[1].element || !t[1].element ? 0 : isElementPreceding(e[1].element, t[1].element) ? -1 : 1;
+}
+__name$14(sortByDocumentPosition, "sortByDocumentPosition");
+function getChildListObserver(e) {
+	return new MutationObserver((t) => {
+		for (let n of t) if (n.type === "childList") {
+			e();
+			return;
+		}
+	});
+}
+__name$14(getChildListObserver, "getChildListObserver");
+var __defProp$13 = Object.defineProperty, __name$13 = (e, t) => __defProp$13(e, "name", {
+	value: t,
+	configurable: !0
+}), canUseDOM$2 = !!(typeof window < "u" && window.document && window.document.createElement);
+function composeEventHandlers$1(e, t, { checkForDefaultPrevented: n = !0 } = {}) {
+	return /* @__PURE__ */ __name$13(function(i) {
+		if (e?.(i), n === !1 || !i || !i.defaultPrevented) return t?.(i);
+	}, "handleEvent");
+}
+__name$13(composeEventHandlers$1, "composeEventHandlers");
+function getOwnerWindow(e) {
+	if (!canUseDOM$2) throw Error("Cannot access window outside of the DOM");
+	return e?.ownerDocument?.defaultView ?? window;
+}
+__name$13(getOwnerWindow, "getOwnerWindow");
+function getOwnerDocument(e) {
+	if (!canUseDOM$2) throw Error("Cannot access document outside of the DOM");
+	return e?.ownerDocument ?? document;
+}
+__name$13(getOwnerDocument, "getOwnerDocument");
+function getActiveElement(e, t = !1) {
+	let { activeElement: n } = getOwnerDocument(e);
+	if (!n?.nodeName) return null;
+	if (isFrame(n) && n.contentDocument) return getActiveElement(n.contentDocument.body, t);
+	if (t) {
+		let e = n.getAttribute("aria-activedescendant");
+		if (e) {
+			let t = getOwnerDocument(n).getElementById(e);
+			if (t) return t;
+		}
+	}
+	return n;
+}
+__name$13(getActiveElement, "getActiveElement");
+function isFrame(e) {
+	return e.tagName === "IFRAME";
+}
+__name$13(isFrame, "isFrame");
+var useLayoutEffect2$1 = globalThis?.document ? React$1.useLayoutEffect : () => {}, __defProp$12 = Object.defineProperty, __name$12 = (e, t) => __defProp$12(e, "name", {
+	value: t,
+	configurable: !0
+}), useReactEffectEvent$1 = React$1.useEffectEvent, useReactInsertionEffect$1 = React$1.useInsertionEffect;
+function useEffectEvent$1(t) {
+	if (typeof useReactEffectEvent$1 == "function") return useReactEffectEvent$1(t);
+	let n = React$1.useRef(() => {
+		throw Error("Cannot call an event handler while rendering.");
+	});
+	return typeof useReactInsertionEffect$1 == "function" ? useReactInsertionEffect$1(() => {
+		n.current = t;
+	}) : useLayoutEffect2$1(() => {
+		n.current = t;
+	}), React$1.useMemo(() => ((...e) => n.current?.(...e)), []);
+}
+__name$12(useEffectEvent$1, "useEffectEvent");
+var __defProp$11 = Object.defineProperty, __name$11 = (e, t) => __defProp$11(e, "name", {
+	value: t,
+	configurable: !0
+}), useInsertionEffect$2 = React$1.useInsertionEffect || useLayoutEffect2$1;
+function useControllableState$1({ prop: t, defaultProp: n, onChange: i = /* @__PURE__ */ __name$11(() => {}, "onChange"), caller: a }) {
+	let [o, s, c] = useUncontrolledState$2({
+		defaultProp: n,
+		onChange: i
+	}), l = t !== void 0;
+	return [l ? t : o, React$1.useCallback((e) => {
+		if (l) {
+			let n = isFunction$3(e) ? e(t) : e;
+			n !== t && c.current?.(n);
+		} else s(e);
+	}, [
+		l,
+		t,
+		s,
+		c
+	])];
+}
+__name$11(useControllableState$1, "useControllableState");
+function useUncontrolledState$2({ defaultProp: t, onChange: n }) {
+	let [i, a] = React$1.useState(t), o = React$1.useRef(i), s = React$1.useRef(n);
+	return useInsertionEffect$2(() => {
+		s.current = n;
+	}, [n]), React$1.useEffect(() => {
+		o.current !== i && (s.current?.(i), o.current = i);
+	}, [i, o]), [
+		i,
+		a,
+		s
+	];
+}
+__name$11(useUncontrolledState$2, "useUncontrolledState");
+function isFunction$3(e) {
+	return typeof e == "function";
+}
+__name$11(isFunction$3, "isFunction");
+var SYNC_STATE = Symbol("RADIX:SYNC_STATE");
+function useControllableStateReducer(t, n, i, a) {
+	let { prop: o, defaultProp: s, onChange: c, caller: l } = n, u = o !== void 0, d = useEffectEvent$1(c), f = [{
+		...i,
+		state: s
+	}];
+	a && f.push(a);
+	let [p, m] = React$1.useReducer((e, n) => {
+		if (n.type === SYNC_STATE) return {
+			...e,
+			state: n.state
+		};
+		let i = t(e, n);
+		return u && !Object.is(i.state, e.state) && d(i.state), i;
+	}, ...f), h = p.state, g = React$1.useRef(h);
+	React$1.useEffect(() => {
+		g.current !== h && (g.current = h, u || d(h));
+	}, [
+		h,
+		g,
+		u
+	]);
+	let _ = React$1.useMemo(() => o === void 0 ? p : {
+		...p,
+		state: o
+	}, [p, o]);
+	return React$1.useEffect(() => {
+		u && !Object.is(o, p.state) && m({
+			type: SYNC_STATE,
+			state: o
+		});
+	}, [
+		o,
+		p.state,
+		u
+	]), [_, m];
+}
+__name$11(useControllableStateReducer, "useControllableStateReducer");
+var __defProp$10 = Object.defineProperty, __name$10 = (e, t) => __defProp$10(e, "name", {
+	value: t,
+	configurable: !0
+}), Primitive$1 = [
+	"a",
+	"button",
+	"div",
+	"form",
+	"h2",
+	"h3",
+	"img",
+	"input",
+	"label",
+	"li",
+	"nav",
+	"ol",
+	"p",
+	"select",
+	"span",
+	"svg",
+	"ul"
+].reduce((t, n) => {
+	let i = /* @__PURE__ */ createSlot$3(`Primitive.${n}`), a = React$1.forwardRef((e, t) => {
+		let { asChild: a, ...o } = e, s = a ? i : n;
+		return typeof window < "u" && (window[Symbol.for("radix-ui")] = !0), /* @__PURE__ */ jsx(s, {
+			...o,
+			ref: t
+		});
+	});
+	return a.displayName = `Primitive.${n}`, {
+		...t,
+		[n]: a
+	};
+}, {});
+function dispatchDiscreteCustomEvent$2(e, t) {
+	e && ReactDOM$1.flushSync(() => e.dispatchEvent(t));
+}
+__name$10(dispatchDiscreteCustomEvent$2, "dispatchDiscreteCustomEvent");
+var __defProp$9 = Object.defineProperty, __name$9 = (e, t) => __defProp$9(e, "name", {
+	value: t,
+	configurable: !0
+});
+function useStateMachine$2(t, n) {
+	return React$1.useReducer((e, t) => n[e][t] ?? e, t);
+}
+__name$9(useStateMachine$2, "useStateMachine");
+var Presence$1 = /* @__PURE__ */ __name$9((t) => {
+	let { present: n, children: i } = t, a = usePresence$2(n), o = typeof i == "function" ? i({ present: a.isPresent }) : React$1.Children.only(i), s = useStableComposedRefs$1(a.ref, getElementRef$5(o));
+	return typeof i == "function" || a.isPresent ? React$1.cloneElement(o, { ref: s }) : null;
+}, "Presence");
+function usePresence$2(t) {
+	let [n, i] = React$1.useState(), a = React$1.useRef(null), o = React$1.useRef(t), s = React$1.useRef("none"), c = React$1.useRef(void 0), [l, u] = useStateMachine$2(t ? "mounted" : "unmounted", {
+		mounted: {
+			UNMOUNT: "unmounted",
+			ANIMATION_OUT: "unmountSuspended"
+		},
+		unmountSuspended: {
+			MOUNT: "mounted",
+			ANIMATION_END: "unmounted"
+		},
+		unmounted: { MOUNT: "mounted" }
+	});
+	return React$1.useEffect(() => {
+		l === "mounted" ? (s.current = c.current ?? getAnimationName$2(a.current), c.current = void 0) : s.current = "none";
+	}, [l]), useLayoutEffect2$1(() => {
+		let e = a.current, n = o.current;
+		if (n !== t) {
+			let i = s.current, a = getAnimationName$2(e);
+			t ? (c.current = a, u("MOUNT")) : a === "none" || e?.display === "none" ? u("UNMOUNT") : u(n && i !== a ? "ANIMATION_OUT" : "UNMOUNT"), o.current = t;
+		}
+	}, [t, u]), useLayoutEffect2$1(() => {
+		if (n) {
+			let e, t = n.ownerDocument.defaultView ?? window, i = /* @__PURE__ */ __name$9((i) => {
+				let s = getAnimationName$2(a.current).includes(CSS.escape(i.animationName));
+				if (i.target === n && s && (u("ANIMATION_END"), !o.current)) {
+					let i = n.style.animationFillMode;
+					n.style.animationFillMode = "forwards", e = t.setTimeout(() => {
+						n.style.animationFillMode === "forwards" && (n.style.animationFillMode = i);
+					});
+				}
+			}, "handleAnimationEnd"), c = /* @__PURE__ */ __name$9((e) => {
+				e.target === n && (s.current = getAnimationName$2(a.current));
+			}, "handleAnimationStart");
+			return n.addEventListener("animationstart", c), n.addEventListener("animationcancel", i), n.addEventListener("animationend", i), () => {
+				t.clearTimeout(e), n.removeEventListener("animationstart", c), n.removeEventListener("animationcancel", i), n.removeEventListener("animationend", i);
+			};
+		} else u("ANIMATION_END");
+	}, [n, u]), {
+		isPresent: ["mounted", "unmountSuspended"].includes(l),
+		ref: React$1.useCallback((e) => {
+			if (e) {
+				let t = getComputedStyle(e);
+				a.current = t, c.current = getAnimationName$2(t);
+			} else a.current = null;
+			i(e);
+		}, [])
+	};
+}
+__name$9(usePresence$2, "usePresence");
+function setRef$3(e, t) {
+	if (typeof e == "function") return e(t);
+	e != null && (e.current = t);
+}
+__name$9(setRef$3, "setRef");
+function useStableComposedRefs$1(...t) {
+	let n = React$1.useRef(t);
+	return n.current = t, React$1.useCallback((e) => {
+		let t = n.current, i = !1, a = t.map((t) => {
+			let n = setRef$3(t, e);
+			return !i && typeof n == "function" && (i = !0), n;
+		});
+		if (i) return () => {
+			for (let e = 0; e < a.length; e++) {
+				let n = a[e];
+				typeof n == "function" ? n() : setRef$3(t[e], null);
+			}
+		};
+	}, []);
+}
+__name$9(useStableComposedRefs$1, "useStableComposedRefs");
+function getAnimationName$2(e) {
+	return e?.animationName || "none";
+}
+__name$9(getAnimationName$2, "getAnimationName");
+function getElementRef$5(e) {
+	let t = Object.getOwnPropertyDescriptor(e.props, "ref")?.get, n = t && "isReactWarning" in t && t.isReactWarning;
+	return n ? e.ref : (t = Object.getOwnPropertyDescriptor(e, "ref")?.get, n = t && "isReactWarning" in t && t.isReactWarning, n ? e.props.ref : e.props.ref || e.ref);
+}
+__name$9(getElementRef$5, "getElementRef");
+var __defProp$8 = Object.defineProperty, __name$8 = (e, t) => __defProp$8(e, "name", {
+	value: t,
+	configurable: !0
+}), useReactId$2 = React$1.useId || (() => void 0), count$4 = 0;
+function useId$2(t) {
+	let [n, i] = React$1.useState(useReactId$2());
+	return useLayoutEffect2$1(() => {
+		t || i((e) => e ?? String(count$4++));
+	}, [t]), t || (n ? `radix-${n}` : "");
+}
+__name$8(useId$2, "useId");
+var __defProp$7 = Object.defineProperty, __name$7 = (e, t) => __defProp$7(e, "name", {
+	value: t,
+	configurable: !0
+}), COLLAPSIBLE_NAME = "Collapsible", [createCollapsibleContext, createCollapsibleScope] = /* @__PURE__ */ createContextScope$1(COLLAPSIBLE_NAME), [CollapsibleProvider, useCollapsibleContext] = createCollapsibleContext(COLLAPSIBLE_NAME), Collapsible = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$7(function(t, n) {
+	let { __scopeCollapsible: i, open: a, defaultOpen: o, disabled: s, onOpenChange: c, ...l } = t, [u, d] = useControllableState$1({
+		prop: a,
+		defaultProp: o ?? !1,
+		onChange: c,
+		caller: COLLAPSIBLE_NAME
+	});
+	return /* @__PURE__ */ jsx(CollapsibleProvider, {
+		scope: i,
+		disabled: s,
+		contentId: useId$2(),
+		open: u,
+		onOpenToggle: React$1.useCallback(() => d((e) => !e), [d]),
+		children: /* @__PURE__ */ jsx(Primitive$1.div, {
+			"data-state": getState$4(u),
+			"data-disabled": s ? "" : void 0,
+			...l,
+			ref: n
+		})
+	});
+}, "Collapsible")), TRIGGER_NAME$5 = "CollapsibleTrigger", CollapsibleTrigger = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$7(function(e, t) {
+	let { __scopeCollapsible: n, ...i } = e, a = useCollapsibleContext(TRIGGER_NAME$5, n);
+	return /* @__PURE__ */ jsx(Primitive$1.button, {
+		type: "button",
+		"aria-controls": a.open ? a.contentId : void 0,
+		"aria-expanded": a.open || !1,
+		"data-state": getState$4(a.open),
+		"data-disabled": a.disabled ? "" : void 0,
+		disabled: a.disabled,
+		...i,
+		ref: t,
+		onClick: composeEventHandlers$1(e.onClick, a.onOpenToggle)
+	});
+}, "CollapsibleTrigger")), CONTENT_NAME$6 = "CollapsibleContent", CollapsibleContent = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$7(function(e, t) {
+	let { forceMount: n, ...i } = e, a = useCollapsibleContext(CONTENT_NAME$6, e.__scopeCollapsible);
+	return /* @__PURE__ */ jsx(Presence$1, {
+		present: n || a.open,
+		children: ({ present: e }) => /* @__PURE__ */ jsx(CollapsibleContentImpl, {
+			...i,
+			ref: t,
+			present: e
+		})
+	});
+}, "CollapsibleContent")), CollapsibleContentImpl = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$7(function(t, n) {
+	let { __scopeCollapsible: i, present: a, children: o, ...s } = t, c = useCollapsibleContext(CONTENT_NAME$6, i), [l, u] = React$1.useState(a), d = React$1.useRef(null), f = useComposedRefs$1(n, d), p = React$1.useRef(0), m = p.current, g = React$1.useRef(0), _ = g.current, v = c.open || l, y = React$1.useRef(v), b = React$1.useRef(void 0);
+	return React$1.useEffect(() => {
+		let e = requestAnimationFrame(() => y.current = !1);
+		return () => cancelAnimationFrame(e);
+	}, []), useLayoutEffect2$1(() => {
+		let e = d.current;
+		if (e) {
+			b.current = b.current || {
+				transitionDuration: e.style.transitionDuration,
+				animationName: e.style.animationName
+			}, e.style.transitionDuration = "0s", e.style.animationName = "none";
+			let t = e.getBoundingClientRect();
+			p.current = t.height, g.current = t.width, y.current || (e.style.transitionDuration = b.current.transitionDuration, e.style.animationName = b.current.animationName), u(a);
+		}
+	}, [c.open, a]), /* @__PURE__ */ jsx(Primitive$1.div, {
+		"data-state": getState$4(c.open),
+		"data-disabled": c.disabled ? "" : void 0,
+		id: c.contentId,
+		hidden: !v,
+		...s,
+		ref: f,
+		style: {
+			"--radix-collapsible-content-height": m ? `${m}px` : void 0,
+			"--radix-collapsible-content-width": _ ? `${_}px` : void 0,
+			...t.style
+		},
+		children: v && o
+	});
+}, "CollapsibleContentImpl"));
+function getState$4(e) {
+	return e ? "open" : "closed";
+}
+__name$7(getState$4, "getState");
+var Root$5 = Collapsible, Trigger$3 = CollapsibleTrigger, Content$3 = CollapsibleContent, __defProp$6 = Object.defineProperty, __name$6 = (e, t) => __defProp$6(e, "name", {
+	value: t,
+	configurable: !0
+}), DirectionContext$1 = React$1.createContext(void 0);
+function useDirection(t) {
+	let n = React$1.useContext(DirectionContext$1);
+	return t || n || "ltr";
+}
+__name$6(useDirection, "useDirection");
+var __defProp$5 = Object.defineProperty, __name$5 = (e, t) => __defProp$5(e, "name", {
+	value: t,
+	configurable: !0
+}), ACCORDION_NAME = "Accordion", ACCORDION_KEYS = [
+	"Home",
+	"End",
+	"ArrowDown",
+	"ArrowUp",
+	"ArrowLeft",
+	"ArrowRight"
+], [Collection$2, useCollection$2, createCollectionScope$2] = /* @__PURE__ */ createCollection(ACCORDION_NAME), [createAccordionContext, createAccordionScope] = /* @__PURE__ */ createContextScope$1(ACCORDION_NAME, [createCollectionScope$2, createCollapsibleScope]), useCollapsibleScope = createCollapsibleScope(), Accordion$1 = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$5(function(e, t) {
+	let { type: n, ...i } = e, a = i, o = i;
+	return /* @__PURE__ */ jsx(Collection$2.Provider, {
+		scope: e.__scopeAccordion,
+		children: n === "multiple" ? /* @__PURE__ */ jsx(AccordionImplMultiple, {
+			...o,
+			ref: t
+		}) : /* @__PURE__ */ jsx(AccordionImplSingle, {
+			...a,
+			ref: t
+		})
+	});
+}, "Accordion")), [AccordionValueProvider, useAccordionValueContext] = createAccordionContext(ACCORDION_NAME), [AccordionCollapsibleProvider, useAccordionCollapsibleContext] = createAccordionContext(ACCORDION_NAME, { collapsible: !1 }), AccordionImplSingle = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$5(function(t, n) {
+	let { value: i, defaultValue: a, onValueChange: o = /* @__PURE__ */ __name$5(() => {}, "onValueChange"), collapsible: s = !1, ...c } = t, [l, u] = useControllableState$1({
+		prop: i,
+		defaultProp: a ?? "",
+		onChange: o,
+		caller: ACCORDION_NAME
+	});
+	return /* @__PURE__ */ jsx(AccordionValueProvider, {
+		scope: t.__scopeAccordion,
+		value: React$1.useMemo(() => l ? [l] : [], [l]),
+		onItemOpen: u,
+		onItemClose: React$1.useCallback(() => s && u(""), [s, u]),
+		children: /* @__PURE__ */ jsx(AccordionCollapsibleProvider, {
+			scope: t.__scopeAccordion,
+			collapsible: s,
+			children: /* @__PURE__ */ jsx(AccordionImpl, {
+				...c,
+				ref: n
+			})
+		})
+	});
+}, "AccordionImplSingle")), AccordionImplMultiple = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$5(function(t, n) {
+	let { value: i, defaultValue: a, onValueChange: o = /* @__PURE__ */ __name$5(() => {}, "onValueChange"), ...s } = t, [c, l] = useControllableState$1({
+		prop: i,
+		defaultProp: a ?? [],
+		onChange: o,
+		caller: ACCORDION_NAME
+	}), u = React$1.useCallback((e) => l((t = []) => [...t, e]), [l]), d = React$1.useCallback((e) => l((t = []) => t.filter((t) => t !== e)), [l]);
+	return /* @__PURE__ */ jsx(AccordionValueProvider, {
+		scope: t.__scopeAccordion,
+		value: c,
+		onItemOpen: u,
+		onItemClose: d,
+		children: /* @__PURE__ */ jsx(AccordionCollapsibleProvider, {
+			scope: t.__scopeAccordion,
+			collapsible: !0,
+			children: /* @__PURE__ */ jsx(AccordionImpl, {
+				...s,
+				ref: n
+			})
+		})
+	});
+}, "AccordionImplMultiple")), [AccordionImplProvider, useAccordionContext] = createAccordionContext(ACCORDION_NAME), AccordionImpl = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$5(function(t, n) {
+	let { __scopeAccordion: i, disabled: a, dir: o, orientation: s = "vertical", ...c } = t, l = useComposedRefs$1(React$1.useRef(null), n), u = useCollection$2(i), d = useDirection(o) === "ltr", f = composeEventHandlers$1(t.onKeyDown, (e) => {
+		if (!ACCORDION_KEYS.includes(e.key)) return;
+		let t = e.target, n = u().filter((e) => !e.ref.current?.disabled), i = n.findIndex((e) => e.ref.current === t), a = n.length;
+		if (i === -1) return;
+		e.preventDefault();
+		let o = i, c = a - 1, l = /* @__PURE__ */ __name$5(() => {
+			o = i + 1, o > c && (o = 0);
+		}, "moveNext"), f = /* @__PURE__ */ __name$5(() => {
+			o = i - 1, o < 0 && (o = c);
+		}, "movePrev");
+		switch (e.key) {
+			case "Home":
+				o = 0;
+				break;
+			case "End":
+				o = c;
+				break;
+			case "ArrowRight":
+				s === "horizontal" && (d ? l() : f());
+				break;
+			case "ArrowDown":
+				s === "vertical" && l();
+				break;
+			case "ArrowLeft":
+				s === "horizontal" && (d ? f() : l());
+				break;
+			case "ArrowUp":
+				s === "vertical" && f();
+				break;
+		}
+		n[o % a].ref.current?.focus();
+	});
+	return /* @__PURE__ */ jsx(AccordionImplProvider, {
+		scope: i,
+		disabled: a,
+		direction: o,
+		orientation: s,
+		children: /* @__PURE__ */ jsx(Collection$2.Slot, {
+			scope: i,
+			children: /* @__PURE__ */ jsx(Primitive$1.div, {
+				...c,
+				"data-orientation": s,
+				ref: l,
+				onKeyDown: a ? void 0 : f
+			})
+		})
+	});
+}, "AccordionImpl")), ITEM_NAME$2 = "AccordionItem", [AccordionItemProvider, useAccordionItemContext] = createAccordionContext(ITEM_NAME$2), AccordionItem$1 = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$5(function(e, t) {
+	let { __scopeAccordion: n, value: i, ...a } = e, o = useAccordionContext(ITEM_NAME$2, n), s = useAccordionValueContext(ITEM_NAME$2, n), c = useCollapsibleScope(n), l = useId$2(), u = i && s.value.includes(i) || !1, d = o.disabled || e.disabled;
+	return /* @__PURE__ */ jsx(AccordionItemProvider, {
+		scope: n,
+		open: u,
+		disabled: d,
+		triggerId: l,
+		children: /* @__PURE__ */ jsx(Root$5, {
+			"data-orientation": o.orientation,
+			"data-state": getState$3(u),
+			...c,
+			...a,
+			ref: t,
+			disabled: d,
+			open: u,
+			onOpenChange: (e) => {
+				e ? s.onItemOpen(i) : s.onItemClose(i);
+			}
+		})
+	});
+}, "AccordionItem")), HEADER_NAME = "AccordionHeader", AccordionHeader = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$5(function(e, t) {
+	let { __scopeAccordion: n, ...i } = e, a = useAccordionContext(ACCORDION_NAME, n), o = useAccordionItemContext(HEADER_NAME, n);
+	return /* @__PURE__ */ jsx(Primitive$1.h3, {
+		"data-orientation": a.orientation,
+		"data-state": getState$3(o.open),
+		"data-disabled": o.disabled ? "" : void 0,
+		...i,
+		ref: t
+	});
+}, "AccordionHeader")), TRIGGER_NAME$4 = "AccordionTrigger", AccordionTrigger$1 = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$5(function(e, t) {
+	let { __scopeAccordion: n, ...i } = e, a = useAccordionContext(ACCORDION_NAME, n), o = useAccordionItemContext(TRIGGER_NAME$4, n), s = useAccordionCollapsibleContext(TRIGGER_NAME$4, n), c = useCollapsibleScope(n);
+	return /* @__PURE__ */ jsx(Collection$2.ItemSlot, {
+		scope: n,
+		children: /* @__PURE__ */ jsx(Trigger$3, {
+			"aria-disabled": o.open && !s.collapsible || void 0,
+			"data-orientation": a.orientation,
+			id: o.triggerId,
+			...c,
+			...i,
+			ref: t
+		})
+	});
+}, "AccordionTrigger")), CONTENT_NAME$5 = "AccordionContent", AccordionContent$1 = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$5(function(e, t) {
+	let { __scopeAccordion: n, ...i } = e, a = useAccordionContext(ACCORDION_NAME, n), o = useAccordionItemContext(CONTENT_NAME$5, n), s = useCollapsibleScope(n);
+	return /* @__PURE__ */ jsx(Content$3, {
+		role: "region",
+		"aria-labelledby": o.triggerId,
+		"data-orientation": a.orientation,
+		...s,
+		...i,
+		ref: t,
+		style: {
+			"--radix-accordion-content-height": "var(--radix-collapsible-content-height)",
+			"--radix-accordion-content-width": "var(--radix-collapsible-content-width)",
+			...e.style
+		}
+	});
+}, "AccordionContent"));
+function getState$3(e) {
+	return e ? "open" : "closed";
+}
+__name$5(getState$3, "getState");
+var Root2$4 = Accordion$1, Item$2 = AccordionItem$1, Header = AccordionHeader, Trigger2 = AccordionTrigger$1, Content2$2 = AccordionContent$1, mergeClasses = (...e) => e.filter((e, t, n) => !!e && e.trim() !== "" && n.indexOf(e) === t).join(" ").trim(), toKebabCase = (e) => e.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase(), toCamelCase = (e) => e.replace(/^([A-Z])|[\s-_]+(\w)/g, (e, t, n) => n ? n.toUpperCase() : t.toLowerCase()), toPascalCase = (e) => {
+	let t = toCamelCase(e);
+	return t.charAt(0).toUpperCase() + t.slice(1);
+}, defaultAttributes = {
+	xmlns: "http://www.w3.org/2000/svg",
+	width: 24,
+	height: 24,
+	viewBox: "0 0 24 24",
+	fill: "none",
+	stroke: "currentColor",
+	strokeWidth: 2,
+	strokeLinecap: "round",
+	strokeLinejoin: "round"
+}, hasA11yProp = (e) => {
+	for (let t in e) if (t.startsWith("aria-") || t === "role" || t === "title") return !0;
+	return !1;
+}, LucideContext = createContext({}), useLucideContext = () => useContext(LucideContext), Icon$1 = forwardRef(({ color: e, size: t, strokeWidth: n, absoluteStrokeWidth: a, className: o = "", children: s, iconNode: c, ...l }, u) => {
+	let { size: d = 24, strokeWidth: f = 2, absoluteStrokeWidth: p = !1, color: m = "currentColor", className: h = "" } = useLucideContext() ?? {}, g = a ?? p ? Number(n ?? f) * 24 / Number(t ?? d) : n ?? f;
+	return createElement("svg", {
+		ref: u,
+		...defaultAttributes,
+		width: t ?? d ?? defaultAttributes.width,
+		height: t ?? d ?? defaultAttributes.height,
+		stroke: e ?? m,
+		strokeWidth: g,
+		className: mergeClasses("lucide", h, o),
+		...!s && !hasA11yProp(l) && { "aria-hidden": "true" },
+		...l
+	}, [...c.map(([e, t]) => createElement(e, t)), ...Array.isArray(s) ? s : [s]]);
+}), createLucideIcon = (e, t) => {
+	let n = forwardRef(({ className: n, ...a }, o) => createElement(Icon$1, {
+		ref: o,
+		iconNode: t,
+		className: mergeClasses(`lucide-${toKebabCase(toPascalCase(e))}`, `lucide-${e}`, n),
+		...a
+	}));
+	return n.displayName = toPascalCase(e), n;
+}, Calendar = createLucideIcon("calendar", [
+	["path", {
+		d: "M8 2v4",
+		key: "1cmpym"
+	}],
+	["path", {
+		d: "M16 2v4",
+		key: "4m81vk"
+	}],
+	["rect", {
+		width: "18",
+		height: "18",
+		x: "3",
+		y: "4",
+		rx: "2",
+		key: "1hopcy"
+	}],
+	["path", {
+		d: "M3 10h18",
+		key: "8toen8"
+	}]
+]), Check = createLucideIcon("check", [["path", {
+	d: "M20 6 9 17l-5-5",
+	key: "1gmf2c"
+}]]), ChevronDown = createLucideIcon("chevron-down", [["path", {
+	d: "m6 9 6 6 6-6",
+	key: "qrunsl"
+}]]), EyeOff = createLucideIcon("eye-off", [
+	["path", {
+		d: "M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49",
+		key: "ct8e1f"
+	}],
+	["path", {
+		d: "M14.084 14.158a3 3 0 0 1-4.242-4.242",
+		key: "151rxh"
+	}],
+	["path", {
+		d: "M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143",
+		key: "13bj9a"
+	}],
+	["path", {
+		d: "m2 2 20 20",
+		key: "1ooewy"
+	}]
+]), Eye = createLucideIcon("eye", [["path", {
+	d: "M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0",
+	key: "1nclc0"
+}], ["circle", {
+	cx: "12",
+	cy: "12",
+	r: "3",
+	key: "1v7zrd"
+}]]), ImagePlus = createLucideIcon("image-plus", [
+	["path", {
+		d: "M16 5h6",
+		key: "1vod17"
+	}],
+	["path", {
+		d: "M19 2v6",
+		key: "4bpg5p"
+	}],
+	["path", {
+		d: "M21 11.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7.5",
+		key: "1ue2ih"
+	}],
+	["path", {
+		d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21",
+		key: "1xmnt7"
+	}],
+	["circle", {
+		cx: "9",
+		cy: "9",
+		r: "2",
+		key: "af1f0g"
+	}]
+]), Minus = createLucideIcon("minus", [["path", {
+	d: "M5 12h14",
+	key: "1ays0h"
+}]]), Search = createLucideIcon("search", [["path", {
+	d: "m21 21-4.34-4.34",
+	key: "14j7rj"
+}], ["circle", {
+	cx: "11",
+	cy: "11",
+	r: "8",
+	key: "4ej97u"
+}]]), X = createLucideIcon("x", [["path", {
+	d: "M18 6 6 18",
+	key: "1bl5f8"
+}], ["path", {
+	d: "m6 6 12 12",
+	key: "d8bk6v"
+}]]);
 function r(e) {
 	var t, n, i = "";
 	if (typeof e == "string" || typeof e == "number") i += e;
@@ -1855,7 +3017,312 @@ const cx = clsx, cva = (e, t) => (n) => {
 			i
 		] : e;
 	}, []), n?.class, n?.className);
-}, buttonVariants = cva([
+};
+var accordionTransition = "transition-[background-color,border-color,box-shadow,color] duration-200 ease-out motion-reduce:transition-none";
+const accordionRootVariants = cva("w-full text-sm text-text-primary", {
+	variants: { variant: {
+		border: "overflow-hidden rounded-md border border-border bg-surface-elevated",
+		underline: "bg-transparent",
+		filled: "flex flex-col gap-2 bg-transparent",
+		accent: "flex flex-col gap-2 bg-transparent"
+	} },
+	defaultVariants: { variant: "border" }
+}), accordionItemVariants = cva("min-w-0", {
+	variants: { variant: {
+		border: "border-b border-border last:border-b-0",
+		underline: "border-b border-border last:border-b-0",
+		filled: "overflow-hidden rounded-md bg-surface-elevated data-[state=open]:bg-accent/[0.04]",
+		accent: "overflow-hidden rounded-md"
+	} },
+	defaultVariants: { variant: "border" }
+}), accordionTriggerVariants = cva([
+	"flex w-full items-center justify-between gap-3 text-left font-medium",
+	"outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-inset",
+	"disabled:pointer-events-none disabled:opacity-50",
+	accordionTransition
+], {
+	variants: {
+		variant: {
+			border: "bg-transparent px-4 py-3 hover:bg-surface/60",
+			underline: "bg-transparent px-0 py-3 hover:bg-transparent hover:text-text-primary",
+			filled: "bg-transparent px-4 py-3 hover:bg-surface",
+			accent: "bg-accent px-4 py-3 text-surface-elevated hover:bg-accent-hover"
+		},
+		size: {
+			sm: "py-2 text-xs",
+			default: "py-3 text-sm"
+		}
+	},
+	compoundVariants: [
+		{
+			variant: "border",
+			size: "sm",
+			class: "px-3"
+		},
+		{
+			variant: "filled",
+			size: "sm",
+			class: "px-3"
+		},
+		{
+			variant: "accent",
+			size: "sm",
+			class: "px-3"
+		},
+		{
+			variant: "underline",
+			size: "sm",
+			class: "px-0"
+		},
+		{
+			variant: "underline",
+			size: "default",
+			class: "px-0"
+		}
+	],
+	defaultVariants: {
+		variant: "border",
+		size: "default"
+	}
+}), accordionContentVariants = cva("overflow-hidden text-text-muted data-[state=closed]:animate-none", {
+	variants: { size: {
+		sm: "text-xs",
+		default: "text-sm"
+	} },
+	defaultVariants: { size: "default" }
+}), accordionContentInnerVariants = cva("text-text-muted", {
+	variants: {
+		variant: {
+			border: "px-4 pb-4",
+			underline: "px-0 pb-4",
+			filled: "px-4 pb-4",
+			accent: "bg-surface-elevated px-4 pb-4 pt-3"
+		},
+		size: {
+			sm: "pb-3 text-xs",
+			default: "pb-4 text-sm"
+		}
+	},
+	compoundVariants: [
+		{
+			variant: "underline",
+			size: "sm",
+			class: "px-0"
+		},
+		{
+			variant: "underline",
+			size: "default",
+			class: "px-0"
+		},
+		{
+			variant: "border",
+			size: "sm",
+			class: "px-3"
+		},
+		{
+			variant: "filled",
+			size: "sm",
+			class: "px-3"
+		},
+		{
+			variant: "accent",
+			size: "sm",
+			class: "px-3 pt-2"
+		}
+	],
+	defaultVariants: {
+		variant: "border",
+		size: "default"
+	}
+}), accordionIndicatorVariants = cva("size-4 shrink-0", {
+	variants: {
+		variant: {
+			border: "text-text-muted",
+			underline: "text-text-muted",
+			filled: "text-text-muted",
+			accent: "text-surface-elevated/90"
+		},
+		indicator: {
+			chevron: "",
+			plus: ""
+		}
+	},
+	defaultVariants: {
+		variant: "border",
+		indicator: "chevron"
+	}
+});
+var AccordionContext = React$1.createContext({
+	variant: "border",
+	indicator: "chevron",
+	size: "default"
+}), Accordion = React$1.forwardRef(({ variant: e = "border", indicator: t = "chevron", size: n = "default", ...i }, a) => /* @__PURE__ */ jsx(AccordionContext.Provider, {
+	value: {
+		variant: e,
+		indicator: t,
+		size: n
+	},
+	children: /* @__PURE__ */ jsx(Root2$4, {
+		ref: a,
+		"data-variant": e,
+		"data-indicator": t,
+		"data-size": n,
+		className: accordionRootVariants({ variant: e }),
+		...i
+	})
+}));
+Accordion.displayName = "Accordion";
+var AccordionItem = React$1.forwardRef(({ ...t }, n) => {
+	let { variant: i } = React$1.useContext(AccordionContext);
+	return /* @__PURE__ */ jsx(Item$2, {
+		ref: n,
+		className: accordionItemVariants({ variant: i }),
+		...t
+	});
+});
+AccordionItem.displayName = "AccordionItem";
+var AccordionTrigger = React$1.forwardRef(({ children: t, ...n }, i) => {
+	let { variant: a, indicator: o = "chevron", size: s } = React$1.useContext(AccordionContext);
+	return /* @__PURE__ */ jsx(Header, {
+		className: "flex",
+		children: /* @__PURE__ */ jsxs(Trigger2, {
+			ref: i,
+			className: cn("group", accordionTriggerVariants({
+				variant: a,
+				size: s
+			})),
+			...n,
+			children: [/* @__PURE__ */ jsx("span", {
+				className: "min-w-0 flex-1",
+				children: t
+			}), o === "plus" ? /* @__PURE__ */ jsxs("span", {
+				className: cn("relative", accordionIndicatorVariants({
+					variant: a,
+					indicator: "plus"
+				})),
+				children: [/* @__PURE__ */ jsx(Minus, {
+					className: "absolute inset-0 size-4 rotate-90 transition-transform duration-200 ease-out group-data-[state=open]:rotate-180",
+					"aria-hidden": !0
+				}), /* @__PURE__ */ jsx(Minus, {
+					className: "absolute inset-0 size-4",
+					"aria-hidden": !0
+				})]
+			}) : /* @__PURE__ */ jsx(ChevronDown, {
+				className: cn(accordionIndicatorVariants({
+					variant: a,
+					indicator: "chevron"
+				}), "transition-transform duration-200 ease-out group-data-[state=open]:rotate-180 motion-reduce:transition-none"),
+				"aria-hidden": !0
+			})]
+		})
+	});
+});
+AccordionTrigger.displayName = "AccordionTrigger";
+var AccordionContent = React$1.forwardRef(({ children: t, ...n }, i) => {
+	let { variant: a, size: o } = React$1.useContext(AccordionContext);
+	return /* @__PURE__ */ jsx(Content2$2, {
+		ref: i,
+		className: accordionContentVariants({ size: o }),
+		...n,
+		children: /* @__PURE__ */ jsx("div", {
+			className: accordionContentInnerVariants({
+				variant: a,
+				size: o
+			}),
+			children: t
+		})
+	});
+});
+AccordionContent.displayName = "AccordionContent";
+function setRef$2(e, t) {
+	if (typeof e == "function") return e(t);
+	e != null && (e.current = t);
+}
+function composeRefs$1(...e) {
+	return (t) => {
+		let n = !1, i = e.map((e) => {
+			let i = setRef$2(e, t);
+			return !n && typeof i == "function" && (n = !0), i;
+		});
+		if (n) return () => {
+			for (let t = 0; t < i.length; t++) {
+				let n = i[t];
+				typeof n == "function" ? n() : setRef$2(e[t], null);
+			}
+		};
+	};
+}
+function useComposedRefs$2(...t) {
+	return React$1.useCallback(composeRefs$1(...t), t);
+}
+var REACT_LAZY_TYPE$1 = Symbol.for("react.lazy"), use$1 = React$1.use;
+function isPromiseLike$1(e) {
+	return typeof e == "object" && !!e && "then" in e;
+}
+function isLazyComponent$1(e) {
+	return typeof e == "object" && !!e && "$$typeof" in e && e.$$typeof === REACT_LAZY_TYPE$1 && "_payload" in e && isPromiseLike$1(e._payload);
+}
+/* @__NO_SIDE_EFFECTS__ */
+function createSlot$2(t) {
+	let n = /* @__PURE__ */ createSlotClone$1(t), i = React$1.forwardRef((t, i) => {
+		let { children: a, ...o } = t;
+		isLazyComponent$1(a) && typeof use$1 == "function" && (a = use$1(a._payload));
+		let s = React$1.Children.toArray(a), c = s.find(isSlottable$2);
+		if (c) {
+			let t = c.props.children, a = s.map((n) => n === c ? React$1.Children.count(t) > 1 ? React$1.Children.only(null) : React$1.isValidElement(t) ? t.props.children : null : n);
+			return /* @__PURE__ */ jsx(n, {
+				...o,
+				ref: i,
+				children: React$1.isValidElement(t) ? React$1.cloneElement(t, void 0, a) : null
+			});
+		}
+		return /* @__PURE__ */ jsx(n, {
+			...o,
+			ref: i,
+			children: a
+		});
+	});
+	return i.displayName = `${t}.Slot`, i;
+}
+var Slot$3 = /* @__PURE__ */ createSlot$2("Slot");
+/* @__NO_SIDE_EFFECTS__ */
+function createSlotClone$1(t) {
+	let n = React$1.forwardRef((t, n) => {
+		let { children: i, ...a } = t;
+		if (isLazyComponent$1(i) && typeof use$1 == "function" && (i = use$1(i._payload)), React$1.isValidElement(i)) {
+			let t = getElementRef$4(i), o = mergeProps$2(a, i.props);
+			return i.type !== React$1.Fragment && (o.ref = n ? composeRefs$1(n, t) : t), React$1.cloneElement(i, o);
+		}
+		return React$1.Children.count(i) > 1 ? React$1.Children.only(null) : null;
+	});
+	return n.displayName = `${t}.SlotClone`, n;
+}
+var SLOTTABLE_IDENTIFIER$2 = Symbol("radix.slottable");
+function isSlottable$2(t) {
+	return React$1.isValidElement(t) && typeof t.type == "function" && "__radixId" in t.type && t.type.__radixId === SLOTTABLE_IDENTIFIER$2;
+}
+function mergeProps$2(e, t) {
+	let n = { ...t };
+	for (let i in t) {
+		let a = e[i], o = t[i];
+		/^on[A-Z]/.test(i) ? a && o ? n[i] = (...e) => {
+			let t = o(...e);
+			return a(...e), t;
+		} : a && (n[i] = a) : i === "style" ? n[i] = {
+			...a,
+			...o
+		} : i === "className" && (n[i] = [a, o].filter(Boolean).join(" "));
+	}
+	return {
+		...e,
+		...n
+	};
+}
+function getElementRef$4(e) {
+	let t = Object.getOwnPropertyDescriptor(e.props, "ref")?.get, n = t && "isReactWarning" in t && t.isReactWarning;
+	return n ? e.ref : (t = Object.getOwnPropertyDescriptor(e, "ref")?.get, n = t && "isReactWarning" in t && t.isReactWarning, n ? e.props.ref : e.props.ref || e.ref);
+}
+const buttonVariants = cva([
 	"inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 font-medium",
 	"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
 	"disabled:pointer-events-none disabled:opacity-50",
@@ -2088,116 +3555,6 @@ function CardMedia(e) {
 		...e
 	});
 }
-/**
-* @license lucide-react v1.16.0 - ISC
-*
-* This source code is licensed under the ISC license.
-* See the LICENSE file in the root directory of this source tree.
-*/
-var mergeClasses = (...e) => e.filter((e, t, n) => !!e && e.trim() !== "" && n.indexOf(e) === t).join(" ").trim(), toKebabCase = (e) => e.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase(), toCamelCase = (e) => e.replace(/^([A-Z])|[\s-_]+(\w)/g, (e, t, n) => n ? n.toUpperCase() : t.toLowerCase()), toPascalCase = (e) => {
-	let t = toCamelCase(e);
-	return t.charAt(0).toUpperCase() + t.slice(1);
-}, defaultAttributes = {
-	xmlns: "http://www.w3.org/2000/svg",
-	width: 24,
-	height: 24,
-	viewBox: "0 0 24 24",
-	fill: "none",
-	stroke: "currentColor",
-	strokeWidth: 2,
-	strokeLinecap: "round",
-	strokeLinejoin: "round"
-}, hasA11yProp = (e) => {
-	for (let t in e) if (t.startsWith("aria-") || t === "role" || t === "title") return !0;
-	return !1;
-}, LucideContext = createContext({}), useLucideContext = () => useContext(LucideContext), Icon$1 = forwardRef(({ color: e, size: t, strokeWidth: n, absoluteStrokeWidth: a, className: o = "", children: s, iconNode: c, ...l }, u) => {
-	let { size: d = 24, strokeWidth: f = 2, absoluteStrokeWidth: p = !1, color: m = "currentColor", className: h = "" } = useLucideContext() ?? {}, g = a ?? p ? Number(n ?? f) * 24 / Number(t ?? d) : n ?? f;
-	return createElement("svg", {
-		ref: u,
-		...defaultAttributes,
-		width: t ?? d ?? defaultAttributes.width,
-		height: t ?? d ?? defaultAttributes.height,
-		stroke: e ?? m,
-		strokeWidth: g,
-		className: mergeClasses("lucide", h, o),
-		...!s && !hasA11yProp(l) && { "aria-hidden": "true" },
-		...l
-	}, [...c.map(([e, t]) => createElement(e, t)), ...Array.isArray(s) ? s : [s]]);
-}), createLucideIcon = (e, t) => {
-	let n = forwardRef(({ className: n, ...a }, o) => createElement(Icon$1, {
-		ref: o,
-		iconNode: t,
-		className: mergeClasses(`lucide-${toKebabCase(toPascalCase(e))}`, `lucide-${e}`, n),
-		...a
-	}));
-	return n.displayName = toPascalCase(e), n;
-}, Calendar = createLucideIcon("calendar", [
-	["path", {
-		d: "M8 2v4",
-		key: "1cmpym"
-	}],
-	["path", {
-		d: "M16 2v4",
-		key: "4m81vk"
-	}],
-	["rect", {
-		width: "18",
-		height: "18",
-		x: "3",
-		y: "4",
-		rx: "2",
-		key: "1hopcy"
-	}],
-	["path", {
-		d: "M3 10h18",
-		key: "8toen8"
-	}]
-]), Check = createLucideIcon("check", [["path", {
-	d: "M20 6 9 17l-5-5",
-	key: "1gmf2c"
-}]]), ChevronDown = createLucideIcon("chevron-down", [["path", {
-	d: "m6 9 6 6 6-6",
-	key: "qrunsl"
-}]]), EyeOff = createLucideIcon("eye-off", [
-	["path", {
-		d: "M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49",
-		key: "ct8e1f"
-	}],
-	["path", {
-		d: "M14.084 14.158a3 3 0 0 1-4.242-4.242",
-		key: "151rxh"
-	}],
-	["path", {
-		d: "M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143",
-		key: "13bj9a"
-	}],
-	["path", {
-		d: "m2 2 20 20",
-		key: "1ooewy"
-	}]
-]), Eye = createLucideIcon("eye", [["path", {
-	d: "M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0",
-	key: "1nclc0"
-}], ["circle", {
-	cx: "12",
-	cy: "12",
-	r: "3",
-	key: "1v7zrd"
-}]]), Search = createLucideIcon("search", [["path", {
-	d: "m21 21-4.34-4.34",
-	key: "14j7rj"
-}], ["circle", {
-	cx: "11",
-	cy: "11",
-	r: "8",
-	key: "4ej97u"
-}]]), X = createLucideIcon("x", [["path", {
-	d: "M18 6 6 18",
-	key: "1bl5f8"
-}], ["path", {
-	d: "m6 6 12 12",
-	key: "d8bk6v"
-}]]);
 const fieldVariants = cva([
 	"flex h-9 w-full min-w-0 items-center gap-2 px-3 text-sm text-text-primary",
 	"focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-surface",
@@ -2314,8 +3671,53 @@ var Label = React$1.forwardRef(({ size: e, children: t, htmlFor: n, required: i 
 		children: "*"
 	}) }) : null]
 }));
-Label.displayName = "Label", typeof window < "u" && window.document && window.document.createElement;
-function composeEventHandlers$1(e, t, { checkForDefaultPrevented: n = !0 } = {}) {
+Label.displayName = "Label";
+const fieldLayoutVariants = cva("flex w-full min-w-0", {
+	variants: {
+		orientation: {
+			vertical: "flex-col",
+			horizontal: "flex-row [&>*:first-child]:shrink-0 [&>*:last-child]:min-w-0 [&>*:last-child]:flex-1"
+		},
+		gap: {
+			0: "gap-0",
+			1: "gap-1",
+			"1.5": "gap-1.5",
+			2: "gap-2",
+			3: "gap-3",
+			4: "gap-4",
+			6: "gap-6",
+			8: "gap-8"
+		},
+		align: {
+			start: "items-start",
+			center: "items-center",
+			end: "items-end",
+			stretch: "items-stretch"
+		}
+	},
+	defaultVariants: {
+		orientation: "vertical",
+		gap: "1.5",
+		align: "stretch"
+	}
+});
+function Field({ orientation: e = "vertical", gap: t = "1.5", align: n, children: i, ...a }) {
+	let o = n ?? (e === "horizontal" ? "center" : "stretch");
+	return /* @__PURE__ */ jsx("div", {
+		"data-orientation": e,
+		"data-gap": t,
+		"data-align": o,
+		className: fieldLayoutVariants({
+			orientation: e,
+			gap: t,
+			align: o
+		}),
+		...a,
+		children: i
+	});
+}
+typeof window < "u" && window.document && window.document.createElement;
+function composeEventHandlers$2(e, t, { checkForDefaultPrevented: n = !0 } = {}) {
 	return function(i) {
 		if (e?.(i), n === !1 || !i.defaultPrevented) return t?.(i);
 	};
@@ -2337,7 +3739,7 @@ function createContext2(t, n) {
 	}
 	return [a, o];
 }
-function createContextScope$1(t, n = []) {
+function createContextScope$2(t, n = []) {
 	let i = [];
 	function a(n, a) {
 		let o = React$1.createContext(a), s = i.length;
@@ -2391,15 +3793,15 @@ function composeContextScopes$1(...t) {
 	};
 	return i.scopeName = n.scopeName, i;
 }
-var useLayoutEffect2$1 = globalThis?.document ? React$1.useLayoutEffect : () => {}, useReactId$1 = React$1.useId || (() => void 0), count$3 = 0;
-function useId$2(t) {
+var useLayoutEffect2$2 = globalThis?.document ? React$1.useLayoutEffect : () => {}, useReactId$1 = React$1.useId || (() => void 0), count$3 = 0;
+function useId$3(t) {
 	let [n, i] = React$1.useState(useReactId$1());
-	return useLayoutEffect2$1(() => {
+	return useLayoutEffect2$2(() => {
 		t || i((e) => e ?? String(count$3++));
 	}, [t]), t || (n ? `radix-${n}` : "");
 }
-var useInsertionEffect$1 = React$1.useInsertionEffect || useLayoutEffect2$1;
-function useControllableState$1({ prop: t, defaultProp: n, onChange: i = () => {}, caller: a }) {
+var useInsertionEffect$1 = React$1.useInsertionEffect || useLayoutEffect2$2;
+function useControllableState$2({ prop: t, defaultProp: n, onChange: i = () => {}, caller: a }) {
 	let [o, s, c] = useUncontrolledState$1({
 		defaultProp: n,
 		onChange: i
@@ -2417,7 +3819,7 @@ function useControllableState$1({ prop: t, defaultProp: n, onChange: i = () => {
 	}
 	return [u, React$1.useCallback((e) => {
 		if (l) {
-			let n = isFunction$1(e) ? e(t) : e;
+			let n = isFunction$2(e) ? e(t) : e;
 			n !== t && c.current?.(n);
 		} else s(e);
 	}, [
@@ -2439,7 +3841,7 @@ function useUncontrolledState$1({ defaultProp: t, onChange: n }) {
 		s
 	];
 }
-function isFunction$1(e) {
+function isFunction$2(e) {
 	return typeof e == "function";
 }
 /* @__NO_SIDE_EFFECTS__ */
@@ -2499,7 +3901,7 @@ function getElementRef$3(e) {
 	let t = Object.getOwnPropertyDescriptor(e.props, "ref")?.get, n = t && "isReactWarning" in t && t.isReactWarning;
 	return n ? e.ref : (t = Object.getOwnPropertyDescriptor(e, "ref")?.get, n = t && "isReactWarning" in t && t.isReactWarning, n ? e.props.ref : e.props.ref || e.ref);
 }
-var Primitive$1 = [
+var Primitive$2 = [
 	"a",
 	"button",
 	"div",
@@ -2533,14 +3935,14 @@ var Primitive$1 = [
 function dispatchDiscreteCustomEvent$1(e, t) {
 	e && ReactDOM$1.flushSync(() => e.dispatchEvent(t));
 }
-function useCallbackRef$1(t) {
+function useCallbackRef$2(t) {
 	let n = React$1.useRef(t);
 	return React$1.useEffect(() => {
 		n.current = t;
 	}), React$1.useMemo(() => (...e) => n.current?.(...e), []);
 }
 function useEscapeKeydown(t, n = globalThis?.document) {
-	let i = useCallbackRef$1(t);
+	let i = useCallbackRef$2(t);
 	React$1.useEffect(() => {
 		let e = (e) => {
 			e.key === "Escape" && i(e);
@@ -2553,10 +3955,10 @@ var DISMISSABLE_LAYER_NAME$1 = "DismissableLayer", CONTEXT_UPDATE$1 = "dismissab
 	layersWithOutsidePointerEventsDisabled: /* @__PURE__ */ new Set(),
 	branches: /* @__PURE__ */ new Set()
 }), DismissableLayer$1 = React$1.forwardRef((t, n) => {
-	let { disableOutsidePointerEvents: i = !1, onEscapeKeyDown: a, onPointerDownOutside: o, onFocusOutside: s, onInteractOutside: c, onDismiss: l, ...u } = t, d = React$1.useContext(DismissableLayerContext$1), [f, p] = React$1.useState(null), m = f?.ownerDocument ?? globalThis?.document, [, g] = React$1.useState({}), _ = useComposedRefs$1(n, (e) => p(e)), v = Array.from(d.layers), [y] = [...d.layersWithOutsidePointerEventsDisabled].slice(-1), b = v.indexOf(y), x = f ? v.indexOf(f) : -1, S = d.layersWithOutsidePointerEventsDisabled.size > 0, w = x >= b, T = usePointerDownOutside$1((e) => {
+	let { disableOutsidePointerEvents: i = !1, onEscapeKeyDown: a, onPointerDownOutside: o, onFocusOutside: s, onInteractOutside: c, onDismiss: l, ...u } = t, d = React$1.useContext(DismissableLayerContext$1), [f, p] = React$1.useState(null), m = f?.ownerDocument ?? globalThis?.document, [, g] = React$1.useState({}), _ = useComposedRefs$2(n, (e) => p(e)), v = Array.from(d.layers), [y] = [...d.layersWithOutsidePointerEventsDisabled].slice(-1), b = v.indexOf(y), x = f ? v.indexOf(f) : -1, S = d.layersWithOutsidePointerEventsDisabled.size > 0, C = x >= b, w = usePointerDownOutside$1((e) => {
 		let t = e.target, n = [...d.branches].some((e) => e.contains(t));
-		!w || n || (o?.(e), c?.(e), e.defaultPrevented || l?.());
-	}, m), E = useFocusOutside$1((e) => {
+		!C || n || (o?.(e), c?.(e), e.defaultPrevented || l?.());
+	}, m), T = useFocusOutside$1((e) => {
 		let t = e.target;
 		[...d.branches].some((e) => e.contains(t)) || (s?.(e), c?.(e), e.defaultPrevented || l?.());
 	}, m);
@@ -2576,34 +3978,34 @@ var DISMISSABLE_LAYER_NAME$1 = "DismissableLayer", CONTEXT_UPDATE$1 = "dismissab
 	}, [f, d]), React$1.useEffect(() => {
 		let e = () => g({});
 		return document.addEventListener(CONTEXT_UPDATE$1, e), () => document.removeEventListener(CONTEXT_UPDATE$1, e);
-	}, []), /* @__PURE__ */ jsx(Primitive$1.div, {
+	}, []), /* @__PURE__ */ jsx(Primitive$2.div, {
 		...u,
 		ref: _,
 		style: {
-			pointerEvents: S ? w ? "auto" : "none" : void 0,
+			pointerEvents: S ? C ? "auto" : "none" : void 0,
 			...t.style
 		},
-		onFocusCapture: composeEventHandlers$1(t.onFocusCapture, E.onFocusCapture),
-		onBlurCapture: composeEventHandlers$1(t.onBlurCapture, E.onBlurCapture),
-		onPointerDownCapture: composeEventHandlers$1(t.onPointerDownCapture, T.onPointerDownCapture)
+		onFocusCapture: composeEventHandlers$2(t.onFocusCapture, T.onFocusCapture),
+		onBlurCapture: composeEventHandlers$2(t.onBlurCapture, T.onBlurCapture),
+		onPointerDownCapture: composeEventHandlers$2(t.onPointerDownCapture, w.onPointerDownCapture)
 	});
 });
 DismissableLayer$1.displayName = DISMISSABLE_LAYER_NAME$1;
 var BRANCH_NAME$1 = "DismissableLayerBranch", DismissableLayerBranch$1 = React$1.forwardRef((t, n) => {
-	let i = React$1.useContext(DismissableLayerContext$1), a = React$1.useRef(null), o = useComposedRefs$1(n, a);
+	let i = React$1.useContext(DismissableLayerContext$1), a = React$1.useRef(null), o = useComposedRefs$2(n, a);
 	return React$1.useEffect(() => {
 		let e = a.current;
 		if (e) return i.branches.add(e), () => {
 			i.branches.delete(e);
 		};
-	}, [i.branches]), /* @__PURE__ */ jsx(Primitive$1.div, {
+	}, [i.branches]), /* @__PURE__ */ jsx(Primitive$2.div, {
 		...t,
 		ref: o
 	});
 });
 DismissableLayerBranch$1.displayName = BRANCH_NAME$1;
 function usePointerDownOutside$1(t, n = globalThis?.document) {
-	let i = useCallbackRef$1(t), a = React$1.useRef(!1), o = React$1.useRef(() => {});
+	let i = useCallbackRef$2(t), a = React$1.useRef(!1), o = React$1.useRef(() => {});
 	return React$1.useEffect(() => {
 		let e = (e) => {
 			if (e.target && !a.current) {
@@ -2622,7 +4024,7 @@ function usePointerDownOutside$1(t, n = globalThis?.document) {
 	}, [n, i]), { onPointerDownCapture: () => a.current = !0 };
 }
 function useFocusOutside$1(t, n = globalThis?.document) {
-	let i = useCallbackRef$1(t), a = React$1.useRef(!1);
+	let i = useCallbackRef$2(t), a = React$1.useRef(!1);
 	return React$1.useEffect(() => {
 		let e = (e) => {
 			e.target && !a.current && handleAndDispatchCustomEvent$1(FOCUS_OUTSIDE$1, i, { originalEvent: e }, { discrete: !1 });
@@ -2645,11 +4047,11 @@ function handleAndDispatchCustomEvent$1(e, t, n, { discrete: i }) {
 	});
 	t && a.addEventListener(e, t, { once: !0 }), i ? dispatchDiscreteCustomEvent$1(a, o) : a.dispatchEvent(o);
 }
-var AUTOFOCUS_ON_MOUNT$1 = "focusScope.autoFocusOnMount", AUTOFOCUS_ON_UNMOUNT$1 = "focusScope.autoFocusOnUnmount", EVENT_OPTIONS$1 = {
+var AUTOFOCUS_ON_MOUNT$1 = "focusScope.autoFocusOnMount", AUTOFOCUS_ON_UNMOUNT$1 = "focusScope.autoFocusOnUnmount", EVENT_OPTIONS$2 = {
 	bubbles: !1,
 	cancelable: !0
 }, FOCUS_SCOPE_NAME$1 = "FocusScope", FocusScope$1 = React$1.forwardRef((t, n) => {
-	let { loop: i = !1, trapped: a = !1, onMountAutoFocus: o, onUnmountAutoFocus: s, ...c } = t, [l, u] = React$1.useState(null), d = useCallbackRef$1(o), f = useCallbackRef$1(s), p = React$1.useRef(null), m = useComposedRefs$1(n, (e) => u(e)), g = React$1.useRef({
+	let { loop: i = !1, trapped: a = !1, onMountAutoFocus: o, onUnmountAutoFocus: s, ...c } = t, [l, u] = React$1.useState(null), d = useCallbackRef$2(o), f = useCallbackRef$2(s), p = React$1.useRef(null), m = useComposedRefs$2(n, (e) => u(e)), g = React$1.useRef({
 		paused: !1,
 		pause() {
 			this.paused = !0;
@@ -2689,12 +4091,12 @@ var AUTOFOCUS_ON_MOUNT$1 = "focusScope.autoFocusOnMount", AUTOFOCUS_ON_UNMOUNT$1
 			focusScopesStack$1.add(g);
 			let e = document.activeElement;
 			if (!l.contains(e)) {
-				let t = new CustomEvent(AUTOFOCUS_ON_MOUNT$1, EVENT_OPTIONS$1);
-				l.addEventListener(AUTOFOCUS_ON_MOUNT$1, d), l.dispatchEvent(t), t.defaultPrevented || (focusFirst$1(removeLinks$1(getTabbableCandidates$1(l)), { select: !0 }), document.activeElement === e && focus$1(l));
+				let t = new CustomEvent(AUTOFOCUS_ON_MOUNT$1, EVENT_OPTIONS$2);
+				l.addEventListener(AUTOFOCUS_ON_MOUNT$1, d), l.dispatchEvent(t), t.defaultPrevented || (focusFirst$2(removeLinks$1(getTabbableCandidates$1(l)), { select: !0 }), document.activeElement === e && focus$1(l));
 			}
 			return () => {
 				l.removeEventListener(AUTOFOCUS_ON_MOUNT$1, d), setTimeout(() => {
-					let t = new CustomEvent(AUTOFOCUS_ON_UNMOUNT$1, EVENT_OPTIONS$1);
+					let t = new CustomEvent(AUTOFOCUS_ON_UNMOUNT$1, EVENT_OPTIONS$2);
 					l.addEventListener(AUTOFOCUS_ON_UNMOUNT$1, f), l.dispatchEvent(t), t.defaultPrevented || focus$1(e ?? document.body, { select: !0 }), l.removeEventListener(AUTOFOCUS_ON_UNMOUNT$1, f), focusScopesStack$1.remove(g);
 				}, 0);
 			};
@@ -2717,7 +4119,7 @@ var AUTOFOCUS_ON_MOUNT$1 = "focusScope.autoFocusOnMount", AUTOFOCUS_ON_UNMOUNT$1
 		a,
 		g.paused
 	]);
-	return /* @__PURE__ */ jsx(Primitive$1.div, {
+	return /* @__PURE__ */ jsx(Primitive$2.div, {
 		tabIndex: -1,
 		...c,
 		ref: m,
@@ -2725,7 +4127,7 @@ var AUTOFOCUS_ON_MOUNT$1 = "focusScope.autoFocusOnMount", AUTOFOCUS_ON_UNMOUNT$1
 	});
 });
 FocusScope$1.displayName = FOCUS_SCOPE_NAME$1;
-function focusFirst$1(e, { select: t = !1 } = {}) {
+function focusFirst$2(e, { select: t = !1 } = {}) {
 	let n = document.activeElement;
 	for (let i of e) if (focus$1(i, { select: t }), document.activeElement !== n) return;
 }
@@ -2784,9 +4186,9 @@ function removeLinks$1(e) {
 }
 var PORTAL_NAME$4 = "Portal", Portal$2 = React$1.forwardRef((t, n) => {
 	let { container: i, ...a } = t, [o, s] = React$1.useState(!1);
-	useLayoutEffect2$1(() => s(!0), []);
+	useLayoutEffect2$2(() => s(!0), []);
 	let c = i || o && globalThis?.document?.body;
-	return c ? ReactDOM.createPortal(/* @__PURE__ */ jsx(Primitive$1.div, {
+	return c ? ReactDOM.createPortal(/* @__PURE__ */ jsx(Primitive$2.div, {
 		...a,
 		ref: n
 	}), c) : null;
@@ -2795,11 +4197,11 @@ Portal$2.displayName = PORTAL_NAME$4;
 function useStateMachine$1(t, n) {
 	return React$1.useReducer((e, t) => n[e][t] ?? e, t);
 }
-var Presence$1 = (t) => {
-	let { present: n, children: i } = t, a = usePresence$1(n), o = typeof i == "function" ? i({ present: a.isPresent }) : React$1.Children.only(i), s = useComposedRefs$1(a.ref, getElementRef$2(o));
+var Presence$2 = (t) => {
+	let { present: n, children: i } = t, a = usePresence$1(n), o = typeof i == "function" ? i({ present: a.isPresent }) : React$1.Children.only(i), s = useComposedRefs$2(a.ref, getElementRef$2(o));
 	return typeof i == "function" || a.isPresent ? React$1.cloneElement(o, { ref: s }) : null;
 };
-Presence$1.displayName = "Presence";
+Presence$2.displayName = "Presence";
 function usePresence$1(t) {
 	let [n, i] = React$1.useState(), a = React$1.useRef(null), o = React$1.useRef(t), s = React$1.useRef("none"), [c, l] = useStateMachine$1(t ? "mounted" : "unmounted", {
 		mounted: {
@@ -2815,13 +4217,13 @@ function usePresence$1(t) {
 	return React$1.useEffect(() => {
 		let e = getAnimationName$1(a.current);
 		s.current = c === "mounted" ? e : "none";
-	}, [c]), useLayoutEffect2$1(() => {
+	}, [c]), useLayoutEffect2$2(() => {
 		let e = a.current, n = o.current;
 		if (n !== t) {
 			let i = s.current, a = getAnimationName$1(e);
 			t ? l("MOUNT") : a === "none" || e?.display === "none" ? l("UNMOUNT") : l(n && i !== a ? "ANIMATION_OUT" : "UNMOUNT"), o.current = t;
 		}
-	}, [t, l]), useLayoutEffect2$1(() => {
+	}, [t, l]), useLayoutEffect2$2(() => {
 		if (n) {
 			let e, t = n.ownerDocument.defaultView ?? window, i = (i) => {
 				let s = getAnimationName$1(a.current).includes(CSS.escape(i.animationName));
@@ -2885,7 +4287,7 @@ var zeroRightClassName = "right-scroll-bar-position", fullWidthClassName = "widt
 function assignRef(e, t) {
 	return typeof e == "function" ? e(t) : e && (e.current = t), e;
 }
-function useCallbackRef$2(e, t) {
+function useCallbackRef$3(e, t) {
 	var n = useState(function() {
 		return {
 			value: e,
@@ -2905,7 +4307,7 @@ function useCallbackRef$2(e, t) {
 }
 var useIsomorphicLayoutEffect = typeof window < "u" ? React$1.useLayoutEffect : React$1.useEffect, currentValues = /* @__PURE__ */ new WeakMap();
 function useMergeRefs(e, t) {
-	var n = useCallbackRef$2(t || null, function(t) {
+	var n = useCallbackRef$3(t || null, function(t) {
 		return e.forEach(function(e) {
 			return assignRef(e, t);
 		});
@@ -3380,8 +4782,8 @@ var Combination_default = ReactRemoveScroll, getDefaultParent = function(e) {
 	return a ? (i.push.apply(i, Array.from(a.querySelectorAll("[aria-live], script"))), applyAttributeToOthers(i, a, n, "aria-hidden")) : function() {
 		return null;
 	};
-}, DIALOG_NAME = "Dialog", [createDialogContext, createDialogScope] = createContextScope$1(DIALOG_NAME), [DialogProvider, useDialogContext] = createDialogContext(DIALOG_NAME), Dialog = (t) => {
-	let { __scopeDialog: n, children: i, open: a, defaultOpen: o, onOpenChange: s, modal: c = !0 } = t, l = React$1.useRef(null), u = React$1.useRef(null), [d, f] = useControllableState$1({
+}, DIALOG_NAME = "Dialog", [createDialogContext, createDialogScope] = createContextScope$2(DIALOG_NAME), [DialogProvider, useDialogContext] = createDialogContext(DIALOG_NAME), Dialog = (t) => {
+	let { __scopeDialog: n, children: i, open: a, defaultOpen: o, onOpenChange: s, modal: c = !0 } = t, l = React$1.useRef(null), u = React$1.useRef(null), [d, f] = useControllableState$2({
 		prop: a,
 		defaultProp: o ?? !1,
 		onChange: s,
@@ -3391,9 +4793,9 @@ var Combination_default = ReactRemoveScroll, getDefaultParent = function(e) {
 		scope: n,
 		triggerRef: l,
 		contentRef: u,
-		contentId: useId$2(),
-		titleId: useId$2(),
-		descriptionId: useId$2(),
+		contentId: useId$3(),
+		titleId: useId$3(),
+		descriptionId: useId$3(),
 		open: d,
 		onOpenChange: f,
 		onOpenToggle: React$1.useCallback(() => f((e) => !e), [f]),
@@ -3402,26 +4804,26 @@ var Combination_default = ReactRemoveScroll, getDefaultParent = function(e) {
 	});
 };
 Dialog.displayName = DIALOG_NAME;
-var TRIGGER_NAME$2 = "DialogTrigger", DialogTrigger = React$1.forwardRef((e, t) => {
-	let { __scopeDialog: n, ...i } = e, a = useDialogContext(TRIGGER_NAME$2, n), o = useComposedRefs$1(t, a.triggerRef);
-	return /* @__PURE__ */ jsx(Primitive$1.button, {
+var TRIGGER_NAME$3 = "DialogTrigger", DialogTrigger = React$1.forwardRef((e, t) => {
+	let { __scopeDialog: n, ...i } = e, a = useDialogContext(TRIGGER_NAME$3, n), o = useComposedRefs$2(t, a.triggerRef);
+	return /* @__PURE__ */ jsx(Primitive$2.button, {
 		type: "button",
 		"aria-haspopup": "dialog",
 		"aria-expanded": a.open,
 		"aria-controls": a.contentId,
-		"data-state": getState$1(a.open),
+		"data-state": getState$2(a.open),
 		...i,
 		ref: o,
-		onClick: composeEventHandlers$1(e.onClick, a.onOpenToggle)
+		onClick: composeEventHandlers$2(e.onClick, a.onOpenToggle)
 	});
 });
-DialogTrigger.displayName = TRIGGER_NAME$2;
+DialogTrigger.displayName = TRIGGER_NAME$3;
 var PORTAL_NAME$3 = "DialogPortal", [PortalProvider$1, usePortalContext$1] = createDialogContext(PORTAL_NAME$3, { forceMount: void 0 }), DialogPortal = (t) => {
 	let { __scopeDialog: n, forceMount: i, children: a, container: o } = t, s = useDialogContext(PORTAL_NAME$3, n);
 	return /* @__PURE__ */ jsx(PortalProvider$1, {
 		scope: n,
 		forceMount: i,
-		children: React$1.Children.map(a, (e) => /* @__PURE__ */ jsx(Presence$1, {
+		children: React$1.Children.map(a, (e) => /* @__PURE__ */ jsx(Presence$2, {
 			present: i || s.open,
 			children: /* @__PURE__ */ jsx(Portal$2, {
 				asChild: !0,
@@ -3434,7 +4836,7 @@ var PORTAL_NAME$3 = "DialogPortal", [PortalProvider$1, usePortalContext$1] = cre
 DialogPortal.displayName = PORTAL_NAME$3;
 var OVERLAY_NAME = "DialogOverlay", DialogOverlay = React$1.forwardRef((e, t) => {
 	let n = usePortalContext$1(OVERLAY_NAME, e.__scopeDialog), { forceMount: i = n.forceMount, ...a } = e, o = useDialogContext(OVERLAY_NAME, e.__scopeDialog);
-	return o.modal ? /* @__PURE__ */ jsx(Presence$1, {
+	return o.modal ? /* @__PURE__ */ jsx(Presence$2, {
 		present: i || o.open,
 		children: /* @__PURE__ */ jsx(DialogOverlayImpl, {
 			...a,
@@ -3449,8 +4851,8 @@ var Slot$2 = /* @__PURE__ */ createSlot$1("DialogOverlay.RemoveScroll"), DialogO
 		as: Slot$2,
 		allowPinchZoom: !0,
 		shards: [a.contentRef],
-		children: /* @__PURE__ */ jsx(Primitive$1.div, {
-			"data-state": getState$1(a.open),
+		children: /* @__PURE__ */ jsx(Primitive$2.div, {
+			"data-state": getState$2(a.open),
 			...i,
 			ref: t,
 			style: {
@@ -3461,7 +4863,7 @@ var Slot$2 = /* @__PURE__ */ createSlot$1("DialogOverlay.RemoveScroll"), DialogO
 	});
 }), CONTENT_NAME$4 = "DialogContent", DialogContent = React$1.forwardRef((e, t) => {
 	let n = usePortalContext$1(CONTENT_NAME$4, e.__scopeDialog), { forceMount: i = n.forceMount, ...a } = e, o = useDialogContext(CONTENT_NAME$4, e.__scopeDialog);
-	return /* @__PURE__ */ jsx(Presence$1, {
+	return /* @__PURE__ */ jsx(Presence$2, {
 		present: i || o.open,
 		children: o.modal ? /* @__PURE__ */ jsx(DialogContentModal, {
 			...a,
@@ -3474,7 +4876,7 @@ var Slot$2 = /* @__PURE__ */ createSlot$1("DialogOverlay.RemoveScroll"), DialogO
 });
 DialogContent.displayName = CONTENT_NAME$4;
 var DialogContentModal = React$1.forwardRef((t, n) => {
-	let i = useDialogContext(CONTENT_NAME$4, t.__scopeDialog), a = React$1.useRef(null), o = useComposedRefs$1(n, i.contentRef, a);
+	let i = useDialogContext(CONTENT_NAME$4, t.__scopeDialog), a = React$1.useRef(null), o = useComposedRefs$2(n, i.contentRef, a);
 	return React$1.useEffect(() => {
 		let e = a.current;
 		if (e) return hideOthers(e);
@@ -3483,14 +4885,14 @@ var DialogContentModal = React$1.forwardRef((t, n) => {
 		ref: o,
 		trapFocus: i.open,
 		disableOutsidePointerEvents: !0,
-		onCloseAutoFocus: composeEventHandlers$1(t.onCloseAutoFocus, (e) => {
+		onCloseAutoFocus: composeEventHandlers$2(t.onCloseAutoFocus, (e) => {
 			e.preventDefault(), i.triggerRef.current?.focus();
 		}),
-		onPointerDownOutside: composeEventHandlers$1(t.onPointerDownOutside, (e) => {
+		onPointerDownOutside: composeEventHandlers$2(t.onPointerDownOutside, (e) => {
 			let t = e.detail.originalEvent, n = t.button === 0 && t.ctrlKey === !0;
 			(t.button === 2 || n) && e.preventDefault();
 		}),
-		onFocusOutside: composeEventHandlers$1(t.onFocusOutside, (e) => e.preventDefault())
+		onFocusOutside: composeEventHandlers$2(t.onFocusOutside, (e) => e.preventDefault())
 	});
 }), DialogContentNonModal = React$1.forwardRef((t, n) => {
 	let i = useDialogContext(CONTENT_NAME$4, t.__scopeDialog), a = React$1.useRef(!1), o = React$1.useRef(!1);
@@ -3509,7 +4911,7 @@ var DialogContentModal = React$1.forwardRef((t, n) => {
 		}
 	});
 }), DialogContentImpl = React$1.forwardRef((t, n) => {
-	let { __scopeDialog: i, trapFocus: a, onOpenAutoFocus: o, onCloseAutoFocus: s, ...c } = t, l = useDialogContext(CONTENT_NAME$4, i), u = React$1.useRef(null), d = useComposedRefs$1(n, u);
+	let { __scopeDialog: i, trapFocus: a, onOpenAutoFocus: o, onCloseAutoFocus: s, ...c } = t, l = useDialogContext(CONTENT_NAME$4, i), u = React$1.useRef(null), d = useComposedRefs$2(n, u);
 	return useFocusGuards$1(), /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx(FocusScope$1, {
 		asChild: !0,
 		loop: !0,
@@ -3521,7 +4923,7 @@ var DialogContentModal = React$1.forwardRef((t, n) => {
 			id: l.contentId,
 			"aria-describedby": l.descriptionId,
 			"aria-labelledby": l.titleId,
-			"data-state": getState$1(l.open),
+			"data-state": getState$2(l.open),
 			...c,
 			ref: d,
 			onDismiss: () => l.onOpenChange(!1)
@@ -3532,7 +4934,7 @@ var DialogContentModal = React$1.forwardRef((t, n) => {
 	})] })] });
 }), TITLE_NAME = "DialogTitle", DialogTitle = React$1.forwardRef((e, t) => {
 	let { __scopeDialog: n, ...i } = e, a = useDialogContext(TITLE_NAME, n);
-	return /* @__PURE__ */ jsx(Primitive$1.h2, {
+	return /* @__PURE__ */ jsx(Primitive$2.h2, {
 		id: a.titleId,
 		...i,
 		ref: t
@@ -3541,7 +4943,7 @@ var DialogContentModal = React$1.forwardRef((t, n) => {
 DialogTitle.displayName = TITLE_NAME;
 var DESCRIPTION_NAME = "DialogDescription", DialogDescription = React$1.forwardRef((e, t) => {
 	let { __scopeDialog: n, ...i } = e, a = useDialogContext(DESCRIPTION_NAME, n);
-	return /* @__PURE__ */ jsx(Primitive$1.p, {
+	return /* @__PURE__ */ jsx(Primitive$2.p, {
 		id: a.descriptionId,
 		...i,
 		ref: t
@@ -3550,15 +4952,15 @@ var DESCRIPTION_NAME = "DialogDescription", DialogDescription = React$1.forwardR
 DialogDescription.displayName = DESCRIPTION_NAME;
 var CLOSE_NAME$1 = "DialogClose", DialogClose = React$1.forwardRef((e, t) => {
 	let { __scopeDialog: n, ...i } = e, a = useDialogContext(CLOSE_NAME$1, n);
-	return /* @__PURE__ */ jsx(Primitive$1.button, {
+	return /* @__PURE__ */ jsx(Primitive$2.button, {
 		type: "button",
 		...i,
 		ref: t,
-		onClick: composeEventHandlers$1(e.onClick, () => a.onOpenChange(!1))
+		onClick: composeEventHandlers$2(e.onClick, () => a.onOpenChange(!1))
 	});
 });
 DialogClose.displayName = CLOSE_NAME$1;
-function getState$1(e) {
+function getState$2(e) {
 	return e ? "open" : "closed";
 }
 var TITLE_WARNING_NAME = "DialogTitleWarning", [WarningProvider, useWarningContext] = createContext2(TITLE_WARNING_NAME, {
@@ -3584,7 +4986,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/${n.do
 		t,
 		n
 	]), null;
-}, Root$3 = Dialog, Trigger$2 = DialogTrigger, Portal$4 = DialogPortal, Overlay = DialogOverlay, Content$2 = DialogContent, Title = DialogTitle, Description = DialogDescription, Close = DialogClose;
+}, Root$4 = Dialog, Trigger$2 = DialogTrigger, Portal$4 = DialogPortal, Overlay = DialogOverlay, Content$2 = DialogContent, Title = DialogTitle, Description = DialogDescription, Close = DialogClose;
 const modalSectionX = "pl-6 pr-4", modalTitleSize = {
 	sm: "text-sm font-medium leading-snug",
 	default: "text-base font-medium leading-snug",
@@ -3608,7 +5010,7 @@ const modalSectionX = "pl-6 pr-4", modalTitleSize = {
 	"transition-[opacity,transform] duration-200 data-[state=closed]:scale-[0.98] data-[state=closed]:opacity-0 data-[state=open]:scale-100 data-[state=open]:opacity-100",
 	"max-h-[min(85vh,40rem)]"
 ].join(" ");
-var Modal = Root$3, ModalTrigger = Trigger$2, ModalTextAlignContext = React$1.createContext("start");
+var Modal = Root$4, ModalTrigger = Trigger$2, ModalTextAlignContext = React$1.createContext("start");
 function useModalTextAlign() {
 	return React$1.useContext(ModalTextAlignContext);
 }
@@ -3668,8 +5070,8 @@ function ModalFooter({ align: e = "end", children: t }) {
 function clamp(e, [t, n]) {
 	return Math.min(n, Math.max(t, e));
 }
-function createCollection(e) {
-	let n = e + "CollectionProvider", [i, a] = createContextScope$1(n), [o, s] = i(n, {
+function createCollection$1(e) {
+	let n = e + "CollectionProvider", [i, a] = createContextScope$2(n), [o, s] = i(n, {
 		collectionRef: { current: null },
 		itemMap: /* @__PURE__ */ new Map()
 	}), c = (e) => {
@@ -3685,13 +5087,13 @@ function createCollection(e) {
 	let l = e + "CollectionSlot", u = /* @__PURE__ */ createSlot$1(l), d = React.forwardRef((e, t) => {
 		let { scope: n, children: i } = e;
 		return /* @__PURE__ */ jsx(u, {
-			ref: useComposedRefs$1(t, s(l, n).collectionRef),
+			ref: useComposedRefs$2(t, s(l, n).collectionRef),
 			children: i
 		});
 	});
 	d.displayName = l;
 	let f = e + "CollectionItemSlot", p = "data-radix-collection-item", m = /* @__PURE__ */ createSlot$1(f), g = React.forwardRef((e, n) => {
-		let { scope: i, children: a, ...o } = e, c = React.useRef(null), l = useComposedRefs$1(n, c), u = s(f, i);
+		let { scope: i, children: a, ...o } = e, c = React.useRef(null), l = useComposedRefs$2(n, c), u = s(f, i);
 		return React.useEffect(() => (u.itemMap.set(c, {
 			ref: c,
 			...o
@@ -3722,7 +5124,7 @@ function createCollection(e) {
 	];
 }
 var DirectionContext = React$1.createContext(void 0);
-function useDirection(t) {
+function useDirection$1(t) {
 	let n = React$1.useContext(DirectionContext);
 	return t || n || "ltr";
 }
@@ -4804,7 +6206,7 @@ var arrow$1$1 = (e) => {
 	};
 }, NAME$2 = "Arrow", Arrow$3 = React$1.forwardRef((e, t) => {
 	let { children: n, width: i = 10, height: a = 5, ...o } = e;
-	return /* @__PURE__ */ jsx(Primitive$1.svg, {
+	return /* @__PURE__ */ jsx(Primitive$2.svg, {
 		...o,
 		ref: t,
 		width: i,
@@ -4815,10 +6217,10 @@ var arrow$1$1 = (e) => {
 	});
 });
 Arrow$3.displayName = NAME$2;
-var Root$2 = Arrow$3;
-function useSize$1(t) {
+var Root$3 = Arrow$3;
+function useSize$2(t) {
 	let [n, i] = React$1.useState(void 0);
-	return useLayoutEffect2$1(() => {
+	return useLayoutEffect2$2(() => {
 		if (t) {
 			i({
 				width: t.offsetWidth,
@@ -4840,7 +6242,7 @@ function useSize$1(t) {
 		} else i(void 0);
 	}, [t]), n;
 }
-var POPPER_NAME$1 = "Popper", [createPopperContext$1, createPopperScope$1] = createContextScope$1(POPPER_NAME$1), [PopperProvider$1, usePopperContext$1] = createPopperContext$1(POPPER_NAME$1), Popper$1 = (t) => {
+var POPPER_NAME$1 = "Popper", [createPopperContext$1, createPopperScope$1] = createContextScope$2(POPPER_NAME$1), [PopperProvider$1, usePopperContext$1] = createPopperContext$1(POPPER_NAME$1), Popper$1 = (t) => {
 	let { __scopePopper: n, children: i } = t, [a, o] = React$1.useState(null);
 	return /* @__PURE__ */ jsx(PopperProvider$1, {
 		scope: n,
@@ -4851,81 +6253,81 @@ var POPPER_NAME$1 = "Popper", [createPopperContext$1, createPopperScope$1] = cre
 };
 Popper$1.displayName = POPPER_NAME$1;
 var ANCHOR_NAME$2 = "PopperAnchor", PopperAnchor$1 = React$1.forwardRef((t, n) => {
-	let { __scopePopper: i, virtualRef: a, ...o } = t, s = usePopperContext$1(ANCHOR_NAME$2, i), c = React$1.useRef(null), l = useComposedRefs$1(n, c), u = React$1.useRef(null);
+	let { __scopePopper: i, virtualRef: a, ...o } = t, s = usePopperContext$1(ANCHOR_NAME$2, i), c = React$1.useRef(null), l = useComposedRefs$2(n, c), u = React$1.useRef(null);
 	return React$1.useEffect(() => {
 		let e = u.current;
 		u.current = a?.current || c.current, e !== u.current && s.onAnchorChange(u.current);
-	}), a ? null : /* @__PURE__ */ jsx(Primitive$1.div, {
+	}), a ? null : /* @__PURE__ */ jsx(Primitive$2.div, {
 		...o,
 		ref: l
 	});
 });
 PopperAnchor$1.displayName = ANCHOR_NAME$2;
 var CONTENT_NAME$3 = "PopperContent", [PopperContentProvider$1, useContentContext$1] = createPopperContext$1(CONTENT_NAME$3), PopperContent$1 = React$1.forwardRef((t, n) => {
-	let { __scopePopper: i, side: a = "bottom", sideOffset: o = 0, align: s = "center", alignOffset: c = 0, arrowPadding: l = 0, avoidCollisions: u = !0, collisionBoundary: d = [], collisionPadding: f = 0, sticky: p = "partial", hideWhenDetached: m = !1, updatePositionStrategy: g = "optimized", onPlaced: _, ...v } = t, y = usePopperContext$1(CONTENT_NAME$3, i), [b, x] = React$1.useState(null), S = useComposedRefs$1(n, (e) => x(e)), [w, T] = React$1.useState(null), E = useSize$1(w), D = E?.width ?? 0, O = E?.height ?? 0, k = a + (s === "center" ? "" : "-" + s), A = typeof f == "number" ? f : {
+	let { __scopePopper: i, side: a = "bottom", sideOffset: o = 0, align: s = "center", alignOffset: c = 0, arrowPadding: l = 0, avoidCollisions: u = !0, collisionBoundary: d = [], collisionPadding: f = 0, sticky: p = "partial", hideWhenDetached: m = !1, updatePositionStrategy: g = "optimized", onPlaced: _, ...v } = t, y = usePopperContext$1(CONTENT_NAME$3, i), [b, x] = React$1.useState(null), S = useComposedRefs$2(n, (e) => x(e)), [C, w] = React$1.useState(null), T = useSize$2(C), E = T?.width ?? 0, D = T?.height ?? 0, O = a + (s === "center" ? "" : "-" + s), k = typeof f == "number" ? f : {
 		top: 0,
 		right: 0,
 		bottom: 0,
 		left: 0,
 		...f
-	}, j = Array.isArray(d) ? d : [d], M = j.length > 0, N = {
-		padding: A,
-		boundary: j.filter(isNotNull$1),
-		altBoundary: M
-	}, { refs: P, floatingStyles: F, placement: I, isPositioned: L, middlewareData: R } = useFloating({
+	}, A = Array.isArray(d) ? d : [d], j = A.length > 0, M = {
+		padding: k,
+		boundary: A.filter(isNotNull$1),
+		altBoundary: j
+	}, { refs: N, floatingStyles: P, placement: F, isPositioned: I, middlewareData: L } = useFloating({
 		strategy: "fixed",
-		placement: k,
+		placement: O,
 		whileElementsMounted: (...e) => autoUpdate(...e, { animationFrame: g === "always" }),
 		elements: { reference: y.anchor },
 		middleware: [
 			offset({
-				mainAxis: o + O,
+				mainAxis: o + D,
 				alignmentAxis: c
 			}),
 			u && shift({
 				mainAxis: !0,
 				crossAxis: !1,
 				limiter: p === "partial" ? limitShift() : void 0,
-				...N
+				...M
 			}),
-			u && flip({ ...N }),
+			u && flip({ ...M }),
 			size({
-				...N,
+				...M,
 				apply: ({ elements: e, rects: t, availableWidth: n, availableHeight: i }) => {
 					let { width: a, height: o } = t.reference, s = e.floating.style;
 					s.setProperty("--radix-popper-available-width", `${n}px`), s.setProperty("--radix-popper-available-height", `${i}px`), s.setProperty("--radix-popper-anchor-width", `${a}px`), s.setProperty("--radix-popper-anchor-height", `${o}px`);
 				}
 			}),
-			w && arrow({
-				element: w,
+			C && arrow({
+				element: C,
 				padding: l
 			}),
 			transformOrigin$1({
-				arrowWidth: D,
-				arrowHeight: O
+				arrowWidth: E,
+				arrowHeight: D
 			}),
 			m && hide({
 				strategy: "referenceHidden",
-				...N
+				...M
 			})
 		]
-	}), [z, B] = getSideAndAlignFromPlacement$1(I), V = useCallbackRef$1(_);
-	useLayoutEffect2$1(() => {
-		L && V?.();
-	}, [L, V]);
-	let H = R.arrow?.x, U = R.arrow?.y, W = R.arrow?.centerOffset !== 0, [G, K] = React$1.useState();
-	return useLayoutEffect2$1(() => {
-		b && K(window.getComputedStyle(b).zIndex);
+	}), [R, z] = getSideAndAlignFromPlacement$1(F), B = useCallbackRef$2(_);
+	useLayoutEffect2$2(() => {
+		I && B?.();
+	}, [I, B]);
+	let V = L.arrow?.x, H = L.arrow?.y, U = L.arrow?.centerOffset !== 0, [W, G] = React$1.useState();
+	return useLayoutEffect2$2(() => {
+		b && G(window.getComputedStyle(b).zIndex);
 	}, [b]), /* @__PURE__ */ jsx("div", {
-		ref: P.setFloating,
+		ref: N.setFloating,
 		"data-radix-popper-content-wrapper": "",
 		style: {
-			...F,
-			transform: L ? F.transform : "translate(0, -200%)",
+			...P,
+			transform: I ? P.transform : "translate(0, -200%)",
 			minWidth: "max-content",
-			zIndex: G,
-			"--radix-popper-transform-origin": [R.transformOrigin?.x, R.transformOrigin?.y].join(" "),
-			...R.hide?.referenceHidden && {
+			zIndex: W,
+			"--radix-popper-transform-origin": [L.transformOrigin?.x, L.transformOrigin?.y].join(" "),
+			...L.hide?.referenceHidden && {
 				visibility: "hidden",
 				pointerEvents: "none"
 			}
@@ -4933,19 +6335,19 @@ var CONTENT_NAME$3 = "PopperContent", [PopperContentProvider$1, useContentContex
 		dir: t.dir,
 		children: /* @__PURE__ */ jsx(PopperContentProvider$1, {
 			scope: i,
-			placedSide: z,
-			onArrowChange: T,
-			arrowX: H,
-			arrowY: U,
-			shouldHideArrow: W,
-			children: /* @__PURE__ */ jsx(Primitive$1.div, {
-				"data-side": z,
-				"data-align": B,
+			placedSide: R,
+			onArrowChange: w,
+			arrowX: V,
+			arrowY: H,
+			shouldHideArrow: U,
+			children: /* @__PURE__ */ jsx(Primitive$2.div, {
+				"data-side": R,
+				"data-align": z,
 				...v,
 				ref: S,
 				style: {
 					...v.style,
-					animation: L ? void 0 : "none"
+					animation: I ? void 0 : "none"
 				}
 			})
 		})
@@ -4980,7 +6382,7 @@ var ARROW_NAME$3 = "PopperArrow", OPPOSITE_SIDE$1 = {
 			}[a.placedSide],
 			visibility: a.shouldHideArrow ? "hidden" : void 0
 		},
-		children: /* @__PURE__ */ jsx(Root$2, {
+		children: /* @__PURE__ */ jsx(Root$3, {
 			...i,
 			ref: t,
 			style: {
@@ -5032,7 +6434,7 @@ var VISUALLY_HIDDEN_STYLES = Object.freeze({
 	clip: "rect(0, 0, 0, 0)",
 	whiteSpace: "nowrap",
 	wordWrap: "normal"
-}), NAME$1 = "VisuallyHidden", VisuallyHidden = React$1.forwardRef((e, t) => /* @__PURE__ */ jsx(Primitive$1.span, {
+}), NAME$1 = "VisuallyHidden", VisuallyHidden = React$1.forwardRef((e, t) => /* @__PURE__ */ jsx(Primitive$2.span, {
 	...e,
 	ref: t,
 	style: {
@@ -5046,13 +6448,13 @@ var OPEN_KEYS = [
 	"Enter",
 	"ArrowUp",
 	"ArrowDown"
-], SELECTION_KEYS = [" ", "Enter"], SELECT_NAME = "Select", [Collection, useCollection, createCollectionScope] = createCollection(SELECT_NAME), [createSelectContext, createSelectScope] = createContextScope$1(SELECT_NAME, [createCollectionScope, createPopperScope$1]), usePopperScope$1 = createPopperScope$1(), [SelectProvider, useSelectContext] = createSelectContext(SELECT_NAME), [SelectNativeOptionsProvider, useSelectNativeOptionsContext] = createSelectContext(SELECT_NAME), Select$2 = (t) => {
-	let { __scopeSelect: n, children: i, open: a, defaultOpen: o, onOpenChange: s, value: c, defaultValue: l, onValueChange: u, dir: d, name: f, autoComplete: p, disabled: m, required: _, form: v } = t, y = usePopperScope$1(n), [b, x] = React$1.useState(null), [S, C] = React$1.useState(null), [w, T] = React$1.useState(!1), E = useDirection(d), [D, O] = useControllableState$1({
+], SELECTION_KEYS = [" ", "Enter"], SELECT_NAME = "Select", [Collection$1, useCollection$1, createCollectionScope$1] = createCollection$1(SELECT_NAME), [createSelectContext, createSelectScope] = createContextScope$2(SELECT_NAME, [createCollectionScope$1, createPopperScope$1]), usePopperScope$1 = createPopperScope$1(), [SelectProvider, useSelectContext] = createSelectContext(SELECT_NAME), [SelectNativeOptionsProvider, useSelectNativeOptionsContext] = createSelectContext(SELECT_NAME), Select$2 = (t) => {
+	let { __scopeSelect: n, children: i, open: a, defaultOpen: o, onOpenChange: s, value: c, defaultValue: l, onValueChange: u, dir: d, name: f, autoComplete: p, disabled: m, required: _, form: v } = t, y = usePopperScope$1(n), [b, x] = React$1.useState(null), [S, C] = React$1.useState(null), [w, T] = React$1.useState(!1), E = useDirection$1(d), [D, O] = useControllableState$2({
 		prop: a,
 		defaultProp: o ?? !1,
 		onChange: s,
 		caller: SELECT_NAME
-	}), [k, A] = useControllableState$1({
+	}), [k, A] = useControllableState$2({
 		prop: c,
 		defaultProp: l,
 		onChange: u,
@@ -5069,7 +6471,7 @@ var OPEN_KEYS = [
 			onValueNodeChange: C,
 			valueNodeHasChildren: w,
 			onValueNodeHasChildrenChange: T,
-			contentId: useId$2(),
+			contentId: useId$3(),
 			value: k,
 			onValueChange: A,
 			open: D,
@@ -5077,7 +6479,7 @@ var OPEN_KEYS = [
 			dir: E,
 			triggerPointerDownPosRef: j,
 			disabled: m,
-			children: [/* @__PURE__ */ jsx(Collection.Provider, {
+			children: [/* @__PURE__ */ jsx(Collection$1.Provider, {
 				scope: n,
 				children: /* @__PURE__ */ jsx(SelectNativeOptionsProvider, {
 					scope: t.__scopeSelect,
@@ -5108,8 +6510,8 @@ var OPEN_KEYS = [
 	});
 };
 Select$2.displayName = SELECT_NAME;
-var TRIGGER_NAME$1 = "SelectTrigger", SelectTrigger = React$1.forwardRef((t, n) => {
-	let { __scopeSelect: i, disabled: a = !1, ...o } = t, s = usePopperScope$1(i), c = useSelectContext(TRIGGER_NAME$1, i), l = c.disabled || a, u = useComposedRefs$1(n, c.onTriggerChange), d = useCollection(i), f = React$1.useRef("touch"), [p, m, g] = useTypeaheadSearch((e) => {
+var TRIGGER_NAME$2 = "SelectTrigger", SelectTrigger = React$1.forwardRef((t, n) => {
+	let { __scopeSelect: i, disabled: a = !1, ...o } = t, s = usePopperScope$1(i), c = useSelectContext(TRIGGER_NAME$2, i), l = c.disabled || a, u = useComposedRefs$2(n, c.onTriggerChange), d = useCollection$1(i), f = React$1.useRef("touch"), [p, m, g] = useTypeaheadSearch((e) => {
 		let t = d().filter((e) => !e.disabled), n = findNextItem(t, e, t.find((e) => e.value === c.value));
 		n !== void 0 && c.onValueChange(n.value);
 	}), _ = (e) => {
@@ -5121,7 +6523,7 @@ var TRIGGER_NAME$1 = "SelectTrigger", SelectTrigger = React$1.forwardRef((t, n) 
 	return /* @__PURE__ */ jsx(Anchor$1, {
 		asChild: !0,
 		...s,
-		children: /* @__PURE__ */ jsx(Primitive$1.button, {
+		children: /* @__PURE__ */ jsx(Primitive$2.button, {
 			type: "button",
 			role: "combobox",
 			"aria-controls": c.contentId,
@@ -5135,27 +6537,27 @@ var TRIGGER_NAME$1 = "SelectTrigger", SelectTrigger = React$1.forwardRef((t, n) 
 			"data-placeholder": shouldShowPlaceholder(c.value) ? "" : void 0,
 			...o,
 			ref: u,
-			onClick: composeEventHandlers$1(o.onClick, (e) => {
+			onClick: composeEventHandlers$2(o.onClick, (e) => {
 				e.currentTarget.focus(), f.current !== "mouse" && _(e);
 			}),
-			onPointerDown: composeEventHandlers$1(o.onPointerDown, (e) => {
+			onPointerDown: composeEventHandlers$2(o.onPointerDown, (e) => {
 				f.current = e.pointerType;
 				let t = e.target;
 				t.hasPointerCapture(e.pointerId) && t.releasePointerCapture(e.pointerId), e.button === 0 && e.ctrlKey === !1 && e.pointerType === "mouse" && (_(e), e.preventDefault());
 			}),
-			onKeyDown: composeEventHandlers$1(o.onKeyDown, (e) => {
+			onKeyDown: composeEventHandlers$2(o.onKeyDown, (e) => {
 				let t = p.current !== "";
 				!(e.ctrlKey || e.altKey || e.metaKey) && e.key.length === 1 && m(e.key), !(t && e.key === " ") && OPEN_KEYS.includes(e.key) && (_(), e.preventDefault());
 			})
 		})
 	});
 });
-SelectTrigger.displayName = TRIGGER_NAME$1;
+SelectTrigger.displayName = TRIGGER_NAME$2;
 var VALUE_NAME = "SelectValue", SelectValue = React$1.forwardRef((e, t) => {
-	let { __scopeSelect: n, className: i, style: a, children: o, placeholder: s = "", ...c } = e, l = useSelectContext(VALUE_NAME, n), { onValueNodeHasChildrenChange: u } = l, d = o !== void 0, f = useComposedRefs$1(t, l.onValueNodeChange);
-	return useLayoutEffect2$1(() => {
+	let { __scopeSelect: n, className: i, style: a, children: o, placeholder: s = "", ...c } = e, l = useSelectContext(VALUE_NAME, n), { onValueNodeHasChildrenChange: u } = l, d = o !== void 0, f = useComposedRefs$2(t, l.onValueNodeChange);
+	return useLayoutEffect2$2(() => {
 		u(d);
-	}, [u, d]), /* @__PURE__ */ jsx(Primitive$1.span, {
+	}, [u, d]), /* @__PURE__ */ jsx(Primitive$2.span, {
 		...c,
 		ref: f,
 		style: { pointerEvents: "none" },
@@ -5165,7 +6567,7 @@ var VALUE_NAME = "SelectValue", SelectValue = React$1.forwardRef((e, t) => {
 SelectValue.displayName = VALUE_NAME;
 var ICON_NAME = "SelectIcon", SelectIcon = React$1.forwardRef((e, t) => {
 	let { __scopeSelect: n, children: i, ...a } = e;
-	return /* @__PURE__ */ jsx(Primitive$1.span, {
+	return /* @__PURE__ */ jsx(Primitive$2.span, {
 		"aria-hidden": !0,
 		...a,
 		ref: t,
@@ -5180,13 +6582,13 @@ var PORTAL_NAME$2 = "SelectPortal", SelectPortal = (e) => /* @__PURE__ */ jsx(Po
 SelectPortal.displayName = PORTAL_NAME$2;
 var CONTENT_NAME$2 = "SelectContent", SelectContent = React$1.forwardRef((t, n) => {
 	let i = useSelectContext(CONTENT_NAME$2, t.__scopeSelect), [a, o] = React$1.useState();
-	if (useLayoutEffect2$1(() => {
+	if (useLayoutEffect2$2(() => {
 		o(new DocumentFragment());
 	}, []), !i.open) {
 		let e = a;
 		return e ? ReactDOM$1.createPortal(/* @__PURE__ */ jsx(SelectContentProvider, {
 			scope: t.__scopeSelect,
-			children: /* @__PURE__ */ jsx(Collection.Slot, {
+			children: /* @__PURE__ */ jsx(Collection$1.Slot, {
 				scope: t.__scopeSelect,
 				children: /* @__PURE__ */ jsx("div", { children: t.children })
 			})
@@ -5199,22 +6601,22 @@ var CONTENT_NAME$2 = "SelectContent", SelectContent = React$1.forwardRef((t, n) 
 });
 SelectContent.displayName = CONTENT_NAME$2;
 var CONTENT_MARGIN = 10, [SelectContentProvider, useSelectContentContext] = createSelectContext(CONTENT_NAME$2), CONTENT_IMPL_NAME = "SelectContentImpl", Slot$1 = /* @__PURE__ */ createSlot$1("SelectContent.RemoveScroll"), SelectContentImpl = React$1.forwardRef((t, n) => {
-	let { __scopeSelect: i, position: a = "item-aligned", onCloseAutoFocus: o, onEscapeKeyDown: s, onPointerDownOutside: c, side: l, sideOffset: u, align: d, alignOffset: f, arrowPadding: p, collisionBoundary: m, collisionPadding: g, sticky: _, hideWhenDetached: v, avoidCollisions: y, ...b } = t, x = useSelectContext(CONTENT_NAME$2, i), [S, w] = React$1.useState(null), [T, E] = React$1.useState(null), D = useComposedRefs$1(n, (e) => w(e)), [O, k] = React$1.useState(null), [A, j] = React$1.useState(null), M = useCollection(i), [N, P] = React$1.useState(!1), F = React$1.useRef(!1);
+	let { __scopeSelect: i, position: a = "item-aligned", onCloseAutoFocus: o, onEscapeKeyDown: s, onPointerDownOutside: c, side: l, sideOffset: u, align: d, alignOffset: f, arrowPadding: p, collisionBoundary: m, collisionPadding: g, sticky: _, hideWhenDetached: v, avoidCollisions: y, ...b } = t, x = useSelectContext(CONTENT_NAME$2, i), [S, C] = React$1.useState(null), [w, T] = React$1.useState(null), E = useComposedRefs$2(n, (e) => C(e)), [D, O] = React$1.useState(null), [k, A] = React$1.useState(null), j = useCollection$1(i), [M, N] = React$1.useState(!1), P = React$1.useRef(!1);
 	React$1.useEffect(() => {
 		if (S) return hideOthers(S);
 	}, [S]), useFocusGuards$1();
-	let I = React$1.useCallback((e) => {
-		let [t, ...n] = M().map((e) => e.ref.current), [i] = n.slice(-1), a = document.activeElement;
-		for (let n of e) if (n === a || (n?.scrollIntoView({ block: "nearest" }), n === t && T && (T.scrollTop = 0), n === i && T && (T.scrollTop = T.scrollHeight), n?.focus(), document.activeElement !== a)) return;
-	}, [M, T]), L = React$1.useCallback(() => I([O, S]), [
-		I,
-		O,
+	let F = React$1.useCallback((e) => {
+		let [t, ...n] = j().map((e) => e.ref.current), [i] = n.slice(-1), a = document.activeElement;
+		for (let n of e) if (n === a || (n?.scrollIntoView({ block: "nearest" }), n === t && w && (w.scrollTop = 0), n === i && w && (w.scrollTop = w.scrollHeight), n?.focus(), document.activeElement !== a)) return;
+	}, [j, w]), I = React$1.useCallback(() => F([D, S]), [
+		F,
+		D,
 		S
 	]);
 	React$1.useEffect(() => {
-		N && L();
-	}, [N, L]);
-	let { onOpenChange: R, triggerPointerDownPosRef: z } = x;
+		M && I();
+	}, [M, I]);
+	let { onOpenChange: L, triggerPointerDownPosRef: R } = x;
 	React$1.useEffect(() => {
 		if (S) {
 			let e = {
@@ -5222,13 +6624,13 @@ var CONTENT_MARGIN = 10, [SelectContentProvider, useSelectContentContext] = crea
 				y: 0
 			}, t = (t) => {
 				e = {
-					x: Math.abs(Math.round(t.pageX) - (z.current?.x ?? 0)),
-					y: Math.abs(Math.round(t.pageY) - (z.current?.y ?? 0))
+					x: Math.abs(Math.round(t.pageX) - (R.current?.x ?? 0)),
+					y: Math.abs(Math.round(t.pageY) - (R.current?.y ?? 0))
 				};
 			}, n = (n) => {
-				e.x <= 10 && e.y <= 10 ? n.preventDefault() : S.contains(n.target) || R(!1), document.removeEventListener("pointermove", t), z.current = null;
+				e.x <= 10 && e.y <= 10 ? n.preventDefault() : S.contains(n.target) || L(!1), document.removeEventListener("pointermove", t), R.current = null;
 			};
-			return z.current !== null && (document.addEventListener("pointermove", t), document.addEventListener("pointerup", n, {
+			return R.current !== null && (document.addEventListener("pointermove", t), document.addEventListener("pointerup", n, {
 				capture: !0,
 				once: !0
 			})), () => {
@@ -5237,24 +6639,24 @@ var CONTENT_MARGIN = 10, [SelectContentProvider, useSelectContentContext] = crea
 		}
 	}, [
 		S,
-		R,
-		z
+		L,
+		R
 	]), React$1.useEffect(() => {
-		let e = () => R(!1);
+		let e = () => L(!1);
 		return window.addEventListener("blur", e), window.addEventListener("resize", e), () => {
 			window.removeEventListener("blur", e), window.removeEventListener("resize", e);
 		};
-	}, [R]);
-	let [B, V] = useTypeaheadSearch((e) => {
-		let t = M().filter((e) => !e.disabled), n = findNextItem(t, e, t.find((e) => e.ref.current === document.activeElement));
+	}, [L]);
+	let [z, B] = useTypeaheadSearch((e) => {
+		let t = j().filter((e) => !e.disabled), n = findNextItem(t, e, t.find((e) => e.ref.current === document.activeElement));
 		n && setTimeout(() => n.ref.current.focus());
-	}), H = React$1.useCallback((e, t, n) => {
-		let i = !F.current && !n;
-		(x.value !== void 0 && x.value === t || i) && (k(e), i && (F.current = !0));
-	}, [x.value]), U = React$1.useCallback(() => S?.focus(), [S]), W = React$1.useCallback((e, t, n) => {
-		let i = !F.current && !n;
-		(x.value !== void 0 && x.value === t || i) && j(e);
-	}, [x.value]), G = a === "popper" ? SelectPopperPosition : SelectItemAlignedPosition, K = G === SelectPopperPosition ? {
+	}), V = React$1.useCallback((e, t, n) => {
+		let i = !P.current && !n;
+		(x.value !== void 0 && x.value === t || i) && (O(e), i && (P.current = !0));
+	}, [x.value]), H = React$1.useCallback(() => S?.focus(), [S]), U = React$1.useCallback((e, t, n) => {
+		let i = !P.current && !n;
+		(x.value !== void 0 && x.value === t || i) && A(e);
+	}, [x.value]), W = a === "popper" ? SelectPopperPosition : SelectItemAlignedPosition, G = W === SelectPopperPosition ? {
 		side: l,
 		sideOffset: u,
 		align: d,
@@ -5269,17 +6671,17 @@ var CONTENT_MARGIN = 10, [SelectContentProvider, useSelectContentContext] = crea
 	return /* @__PURE__ */ jsx(SelectContentProvider, {
 		scope: i,
 		content: S,
-		viewport: T,
-		onViewportChange: E,
-		itemRefCallback: H,
-		selectedItem: O,
-		onItemLeave: U,
-		itemTextRefCallback: W,
-		focusSelectedItem: L,
-		selectedItemText: A,
+		viewport: w,
+		onViewportChange: T,
+		itemRefCallback: V,
+		selectedItem: D,
+		onItemLeave: H,
+		itemTextRefCallback: U,
+		focusSelectedItem: I,
+		selectedItemText: k,
 		position: a,
-		isPositioned: N,
-		searchRef: B,
+		isPositioned: M,
+		searchRef: z,
 		children: /* @__PURE__ */ jsx(Combination_default, {
 			as: Slot$1,
 			allowPinchZoom: !0,
@@ -5289,7 +6691,7 @@ var CONTENT_MARGIN = 10, [SelectContentProvider, useSelectContentContext] = crea
 				onMountAutoFocus: (e) => {
 					e.preventDefault();
 				},
-				onUnmountAutoFocus: composeEventHandlers$1(o, (e) => {
+				onUnmountAutoFocus: composeEventHandlers$2(o, (e) => {
 					x.trigger?.focus({ preventScroll: !0 }), e.preventDefault();
 				}),
 				children: /* @__PURE__ */ jsx(DismissableLayer$1, {
@@ -5299,36 +6701,36 @@ var CONTENT_MARGIN = 10, [SelectContentProvider, useSelectContentContext] = crea
 					onPointerDownOutside: c,
 					onFocusOutside: (e) => e.preventDefault(),
 					onDismiss: () => x.onOpenChange(!1),
-					children: /* @__PURE__ */ jsx(G, {
+					children: /* @__PURE__ */ jsx(W, {
 						role: "listbox",
 						id: x.contentId,
 						"data-state": x.open ? "open" : "closed",
 						dir: x.dir,
 						onContextMenu: (e) => e.preventDefault(),
 						...b,
-						...K,
-						onPlaced: () => P(!0),
-						ref: D,
+						...G,
+						onPlaced: () => N(!0),
+						ref: E,
 						style: {
 							display: "flex",
 							flexDirection: "column",
 							outline: "none",
 							...b.style
 						},
-						onKeyDown: composeEventHandlers$1(b.onKeyDown, (e) => {
+						onKeyDown: composeEventHandlers$2(b.onKeyDown, (e) => {
 							let t = e.ctrlKey || e.altKey || e.metaKey;
-							if (e.key === "Tab" && e.preventDefault(), !t && e.key.length === 1 && V(e.key), [
+							if (e.key === "Tab" && e.preventDefault(), !t && e.key.length === 1 && B(e.key), [
 								"ArrowUp",
 								"ArrowDown",
 								"Home",
 								"End"
 							].includes(e.key)) {
-								let t = M().filter((e) => !e.disabled).map((e) => e.ref.current);
+								let t = j().filter((e) => !e.disabled).map((e) => e.ref.current);
 								if (["ArrowUp", "End"].includes(e.key) && (t = t.slice().reverse()), ["ArrowUp", "ArrowDown"].includes(e.key)) {
 									let n = e.target, i = t.indexOf(n);
 									t = t.slice(i + 1);
 								}
-								setTimeout(() => I(t)), e.preventDefault();
+								setTimeout(() => F(t)), e.preventDefault();
 							}
 						})
 					})
@@ -5339,7 +6741,7 @@ var CONTENT_MARGIN = 10, [SelectContentProvider, useSelectContentContext] = crea
 });
 SelectContentImpl.displayName = CONTENT_IMPL_NAME;
 var ITEM_ALIGNED_POSITION_NAME = "SelectItemAlignedPosition", SelectItemAlignedPosition = React$1.forwardRef((t, n) => {
-	let { __scopeSelect: i, onPlaced: a, ...o } = t, s = useSelectContext(CONTENT_NAME$2, i), c = useSelectContentContext(CONTENT_NAME$2, i), [l, u] = React$1.useState(null), [d, f] = React$1.useState(null), p = useComposedRefs$1(n, (e) => f(e)), m = useCollection(i), g = React$1.useRef(!1), _ = React$1.useRef(!0), { viewport: v, selectedItem: y, selectedItemText: b, focusSelectedItem: x } = c, S = React$1.useCallback(() => {
+	let { __scopeSelect: i, onPlaced: a, ...o } = t, s = useSelectContext(CONTENT_NAME$2, i), c = useSelectContentContext(CONTENT_NAME$2, i), [l, u] = React$1.useState(null), [d, f] = React$1.useState(null), p = useComposedRefs$2(n, (e) => f(e)), m = useCollection$1(i), g = React$1.useRef(!1), _ = React$1.useRef(!0), { viewport: v, selectedItem: y, selectedItemText: b, focusSelectedItem: x } = c, S = React$1.useCallback(() => {
 		if (s.trigger && s.valueNode && l && d && v && y && b) {
 			let e = s.trigger.getBoundingClientRect(), t = d.getBoundingClientRect(), n = s.valueNode.getBoundingClientRect(), i = b.getBoundingClientRect();
 			if (s.dir !== "rtl") {
@@ -5375,10 +6777,10 @@ var ITEM_ALIGNED_POSITION_NAME = "SelectItemAlignedPosition", SelectItemAlignedP
 		s.dir,
 		a
 	]);
-	useLayoutEffect2$1(() => S(), [S]);
-	let [w, T] = React$1.useState();
-	return useLayoutEffect2$1(() => {
-		d && T(window.getComputedStyle(d).zIndex);
+	useLayoutEffect2$2(() => S(), [S]);
+	let [C, w] = React$1.useState();
+	return useLayoutEffect2$2(() => {
+		d && w(window.getComputedStyle(d).zIndex);
 	}, [d]), /* @__PURE__ */ jsx(SelectViewportProvider, {
 		scope: i,
 		contentWrapper: l,
@@ -5392,9 +6794,9 @@ var ITEM_ALIGNED_POSITION_NAME = "SelectItemAlignedPosition", SelectItemAlignedP
 				display: "flex",
 				flexDirection: "column",
 				position: "fixed",
-				zIndex: w
+				zIndex: C
 			},
-			children: /* @__PURE__ */ jsx(Primitive$1.div, {
+			children: /* @__PURE__ */ jsx(Primitive$2.div, {
 				...o,
 				ref: p,
 				style: {
@@ -5428,13 +6830,13 @@ var POPPER_POSITION_NAME = "SelectPopperPosition", SelectPopperPosition = React$
 });
 SelectPopperPosition.displayName = POPPER_POSITION_NAME;
 var [SelectViewportProvider, useSelectViewportContext] = createSelectContext(CONTENT_NAME$2, {}), VIEWPORT_NAME = "SelectViewport", SelectViewport = React$1.forwardRef((t, n) => {
-	let { __scopeSelect: i, nonce: a, ...o } = t, s = useSelectContentContext(VIEWPORT_NAME, i), c = useSelectViewportContext(VIEWPORT_NAME, i), l = useComposedRefs$1(n, s.onViewportChange), u = React$1.useRef(0);
+	let { __scopeSelect: i, nonce: a, ...o } = t, s = useSelectContentContext(VIEWPORT_NAME, i), c = useSelectViewportContext(VIEWPORT_NAME, i), l = useComposedRefs$2(n, s.onViewportChange), u = React$1.useRef(0);
 	return /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx("style", {
 		dangerouslySetInnerHTML: { __html: "[data-radix-select-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-select-viewport]::-webkit-scrollbar{display:none}" },
 		nonce: a
-	}), /* @__PURE__ */ jsx(Collection.Slot, {
+	}), /* @__PURE__ */ jsx(Collection$1.Slot, {
 		scope: i,
-		children: /* @__PURE__ */ jsx(Primitive$1.div, {
+		children: /* @__PURE__ */ jsx(Primitive$2.div, {
 			"data-radix-select-viewport": "",
 			role: "presentation",
 			...o,
@@ -5445,7 +6847,7 @@ var [SelectViewportProvider, useSelectViewportContext] = createSelectContext(CON
 				overflow: "hidden auto",
 				...o.style
 			},
-			onScroll: composeEventHandlers$1(o.onScroll, (e) => {
+			onScroll: composeEventHandlers$2(o.onScroll, (e) => {
 				let t = e.currentTarget, { contentWrapper: n, shouldExpandOnScrollRef: i } = c;
 				if (i?.current && n) {
 					let e = Math.abs(u.current - t.scrollTop);
@@ -5463,12 +6865,12 @@ var [SelectViewportProvider, useSelectViewportContext] = createSelectContext(CON
 	})] });
 });
 SelectViewport.displayName = VIEWPORT_NAME;
-var GROUP_NAME = "SelectGroup", [SelectGroupContextProvider, useSelectGroupContext] = createSelectContext(GROUP_NAME), SelectGroup = React$1.forwardRef((e, t) => {
-	let { __scopeSelect: n, ...i } = e, a = useId$2();
+var GROUP_NAME$1 = "SelectGroup", [SelectGroupContextProvider, useSelectGroupContext] = createSelectContext(GROUP_NAME$1), SelectGroup = React$1.forwardRef((e, t) => {
+	let { __scopeSelect: n, ...i } = e, a = useId$3();
 	return /* @__PURE__ */ jsx(SelectGroupContextProvider, {
 		scope: n,
 		id: a,
-		children: /* @__PURE__ */ jsx(Primitive$1.div, {
+		children: /* @__PURE__ */ jsx(Primitive$2.div, {
 			role: "group",
 			"aria-labelledby": a,
 			...i,
@@ -5476,18 +6878,18 @@ var GROUP_NAME = "SelectGroup", [SelectGroupContextProvider, useSelectGroupConte
 		})
 	});
 });
-SelectGroup.displayName = GROUP_NAME;
+SelectGroup.displayName = GROUP_NAME$1;
 var LABEL_NAME = "SelectLabel", SelectLabel = React$1.forwardRef((e, t) => {
 	let { __scopeSelect: n, ...i } = e, a = useSelectGroupContext(LABEL_NAME, n);
-	return /* @__PURE__ */ jsx(Primitive$1.div, {
+	return /* @__PURE__ */ jsx(Primitive$2.div, {
 		id: a.id,
 		...i,
 		ref: t
 	});
 });
 SelectLabel.displayName = LABEL_NAME;
-var ITEM_NAME = "SelectItem", [SelectItemContextProvider, useSelectItemContext] = createSelectContext(ITEM_NAME), SelectItem = React$1.forwardRef((t, n) => {
-	let { __scopeSelect: i, value: a, disabled: o = !1, textValue: s, ...c } = t, l = useSelectContext(ITEM_NAME, i), u = useSelectContentContext(ITEM_NAME, i), d = l.value === a, [f, p] = React$1.useState(s ?? ""), [m, g] = React$1.useState(!1), _ = useComposedRefs$1(n, (e) => u.itemRefCallback?.(e, a, o)), v = useId$2(), y = React$1.useRef("touch"), b = () => {
+var ITEM_NAME$1 = "SelectItem", [SelectItemContextProvider, useSelectItemContext] = createSelectContext(ITEM_NAME$1), SelectItem = React$1.forwardRef((t, n) => {
+	let { __scopeSelect: i, value: a, disabled: o = !1, textValue: s, ...c } = t, l = useSelectContext(ITEM_NAME$1, i), u = useSelectContentContext(ITEM_NAME$1, i), d = l.value === a, [f, p] = React$1.useState(s ?? ""), [m, g] = React$1.useState(!1), _ = useComposedRefs$2(n, (e) => u.itemRefCallback?.(e, a, o)), v = useId$3(), y = React$1.useRef("touch"), b = () => {
 		o || (l.onValueChange(a), l.onOpenChange(!1));
 	};
 	if (a === "") throw Error("A <Select.Item /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.");
@@ -5500,12 +6902,12 @@ var ITEM_NAME = "SelectItem", [SelectItemContextProvider, useSelectItemContext] 
 		onItemTextChange: React$1.useCallback((e) => {
 			p((t) => t || (e?.textContent ?? "").trim());
 		}, []),
-		children: /* @__PURE__ */ jsx(Collection.ItemSlot, {
+		children: /* @__PURE__ */ jsx(Collection$1.ItemSlot, {
 			scope: i,
 			value: a,
 			disabled: o,
 			textValue: f,
-			children: /* @__PURE__ */ jsx(Primitive$1.div, {
+			children: /* @__PURE__ */ jsx(Primitive$2.div, {
 				role: "option",
 				"aria-labelledby": v,
 				"data-highlighted": m ? "" : void 0,
@@ -5516,33 +6918,33 @@ var ITEM_NAME = "SelectItem", [SelectItemContextProvider, useSelectItemContext] 
 				tabIndex: o ? void 0 : -1,
 				...c,
 				ref: _,
-				onFocus: composeEventHandlers$1(c.onFocus, () => g(!0)),
-				onBlur: composeEventHandlers$1(c.onBlur, () => g(!1)),
-				onClick: composeEventHandlers$1(c.onClick, () => {
+				onFocus: composeEventHandlers$2(c.onFocus, () => g(!0)),
+				onBlur: composeEventHandlers$2(c.onBlur, () => g(!1)),
+				onClick: composeEventHandlers$2(c.onClick, () => {
 					y.current !== "mouse" && b();
 				}),
-				onPointerUp: composeEventHandlers$1(c.onPointerUp, () => {
+				onPointerUp: composeEventHandlers$2(c.onPointerUp, () => {
 					y.current === "mouse" && b();
 				}),
-				onPointerDown: composeEventHandlers$1(c.onPointerDown, (e) => {
+				onPointerDown: composeEventHandlers$2(c.onPointerDown, (e) => {
 					y.current = e.pointerType;
 				}),
-				onPointerMove: composeEventHandlers$1(c.onPointerMove, (e) => {
+				onPointerMove: composeEventHandlers$2(c.onPointerMove, (e) => {
 					y.current = e.pointerType, o ? u.onItemLeave?.() : y.current === "mouse" && e.currentTarget.focus({ preventScroll: !0 });
 				}),
-				onPointerLeave: composeEventHandlers$1(c.onPointerLeave, (e) => {
+				onPointerLeave: composeEventHandlers$2(c.onPointerLeave, (e) => {
 					e.currentTarget === document.activeElement && u.onItemLeave?.();
 				}),
-				onKeyDown: composeEventHandlers$1(c.onKeyDown, (e) => {
+				onKeyDown: composeEventHandlers$2(c.onKeyDown, (e) => {
 					u.searchRef?.current !== "" && e.key === " " || (SELECTION_KEYS.includes(e.key) && b(), e.key === " " && e.preventDefault());
 				})
 			})
 		})
 	});
 });
-SelectItem.displayName = ITEM_NAME;
+SelectItem.displayName = ITEM_NAME$1;
 var ITEM_TEXT_NAME = "SelectItemText", SelectItemText = React$1.forwardRef((t, n) => {
-	let { __scopeSelect: i, className: a, style: o, ...s } = t, c = useSelectContext(ITEM_TEXT_NAME, i), l = useSelectContentContext(ITEM_TEXT_NAME, i), u = useSelectItemContext(ITEM_TEXT_NAME, i), d = useSelectNativeOptionsContext(ITEM_TEXT_NAME, i), [f, p] = React$1.useState(null), v = useComposedRefs$1(n, (e) => p(e), u.onItemTextChange, (e) => l.itemTextRefCallback?.(e, u.value, u.disabled)), y = f?.textContent, b = React$1.useMemo(() => /* @__PURE__ */ jsx("option", {
+	let { __scopeSelect: i, className: a, style: o, ...s } = t, c = useSelectContext(ITEM_TEXT_NAME, i), l = useSelectContentContext(ITEM_TEXT_NAME, i), u = useSelectItemContext(ITEM_TEXT_NAME, i), d = useSelectNativeOptionsContext(ITEM_TEXT_NAME, i), [f, p] = React$1.useState(null), v = useComposedRefs$2(n, (e) => p(e), u.onItemTextChange, (e) => l.itemTextRefCallback?.(e, u.value, u.disabled)), y = f?.textContent, b = React$1.useMemo(() => /* @__PURE__ */ jsx("option", {
 		value: u.value,
 		disabled: u.disabled,
 		children: y
@@ -5551,11 +6953,11 @@ var ITEM_TEXT_NAME = "SelectItemText", SelectItemText = React$1.forwardRef((t, n
 		u.value,
 		y
 	]), { onNativeOptionAdd: x, onNativeOptionRemove: S } = d;
-	return useLayoutEffect2$1(() => (x(b), () => S(b)), [
+	return useLayoutEffect2$2(() => (x(b), () => S(b)), [
 		x,
 		S,
 		b
-	]), /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx(Primitive$1.span, {
+	]), /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx(Primitive$2.span, {
 		id: u.textId,
 		...s,
 		ref: v
@@ -5564,7 +6966,7 @@ var ITEM_TEXT_NAME = "SelectItemText", SelectItemText = React$1.forwardRef((t, n
 SelectItemText.displayName = ITEM_TEXT_NAME;
 var ITEM_INDICATOR_NAME = "SelectItemIndicator", SelectItemIndicator = React$1.forwardRef((e, t) => {
 	let { __scopeSelect: n, ...i } = e;
-	return useSelectItemContext(ITEM_INDICATOR_NAME, n).isSelected ? /* @__PURE__ */ jsx(Primitive$1.span, {
+	return useSelectItemContext(ITEM_INDICATOR_NAME, n).isSelected ? /* @__PURE__ */ jsx(Primitive$2.span, {
 		"aria-hidden": !0,
 		...i,
 		ref: t
@@ -5572,8 +6974,8 @@ var ITEM_INDICATOR_NAME = "SelectItemIndicator", SelectItemIndicator = React$1.f
 });
 SelectItemIndicator.displayName = ITEM_INDICATOR_NAME;
 var SCROLL_UP_BUTTON_NAME = "SelectScrollUpButton", SelectScrollUpButton = React$1.forwardRef((t, n) => {
-	let i = useSelectContentContext(SCROLL_UP_BUTTON_NAME, t.__scopeSelect), a = useSelectViewportContext(SCROLL_UP_BUTTON_NAME, t.__scopeSelect), [o, s] = React$1.useState(!1), c = useComposedRefs$1(n, a.onScrollButtonChange);
-	return useLayoutEffect2$1(() => {
+	let i = useSelectContentContext(SCROLL_UP_BUTTON_NAME, t.__scopeSelect), a = useSelectViewportContext(SCROLL_UP_BUTTON_NAME, t.__scopeSelect), [o, s] = React$1.useState(!1), c = useComposedRefs$2(n, a.onScrollButtonChange);
+	return useLayoutEffect2$2(() => {
 		if (i.viewport && i.isPositioned) {
 			let e = function() {
 				s(t.scrollTop > 0);
@@ -5591,8 +6993,8 @@ var SCROLL_UP_BUTTON_NAME = "SelectScrollUpButton", SelectScrollUpButton = React
 });
 SelectScrollUpButton.displayName = SCROLL_UP_BUTTON_NAME;
 var SCROLL_DOWN_BUTTON_NAME = "SelectScrollDownButton", SelectScrollDownButton = React$1.forwardRef((t, n) => {
-	let i = useSelectContentContext(SCROLL_DOWN_BUTTON_NAME, t.__scopeSelect), a = useSelectViewportContext(SCROLL_DOWN_BUTTON_NAME, t.__scopeSelect), [o, s] = React$1.useState(!1), c = useComposedRefs$1(n, a.onScrollButtonChange);
-	return useLayoutEffect2$1(() => {
+	let i = useSelectContentContext(SCROLL_DOWN_BUTTON_NAME, t.__scopeSelect), a = useSelectViewportContext(SCROLL_DOWN_BUTTON_NAME, t.__scopeSelect), [o, s] = React$1.useState(!1), c = useComposedRefs$2(n, a.onScrollButtonChange);
+	return useLayoutEffect2$2(() => {
 		if (i.viewport && i.isPositioned) {
 			let e = function() {
 				let e = t.scrollHeight - t.clientHeight;
@@ -5611,12 +7013,12 @@ var SCROLL_DOWN_BUTTON_NAME = "SelectScrollDownButton", SelectScrollDownButton =
 });
 SelectScrollDownButton.displayName = SCROLL_DOWN_BUTTON_NAME;
 var SelectScrollButtonImpl = React$1.forwardRef((t, n) => {
-	let { __scopeSelect: i, onAutoScroll: a, ...o } = t, s = useSelectContentContext("SelectScrollButton", i), c = React$1.useRef(null), l = useCollection(i), u = React$1.useCallback(() => {
+	let { __scopeSelect: i, onAutoScroll: a, ...o } = t, s = useSelectContentContext("SelectScrollButton", i), c = React$1.useRef(null), l = useCollection$1(i), u = React$1.useCallback(() => {
 		c.current !== null && (window.clearInterval(c.current), c.current = null);
 	}, []);
-	return React$1.useEffect(() => () => u(), [u]), useLayoutEffect2$1(() => {
+	return React$1.useEffect(() => () => u(), [u]), useLayoutEffect2$2(() => {
 		l().find((e) => e.ref.current === document.activeElement)?.ref.current?.scrollIntoView({ block: "nearest" });
-	}, [l]), /* @__PURE__ */ jsx(Primitive$1.div, {
+	}, [l]), /* @__PURE__ */ jsx(Primitive$2.div, {
 		"aria-hidden": !0,
 		...o,
 		ref: n,
@@ -5624,19 +7026,19 @@ var SelectScrollButtonImpl = React$1.forwardRef((t, n) => {
 			flexShrink: 0,
 			...o.style
 		},
-		onPointerDown: composeEventHandlers$1(o.onPointerDown, () => {
+		onPointerDown: composeEventHandlers$2(o.onPointerDown, () => {
 			c.current === null && (c.current = window.setInterval(a, 50));
 		}),
-		onPointerMove: composeEventHandlers$1(o.onPointerMove, () => {
+		onPointerMove: composeEventHandlers$2(o.onPointerMove, () => {
 			s.onItemLeave?.(), c.current === null && (c.current = window.setInterval(a, 50));
 		}),
-		onPointerLeave: composeEventHandlers$1(o.onPointerLeave, () => {
+		onPointerLeave: composeEventHandlers$2(o.onPointerLeave, () => {
 			u();
 		})
 	});
 }), SEPARATOR_NAME = "SelectSeparator", SelectSeparator = React$1.forwardRef((e, t) => {
 	let { __scopeSelect: n, ...i } = e;
-	return /* @__PURE__ */ jsx(Primitive$1.div, {
+	return /* @__PURE__ */ jsx(Primitive$2.div, {
 		"aria-hidden": !0,
 		...i,
 		ref: t
@@ -5652,8 +7054,8 @@ var ARROW_NAME$2 = "SelectArrow", SelectArrow = React$1.forwardRef((e, t) => {
 	}) : null;
 });
 SelectArrow.displayName = ARROW_NAME$2;
-var BUBBLE_INPUT_NAME = "SelectBubbleInput", SelectBubbleInput = React$1.forwardRef(({ __scopeSelect: t, value: n, ...i }, a) => {
-	let o = React$1.useRef(null), s = useComposedRefs$1(a, o), c = usePrevious(n);
+var BUBBLE_INPUT_NAME$1 = "SelectBubbleInput", SelectBubbleInput = React$1.forwardRef(({ __scopeSelect: t, value: n, ...i }, a) => {
+	let o = React$1.useRef(null), s = useComposedRefs$2(a, o), c = usePrevious(n);
 	return React$1.useEffect(() => {
 		let e = o.current;
 		if (!e) return;
@@ -5662,7 +7064,7 @@ var BUBBLE_INPUT_NAME = "SelectBubbleInput", SelectBubbleInput = React$1.forward
 			let t = new Event("change", { bubbles: !0 });
 			i.call(e, n), e.dispatchEvent(t);
 		}
-	}, [c, n]), /* @__PURE__ */ jsx(Primitive$1.select, {
+	}, [c, n]), /* @__PURE__ */ jsx(Primitive$2.select, {
 		...i,
 		style: {
 			...VISUALLY_HIDDEN_STYLES,
@@ -5672,12 +7074,12 @@ var BUBBLE_INPUT_NAME = "SelectBubbleInput", SelectBubbleInput = React$1.forward
 		defaultValue: n
 	});
 });
-SelectBubbleInput.displayName = BUBBLE_INPUT_NAME;
+SelectBubbleInput.displayName = BUBBLE_INPUT_NAME$1;
 function shouldShowPlaceholder(e) {
 	return e === "" || e === void 0;
 }
 function useTypeaheadSearch(t) {
-	let n = useCallbackRef$1(t), i = React$1.useRef(""), a = React$1.useRef(0), o = React$1.useCallback((e) => {
+	let n = useCallbackRef$2(t), i = React$1.useRef(""), a = React$1.useRef(0), o = React$1.useCallback((e) => {
 		let t = i.current + e;
 		n(t), (function e(t) {
 			i.current = t, window.clearTimeout(a.current), t !== "" && (a.current = window.setTimeout(() => e(""), 1e3));
@@ -5692,15 +7094,15 @@ function useTypeaheadSearch(t) {
 	];
 }
 function findNextItem(e, t, n) {
-	let i = t.length > 1 && Array.from(t).every((e) => e === t[0]) ? t[0] : t, a = n ? e.indexOf(n) : -1, o = wrapArray(e, Math.max(a, 0));
+	let i = t.length > 1 && Array.from(t).every((e) => e === t[0]) ? t[0] : t, a = n ? e.indexOf(n) : -1, o = wrapArray$1(e, Math.max(a, 0));
 	i.length === 1 && (o = o.filter((e) => e !== n));
 	let s = o.find((e) => e.textValue.toLowerCase().startsWith(i.toLowerCase()));
 	return s === n ? void 0 : s;
 }
-function wrapArray(e, t) {
+function wrapArray$1(e, t) {
 	return e.map((n, i) => e[(t + i) % e.length]);
 }
-var Root2$2 = Select$2, Trigger$1 = SelectTrigger, Value = SelectValue, Icon = SelectIcon, Portal$3 = SelectPortal, Content2$1 = SelectContent, Viewport = SelectViewport, Item = SelectItem, ItemText = SelectItemText, ItemIndicator = SelectItemIndicator;
+var Root2$2 = Select$2, Trigger$1 = SelectTrigger, Value = SelectValue, Icon = SelectIcon, Portal$3 = SelectPortal, Content2$1 = SelectContent, Viewport = SelectViewport, Item$1 = SelectItem, ItemText = SelectItemText, ItemIndicator = SelectItemIndicator;
 const selectContent = [
 	"relative z-50 overflow-hidden rounded-md border border-border bg-surface-elevated text-text-primary shadow-[var(--shadow-card-raised)]",
 	"min-w-[var(--radix-select-trigger-width)]",
@@ -5750,7 +7152,7 @@ var Select = React$1.forwardRef(({ options: e, value: t, defaultValue: n, onValu
 				sideOffset: 4,
 				children: /* @__PURE__ */ jsx(Viewport, {
 					className: "p-1",
-					children: e.map((e) => /* @__PURE__ */ jsxs(Item, {
+					children: e.map((e) => /* @__PURE__ */ jsxs(Item$1, {
 						value: e.value,
 						disabled: e.disabled,
 						className: selectItem,
@@ -5772,7 +7174,630 @@ var Select = React$1.forwardRef(({ options: e, value: t, defaultValue: n, onValu
 		}) : null]
 	});
 });
-Select.displayName = "Select", typeof window < "u" && window.document && window.document.createElement;
+Select.displayName = "Select";
+var __defProp$4 = Object.defineProperty, __name$4 = (e, t) => __defProp$4(e, "name", {
+	value: t,
+	configurable: !0
+});
+function useCallbackRef$1(t) {
+	let n = React$1.useRef(t);
+	return React$1.useEffect(() => {
+		n.current = t;
+	}), React$1.useMemo(() => ((...e) => n.current?.(...e)), []);
+}
+__name$4(useCallbackRef$1, "useCallbackRef");
+var __defProp$3 = Object.defineProperty, __name$3 = (e, t) => __defProp$3(e, "name", {
+	value: t,
+	configurable: !0
+}), _isHydrated = !1;
+function useIsHydrated() {
+	let [t, n] = React$1.useState(_isHydrated);
+	return React$1.useEffect(() => {
+		_isHydrated || (_isHydrated = !0, n(!0));
+	}, []), t;
+}
+__name$3(useIsHydrated, "useIsHydrated");
+var useReactSyncExternalStore = React$1.useSyncExternalStore;
+function subscribe() {
+	return () => {};
+}
+__name$3(subscribe, "subscribe");
+function useIsHydratedModern() {
+	return useReactSyncExternalStore(subscribe, () => !0, () => !1);
+}
+__name$3(useIsHydratedModern, "useIsHydratedModern");
+var useIsHydrated2 = typeof useReactSyncExternalStore == "function" ? useIsHydratedModern : useIsHydrated, __defProp$2 = Object.defineProperty, __name$2 = (e, t) => __defProp$2(e, "name", {
+	value: t,
+	configurable: !0
+}), ENTRY_FOCUS = "rovingFocusGroup.onEntryFocus", EVENT_OPTIONS$1 = {
+	bubbles: !1,
+	cancelable: !0
+}, GROUP_NAME = "RovingFocusGroup", [Collection, useCollection, createCollectionScope] = /* @__PURE__ */ createCollection(GROUP_NAME), [createRovingFocusGroupContext, createRovingFocusGroupScope] = /* @__PURE__ */ createContextScope$1(GROUP_NAME, [createCollectionScope]), [RovingFocusProvider, useRovingFocusContext] = createRovingFocusGroupContext(GROUP_NAME), RovingFocusGroup = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$2(function(e, t) {
+	return /* @__PURE__ */ jsx(Collection.Provider, {
+		scope: e.__scopeRovingFocusGroup,
+		children: /* @__PURE__ */ jsx(Collection.Slot, {
+			scope: e.__scopeRovingFocusGroup,
+			children: /* @__PURE__ */ jsx(RovingFocusGroupImpl, {
+				...e,
+				ref: t
+			})
+		})
+	});
+}, "RovingFocusGroup")), RovingFocusGroupImpl = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$2(function(t, n) {
+	let { __scopeRovingFocusGroup: i, orientation: a, loop: o = !1, dir: s, currentTabStopId: c, defaultCurrentTabStopId: l, onCurrentTabStopIdChange: u, onEntryFocus: d, preventScrollOnEntryFocus: f = !1, ...p } = t, m = React$1.useRef(null), g = useComposedRefs$1(n, m), _ = useDirection(s), [v, y] = useControllableState$1({
+		prop: c,
+		defaultProp: l ?? null,
+		onChange: u,
+		caller: GROUP_NAME
+	}), [b, x] = React$1.useState(!1), S = useCallbackRef$1(d), C = useCollection(i), w = React$1.useRef(!1), [T, E] = React$1.useState(0);
+	return React$1.useEffect(() => {
+		let e = m.current;
+		if (e) return e.addEventListener(ENTRY_FOCUS, S), () => e.removeEventListener(ENTRY_FOCUS, S);
+	}, [S]), /* @__PURE__ */ jsx(RovingFocusProvider, {
+		scope: i,
+		orientation: a,
+		dir: _,
+		loop: o,
+		currentTabStopId: v,
+		onItemFocus: React$1.useCallback((e) => y(e), [y]),
+		onItemShiftTab: React$1.useCallback(() => x(!0), []),
+		onFocusableItemAdd: React$1.useCallback(() => E((e) => e + 1), []),
+		onFocusableItemRemove: React$1.useCallback(() => E((e) => e - 1), []),
+		children: /* @__PURE__ */ jsx(Primitive$1.div, {
+			tabIndex: b || T === 0 ? -1 : 0,
+			"data-orientation": a,
+			...p,
+			ref: g,
+			style: {
+				outline: "none",
+				...t.style
+			},
+			onMouseDown: composeEventHandlers$1(t.onMouseDown, () => {
+				w.current = !0;
+			}),
+			onFocus: composeEventHandlers$1(t.onFocus, (e) => {
+				let t = !w.current;
+				if (e.target === e.currentTarget && t && !b) {
+					let t = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS$1);
+					if (e.currentTarget.dispatchEvent(t), !t.defaultPrevented) {
+						let e = C().filter((e) => e.focusable);
+						focusFirst$1([
+							e.find((e) => e.active),
+							e.find((e) => e.id === v),
+							...e
+						].filter(Boolean).map((e) => e.ref.current), f);
+					}
+				}
+				w.current = !1;
+			}),
+			onBlur: composeEventHandlers$1(t.onBlur, () => x(!1))
+		})
+	});
+}, "RovingFocusGroupImpl")), ITEM_NAME = "RovingFocusGroupItem", RovingFocusGroupItem = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name$2(function(t, n) {
+	let { __scopeRovingFocusGroup: i, focusable: a = !0, active: o = !1, tabStopId: s, children: c, ...l } = t, u = useId$2(), d = s || u, f = useRovingFocusContext(ITEM_NAME, i), p = f.currentTabStopId === d, m = useCollection(i), { onFocusableItemAdd: g, onFocusableItemRemove: _, currentTabStopId: v } = f, y = useIsHydrated2();
+	return useLayoutEffect2$1(() => {
+		if (!(!y || !a)) return g(), () => _();
+	}, [
+		y,
+		a,
+		g,
+		_
+	]), React$1.useEffect(() => {
+		if (!(y || !a)) return g(), () => _();
+	}, [
+		y,
+		a,
+		g,
+		_
+	]), /* @__PURE__ */ jsx(Collection.ItemSlot, {
+		scope: i,
+		id: d,
+		focusable: a,
+		active: o,
+		children: /* @__PURE__ */ jsx(Primitive$1.span, {
+			tabIndex: p ? 0 : -1,
+			"data-orientation": f.orientation,
+			...l,
+			ref: n,
+			onMouseDown: composeEventHandlers$1(t.onMouseDown, (e) => {
+				a ? f.onItemFocus(d) : e.preventDefault();
+			}),
+			onFocus: composeEventHandlers$1(t.onFocus, () => f.onItemFocus(d)),
+			onKeyDown: composeEventHandlers$1(t.onKeyDown, (e) => {
+				if (e.key === "Tab" && e.shiftKey) {
+					f.onItemShiftTab();
+					return;
+				}
+				if (e.target !== e.currentTarget) return;
+				let t = getFocusIntent(e, f.orientation, f.dir);
+				if (t !== void 0) {
+					if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+					e.preventDefault();
+					let n = m().filter((e) => e.focusable).map((e) => e.ref.current);
+					if (t === "last") n.reverse();
+					else if (t === "prev" || t === "next") {
+						t === "prev" && n.reverse();
+						let i = n.indexOf(e.currentTarget);
+						n = f.loop ? wrapArray(n, i + 1) : n.slice(i + 1);
+					}
+					setTimeout(() => focusFirst$1(n));
+				}
+			}),
+			children: typeof c == "function" ? c({
+				isCurrentTabStop: p,
+				hasTabStop: v != null
+			}) : c
+		})
+	});
+}, "RovingFocusGroupItem")), MAP_KEY_TO_FOCUS_INTENT = {
+	ArrowLeft: "prev",
+	ArrowUp: "prev",
+	ArrowRight: "next",
+	ArrowDown: "next",
+	PageUp: "first",
+	Home: "first",
+	PageDown: "last",
+	End: "last"
+};
+function getDirectionAwareKey(e, t) {
+	return t === "rtl" ? e === "ArrowLeft" ? "ArrowRight" : e === "ArrowRight" ? "ArrowLeft" : e : e;
+}
+__name$2(getDirectionAwareKey, "getDirectionAwareKey");
+function getFocusIntent(e, t, n) {
+	let i = getDirectionAwareKey(e.key, n);
+	if (!(t === "vertical" && ["ArrowLeft", "ArrowRight"].includes(i)) && !(t === "horizontal" && ["ArrowUp", "ArrowDown"].includes(i))) return MAP_KEY_TO_FOCUS_INTENT[i];
+}
+__name$2(getFocusIntent, "getFocusIntent");
+function focusFirst$1(e, t = !1) {
+	let n = document.activeElement;
+	for (let i of e) if (i === n || (i.focus({ preventScroll: t }), document.activeElement !== n)) return;
+}
+__name$2(focusFirst$1, "focusFirst");
+function wrapArray(e, t) {
+	return e.map((n, i) => e[(t + i) % e.length]);
+}
+__name$2(wrapArray, "wrapArray");
+var Root$2 = RovingFocusGroup, Item = RovingFocusGroupItem, __defProp$1 = Object.defineProperty, __name$1 = (e, t) => __defProp$1(e, "name", {
+	value: t,
+	configurable: !0
+});
+function useSize$1(t) {
+	let [n, i] = React$1.useState(void 0);
+	return useLayoutEffect2$1(() => {
+		if (t) {
+			i({
+				width: t.offsetWidth,
+				height: t.offsetHeight
+			});
+			let e = new ResizeObserver((e) => {
+				if (!Array.isArray(e) || !e.length) return;
+				let n = e[0], a, o;
+				if ("borderBoxSize" in n) {
+					let e = n.borderBoxSize, t = Array.isArray(e) ? e[0] : e;
+					a = t.inlineSize, o = t.blockSize;
+				} else a = t.offsetWidth, o = t.offsetHeight;
+				i({
+					width: a,
+					height: o
+				});
+			});
+			return e.observe(t, { box: "border-box" }), () => e.unobserve(t);
+		} else i(void 0);
+	}, [t]), n;
+}
+__name$1(useSize$1, "useSize");
+var __defProp = Object.defineProperty, __name = (e, t) => __defProp(e, "name", {
+	value: t,
+	configurable: !0
+}), RADIO_NAME = "Radio", [createRadioContext, createRadioScope] = /* @__PURE__ */ createContextScope$1(RADIO_NAME), [RadioProviderImpl, useRadioContext] = createRadioContext(RADIO_NAME);
+function RadioProvider(t) {
+	let { __scopeRadio: n, checked: i = !1, children: a, disabled: o, form: s, name: c, onCheck: l, required: u, value: d = "on", internal_do_not_use_render: f } = t, [p, m] = React$1.useState(null), [g, _] = React$1.useState(null), v = React$1.useRef(!1), [y, b] = React$1.useReducer((e) => e + 1, 0), x = {
+		checked: i,
+		disabled: o,
+		required: u,
+		name: c,
+		form: s,
+		value: d,
+		control: p,
+		setControl: m,
+		hasConsumerStoppedPropagationRef: v,
+		userInteractionCount: y,
+		onUserInteraction: b,
+		isFormControl: p ? !!s || !!p.closest("form") : !0,
+		bubbleInput: g,
+		setBubbleInput: _,
+		onCheck: /* @__PURE__ */ __name(() => l?.(), "onCheck")
+	};
+	return /* @__PURE__ */ jsx(RadioProviderImpl, {
+		scope: n,
+		...x,
+		children: isFunction$1(f) ? f(x) : a
+	});
+}
+__name(RadioProvider, "RadioProvider");
+var TRIGGER_NAME$1 = "RadioTrigger", RadioTrigger = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name(function({ __scopeRadio: e, onClick: t, ...n }, i) {
+	let { checked: a, disabled: o, value: s, setControl: c, onCheck: l, hasConsumerStoppedPropagationRef: u, onUserInteraction: d, isFormControl: f, bubbleInput: p } = useRadioContext(TRIGGER_NAME$1, e), m = useComposedRefs$1(i, c);
+	return /* @__PURE__ */ jsx(Primitive$1.button, {
+		type: "button",
+		role: "radio",
+		"aria-checked": a,
+		"data-state": getState$1(a),
+		"data-disabled": o ? "" : void 0,
+		disabled: o,
+		value: s,
+		...n,
+		ref: m,
+		onClick: composeEventHandlers$1(t, (e) => {
+			a || (d(), l()), p && f && (u.current = e.isPropagationStopped(), u.current || e.stopPropagation());
+		})
+	});
+}, "RadioTrigger")), INDICATOR_NAME = "RadioIndicator", RadioIndicator = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name(function(e, t) {
+	let { __scopeRadio: n, forceMount: i, ...a } = e, o = useRadioContext(INDICATOR_NAME, n);
+	return /* @__PURE__ */ jsx(Presence$1, {
+		present: i || o.checked,
+		children: /* @__PURE__ */ jsx(Primitive$1.span, {
+			"data-state": getState$1(o.checked),
+			"data-disabled": o.disabled ? "" : void 0,
+			...a,
+			ref: t
+		})
+	});
+}, "RadioIndicator")), BUBBLE_INPUT_NAME = "RadioBubbleInput", RadioBubbleInput = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name(function({ __scopeRadio: t, onClick: n, ...i }, a) {
+	let { control: o, checked: s, required: c, disabled: l, name: u, value: d, form: f, bubbleInput: p, setBubbleInput: m, hasConsumerStoppedPropagationRef: g, userInteractionCount: _ } = useRadioContext(BUBBLE_INPUT_NAME, t), v = useComposedRefs$1(a, m), y = useSize$1(o), b = React$1.useRef(!1), x = React$1.useRef(s), S = React$1.useRef(_);
+	React$1.useEffect(() => {
+		let e = p;
+		if (!e) return;
+		let t = window.HTMLInputElement.prototype, n = Object.getOwnPropertyDescriptor(t, "checked").set, i = _ !== S.current;
+		S.current = _;
+		let a = x.current !== s;
+		x.current = s;
+		let o = !(i && g.current);
+		if (a && n) {
+			b.current = !i;
+			let t = new Event("click", { bubbles: o });
+			n.call(e, s), e.dispatchEvent(t), b.current = !1;
+		}
+	}, [
+		p,
+		s,
+		g,
+		_
+	]);
+	let C = React$1.useRef(s);
+	return /* @__PURE__ */ jsx(Primitive$1.input, {
+		type: "radio",
+		"aria-hidden": !0,
+		defaultChecked: C.current,
+		required: c,
+		disabled: l,
+		name: u,
+		value: d,
+		form: f,
+		...i,
+		tabIndex: -1,
+		ref: v,
+		onClick: composeEventHandlers$1(n, (e) => {
+			b.current && e.stopPropagation();
+		}),
+		style: {
+			...i.style,
+			...y,
+			position: "absolute",
+			pointerEvents: "none",
+			opacity: 0,
+			margin: 0,
+			transform: "translateX(-100%)"
+		}
+	});
+}, "RadioBubbleInput"));
+function isFunction$1(e) {
+	return typeof e == "function";
+}
+__name(isFunction$1, "isFunction");
+function getState$1(e) {
+	return e ? "checked" : "unchecked";
+}
+__name(getState$1, "getState");
+var ARROW_KEYS = [
+	"ArrowUp",
+	"ArrowDown",
+	"ArrowLeft",
+	"ArrowRight"
+], RADIO_GROUP_NAME = "RadioGroup", [createRadioGroupContext, createRadioGroupScope] = /* @__PURE__ */ createContextScope$1(RADIO_GROUP_NAME, [createRovingFocusGroupScope, createRadioScope]), useRovingFocusGroupScope = createRovingFocusGroupScope(), useRadioScope = createRadioScope(), [RadioGroupProvider, useRadioGroupContext] = createRadioGroupContext(RADIO_GROUP_NAME), RadioGroup$1 = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name(function(t, n) {
+	let { __scopeRadioGroup: i, name: a, form: o, defaultValue: s, value: c, required: l = !1, disabled: u = !1, orientation: d, dir: f, loop: p = !0, onValueChange: m, ...g } = t, _ = useRovingFocusGroupScope(i), v = useDirection(f), [y, b] = useControllableState$1({
+		prop: c,
+		defaultProp: s ?? null,
+		onChange: m,
+		caller: RADIO_GROUP_NAME
+	}), [x, S] = React$1.useState(null), C = useComposedRefs$1(n, S), w = React$1.useRef(y);
+	return React$1.useEffect(() => {
+		let e = o ? x?.ownerDocument.getElementById(o) : x?.closest("form");
+		if (e instanceof HTMLFormElement) {
+			let t = /* @__PURE__ */ __name(() => b(w.current), "reset");
+			return e.addEventListener("reset", t), () => e.removeEventListener("reset", t);
+		}
+	}, [
+		x,
+		o,
+		b
+	]), /* @__PURE__ */ jsx(RadioGroupProvider, {
+		scope: i,
+		name: a,
+		form: o,
+		required: l,
+		disabled: u,
+		value: y,
+		onValueChange: b,
+		children: /* @__PURE__ */ jsx(Root$2, {
+			asChild: !0,
+			..._,
+			orientation: d,
+			dir: v,
+			loop: p,
+			children: /* @__PURE__ */ jsx(Primitive$1.div, {
+				role: "radiogroup",
+				"aria-required": l,
+				"aria-orientation": d,
+				"data-disabled": u ? "" : void 0,
+				dir: v,
+				...g,
+				ref: C
+			})
+		})
+	});
+}, "RadioGroup")), ITEM_PROVIDER_NAME = "RadioGroupItemProvider", ITEM_TRIGGER_NAME = "RadioGroupItemTrigger";
+function RadioGroupItemProvider(e) {
+	let { __scopeRadioGroup: t, value: n, disabled: i, children: a, internal_do_not_use_render: o } = e, s = useRadioGroupContext(ITEM_PROVIDER_NAME, t), c = useRadioScope(t), l = s.disabled || i;
+	return /* @__PURE__ */ jsx(RadioProvider, {
+		...c,
+		checked: s.value === n,
+		disabled: l,
+		required: s.required,
+		name: s.name,
+		form: s.form,
+		value: n,
+		onCheck: () => s.onValueChange(n),
+		internal_do_not_use_render: o,
+		children: a
+	});
+}
+__name(RadioGroupItemProvider, "RadioGroupItemProvider");
+var RadioGroupItemTrigger = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name(function(t, n) {
+	let { __scopeRadioGroup: i, ...a } = t, o = useRovingFocusGroupScope(i), s = useRadioScope(i), { checked: c, disabled: l } = useRadioContext(ITEM_TRIGGER_NAME, s.__scopeRadio), u = React$1.useRef(null), d = useComposedRefs$1(n, u), f = React$1.useRef(!1);
+	return React$1.useEffect(() => {
+		let e = /* @__PURE__ */ __name((e) => {
+			ARROW_KEYS.includes(e.key) && (f.current = !0);
+		}, "handleKeyDown"), t = /* @__PURE__ */ __name(() => f.current = !1, "handleKeyUp");
+		return document.addEventListener("keydown", e), document.addEventListener("keyup", t), () => {
+			document.removeEventListener("keydown", e), document.removeEventListener("keyup", t);
+		};
+	}, []), /* @__PURE__ */ jsx(Item, {
+		asChild: !0,
+		...o,
+		focusable: !l,
+		active: c,
+		children: /* @__PURE__ */ jsx(RadioTrigger, {
+			...s,
+			...a,
+			ref: d,
+			onKeyDown: composeEventHandlers$1(a.onKeyDown, (e) => {
+				e.key === "Enter" && e.preventDefault();
+			}),
+			onFocus: composeEventHandlers$1(a.onFocus, () => {
+				f.current && u.current?.click();
+			})
+		})
+	});
+}, "RadioGroupItemTrigger")), RadioGroupItem = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name(function(e, t) {
+	let { __scopeRadioGroup: n, value: i, disabled: a, ...o } = e;
+	return /* @__PURE__ */ jsx(RadioGroupItemProvider, {
+		__scopeRadioGroup: n,
+		value: i,
+		disabled: a,
+		internal_do_not_use_render: ({ isFormControl: e }) => /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx(RadioGroupItemTrigger, {
+			...o,
+			ref: t,
+			__scopeRadioGroup: n
+		}), e && /* @__PURE__ */ jsx(RadioGroupItemBubbleInput, { __scopeRadioGroup: n })] })
+	});
+}, "RadioGroupItem")), RadioGroupItemBubbleInput = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name(function(e, t) {
+	let { __scopeRadioGroup: n, ...i } = e;
+	return /* @__PURE__ */ jsx(RadioBubbleInput, {
+		...useRadioScope(n),
+		...i,
+		ref: t
+	});
+}, "RadioGroupItemBubbleInput")), RadioGroupIndicator = /* @__PURE__ */ React$1.forwardRef(/* @__PURE__ */ __name(function(e, t) {
+	let { __scopeRadioGroup: n, ...i } = e;
+	return /* @__PURE__ */ jsx(RadioIndicator, {
+		...useRadioScope(n),
+		...i,
+		ref: t
+	});
+}, "RadioGroupIndicator")), radioTransition = "transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none";
+const radioItemVariants = cva([
+	"group/radio flex cursor-pointer items-start gap-2.5 text-left text-sm text-text-primary",
+	"focus-within:outline-none",
+	"has-disabled:cursor-not-allowed has-disabled:opacity-50",
+	radioTransition
+], {
+	variants: {
+		variant: {
+			plain: "bg-transparent p-0",
+			border: [
+				"rounded-md border border-border bg-surface-elevated px-3 py-2.5",
+				"hover:border-border-strong",
+				"has-[[data-state=checked]]:border-accent has-[[data-state=checked]]:bg-accent/1"
+			],
+			filled: [
+				"rounded-md border border-transparent bg-surface px-3 py-2.5",
+				"hover:bg-surface-elevated",
+				"has-[[data-state=checked]]:bg-accent/10"
+			],
+			inset: [
+				"rounded-md border border-transparent bg-surface px-3 py-2.5",
+				"shadow-[var(--shadow-button-inset)]",
+				"hover:shadow-[var(--shadow-button-raised-hover)]",
+				"has-[[data-state=checked]]:bg-accent/4"
+			]
+		},
+		size: {
+			sm: "text-xs",
+			default: "text-sm"
+		},
+		invalid: {
+			true: "",
+			false: ""
+		}
+	},
+	compoundVariants: [
+		{
+			variant: "plain",
+			size: "sm",
+			class: "gap-2"
+		},
+		{
+			variant: [
+				"border",
+				"filled",
+				"inset"
+			],
+			size: "sm",
+			class: "gap-2 px-2.5 py-2"
+		},
+		{
+			invalid: !0,
+			variant: "border",
+			class: "border-error hover:border-error"
+		},
+		{
+			invalid: !0,
+			variant: "filled",
+			class: "border border-error"
+		},
+		{
+			invalid: !0,
+			variant: "inset",
+			class: "border border-error"
+		}
+	],
+	defaultVariants: {
+		variant: "plain",
+		size: "default",
+		invalid: !1
+	}
+}), radioControlVariants = cva([
+	"flex shrink-0 items-center justify-center rounded-full border border-border bg-surface-elevated",
+	"outline-none",
+	"focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+	"data-[state=checked]:border-accent data-[state=checked]:bg-surface-elevated",
+	"disabled:cursor-not-allowed",
+	radioTransition
+], {
+	variants: { size: {
+		sm: "size-4.5",
+		default: "size-5"
+	} },
+	defaultVariants: { size: "default" }
+}), radioIndicatorVariants = cva("rounded-full bg-accent", {
+	variants: { size: {
+		sm: "size-2.5",
+		default: "size-3"
+	} },
+	defaultVariants: { size: "default" }
+}), radioGroupVariants = cva("flex", {
+	variants: {
+		orientation: {
+			vertical: "flex-col",
+			horizontal: "flex-row flex-wrap"
+		},
+		gap: {
+			1: "gap-1",
+			2: "gap-2",
+			3: "gap-3",
+			4: "gap-4",
+			6: "gap-6"
+		}
+	},
+	defaultVariants: {
+		orientation: "vertical",
+		gap: "3"
+	}
+});
+var RadioGroupContext = React$1.createContext({}), RadioGroup = React$1.forwardRef(({ orientation: e = "vertical", gap: t = "3", variant: n, size: i, errorMessage: a, id: o, children: s, ...c }, u) => {
+	let d = useId(), f = o ?? d, p = `${f}-error`, m = !!a;
+	return /* @__PURE__ */ jsxs("div", {
+		className: "flex w-full flex-col gap-1.5",
+		children: [/* @__PURE__ */ jsx(RadioGroupContext.Provider, {
+			value: {
+				variant: n,
+				size: i,
+				orientation: e,
+				invalid: m,
+				errorId: m ? p : void 0
+			},
+			children: /* @__PURE__ */ jsx(RadioGroup$1, {
+				ref: u,
+				id: f,
+				orientation: e,
+				"aria-invalid": m || void 0,
+				"aria-describedby": m ? p : void 0,
+				className: radioGroupVariants({
+					orientation: e,
+					gap: t
+				}),
+				...c,
+				children: s
+			})
+		}), a ? /* @__PURE__ */ jsx("p", {
+			id: p,
+			role: "alert",
+			className: "text-xs text-error",
+			children: a
+		}) : null]
+	});
+});
+RadioGroup.displayName = "RadioGroup";
+var Radio = React$1.forwardRef(({ variant: t, size: n, children: i, description: a, disabled: o, id: s, ...c }, l) => {
+	let u = React$1.useContext(RadioGroupContext), d = t ?? u.variant ?? "plain", f = n ?? u.size ?? "default", p = u.orientation ?? "vertical", m = u.invalid ?? !1, _ = React$1.useId(), v = s ?? _, y = a ? `${v}-description` : void 0, b = [y, u.errorId].filter(Boolean).join(" ");
+	return /* @__PURE__ */ jsxs("label", {
+		"data-variant": d,
+		"data-size": f,
+		"data-invalid": m || void 0,
+		className: cn(radioItemVariants({
+			variant: d,
+			size: f,
+			invalid: m
+		}), p === "vertical" ? "w-full" : "w-auto"),
+		children: [/* @__PURE__ */ jsx(RadioGroupItem, {
+			ref: l,
+			id: v,
+			disabled: o,
+			"aria-invalid": m || void 0,
+			"aria-describedby": b || void 0,
+			className: radioControlVariants({ size: f }),
+			...c,
+			children: /* @__PURE__ */ jsx(RadioGroupIndicator, {
+				className: "flex items-center justify-center",
+				children: /* @__PURE__ */ jsx("span", {
+					className: radioIndicatorVariants({ size: f }),
+					"aria-hidden": !0
+				})
+			})
+		}), /* @__PURE__ */ jsxs("span", {
+			className: "flex min-w-0 flex-1 flex-col gap-0.5",
+			children: [/* @__PURE__ */ jsx("span", {
+				className: "leading-snug font-medium text-text-primary",
+				children: i
+			}), a ? /* @__PURE__ */ jsx("span", {
+				id: y,
+				className: f === "sm" ? "text-[0.7rem] leading-snug text-text-muted" : "text-xs leading-snug text-text-muted",
+				children: a
+			}) : null]
+		})]
+	});
+});
+Radio.displayName = "Radio", typeof window < "u" && window.document && window.document.createElement;
 function composeEventHandlers(e, t, { checkForDefaultPrevented: n = !0 } = {}) {
 	return function(i) {
 		if (e?.(i), n === !1 || !i.defaultPrevented) return t?.(i);
@@ -9308,34 +11333,34 @@ function DayPicker(e) {
 		...n,
 		today: l.today()
 	});
-	let { captionLayout: m, mode: h, navLayout: g, numberOfMonths: _ = 1, onDayBlur: v, onDayClick: y, onDayFocus: b, onDayKeyDown: x, onDayMouseEnter: S, onDayMouseLeave: C, onNextClick: w, onPrevClick: T, showWeekNumber: E, styles: D } = n, { formatCaption: O, formatDay: k, formatMonthDropdown: A, formatWeekNumber: j, formatWeekNumberHeader: M, formatWeekdayName: N, formatYearDropdown: P } = s, F = useCalendar(n, l), { days: I, months: L, navStart: R, navEnd: z, previousMonth: B, nextMonth: V, goToMonth: H } = F, U = createGetModifiers(I, n, R, z, l), { isSelected: W, select: G, selected: K } = useSelection(n, l) ?? {}, { blur: q, focused: J, isFocusTarget: Y, moveFocus: Z, setFocused: Q } = useFocus(n, F, U, W ?? (() => !1), l), { labelDayButton: fg, labelGridcell: pg, labelGrid: mg, labelMonthDropdown: hg, labelNav: gg, labelPrevious: _g, labelNext: vg, labelWeekday: yg, labelWeekNumber: bg, labelWeekNumberHeader: xg, labelYearDropdown: Sg } = c, Cg = useMemo(() => getWeekdays(l, n.ISOWeek, n.broadcastCalendar, n.today), [
+	let { captionLayout: m, mode: h, navLayout: g, numberOfMonths: _ = 1, onDayBlur: v, onDayClick: y, onDayFocus: b, onDayKeyDown: x, onDayMouseEnter: S, onDayMouseLeave: C, onNextClick: w, onPrevClick: T, showWeekNumber: E, styles: D } = n, { formatCaption: O, formatDay: k, formatMonthDropdown: A, formatWeekNumber: j, formatWeekNumberHeader: M, formatWeekdayName: N, formatYearDropdown: P } = s, F = useCalendar(n, l), { days: I, months: L, navStart: R, navEnd: z, previousMonth: B, nextMonth: V, goToMonth: H } = F, U = createGetModifiers(I, n, R, z, l), { isSelected: W, select: G, selected: K } = useSelection(n, l) ?? {}, { blur: q, focused: J, isFocusTarget: Y, moveFocus: Z, setFocused: Q } = useFocus(n, F, U, W ?? (() => !1), l), { labelDayButton: Ob, labelGridcell: kb, labelGrid: Ab, labelMonthDropdown: jb, labelNav: Mb, labelPrevious: Nb, labelNext: Pb, labelWeekday: Fb, labelWeekNumber: Ib, labelWeekNumberHeader: Lb, labelYearDropdown: Rb } = c, zb = useMemo(() => getWeekdays(l, n.ISOWeek, n.broadcastCalendar, n.today), [
 		l,
 		n.ISOWeek,
 		n.broadcastCalendar,
 		n.today
-	]), wg = h !== void 0 || y !== void 0, $ = useCallback(() => {
+	]), Bb = h !== void 0 || y !== void 0, $ = useCallback(() => {
 		B && (H(B), T?.(B));
 	}, [
 		B,
 		H,
 		T
-	]), Tg = useCallback(() => {
+	]), Vb = useCallback(() => {
 		V && (H(V), w?.(V));
 	}, [
 		H,
 		V,
 		w
-	]), Eg = useCallback((e, t) => (n) => {
+	]), Hb = useCallback((e, t) => (n) => {
 		n.preventDefault(), n.stopPropagation(), Q(e), !t.disabled && (G?.(e.date, t, n), y?.(e.date, t, n));
 	}, [
 		G,
 		y,
 		Q
-	]), Dg = useCallback((e, t) => (n) => {
+	]), Ub = useCallback((e, t) => (n) => {
 		Q(e), b?.(e.date, t, n);
-	}, [b, Q]), Og = useCallback((e, t) => (n) => {
+	}, [b, Q]), Wb = useCallback((e, t) => (n) => {
 		q(), v?.(e.date, t, n);
-	}, [q, v]), kg = useCallback((e, t) => (i) => {
+	}, [q, v]), Gb = useCallback((e, t) => (i) => {
 		let a = {
 			ArrowLeft: [i.shiftKey ? "month" : "day", n.dir === "rtl" ? "after" : "before"],
 			ArrowRight: [i.shiftKey ? "month" : "day", n.dir === "rtl" ? "before" : "after"],
@@ -9356,17 +11381,17 @@ function DayPicker(e) {
 		Z,
 		x,
 		n.dir
-	]), Ag = useCallback((e, t) => (n) => {
+	]), Kb = useCallback((e, t) => (n) => {
 		S?.(e.date, t, n);
-	}, [S]), jg = useCallback((e, t) => (n) => {
+	}, [S]), qb = useCallback((e, t) => (n) => {
 		C?.(e.date, t, n);
-	}, [C]), Mg = useCallback((e, t) => (n) => {
+	}, [C]), Jb = useCallback((e, t) => (n) => {
 		let i = Number(n.target.value), a = l.setMonth(l.startOfMonth(e), i);
 		H(l.addMonths(a, -t));
-	}, [l, H]), Ng = useCallback((e, t) => (n) => {
+	}, [l, H]), Yb = useCallback((e, t) => (n) => {
 		let i = Number(n.target.value), a = l.setYear(l.startOfMonth(e), i);
 		H(l.addMonths(a, -t));
-	}, [l, H]), { className: Pg, style: Fg } = useMemo(() => ({
+	}, [l, H]), { className: Xb, style: Zb } = useMemo(() => ({
 		className: [p[UI.Root], n.className].filter(Boolean).join(" "),
 		style: {
 			...D?.[UI.Root],
@@ -9377,20 +11402,20 @@ function DayPicker(e) {
 		n.className,
 		n.style,
 		D
-	]), Ig = getDataAttributes(n), Lg = (e) => {
+	]), Qb = getDataAttributes(n), $b = (e) => {
 		let t = D?.[UI.Dropdown], n = D?.[e];
 		if (!(!t && !n)) return {
 			...t,
 			...n
 		};
-	}, Rg = useRef(null);
-	useAnimation(Rg, !!n.animate, {
+	}, ex = useRef(null);
+	useAnimation(ex, !!n.animate, {
 		classNames: p,
 		months: L,
 		focused: J,
 		dateLib: l
 	});
-	let zg = {
+	let tx = {
 		dayPickerProps: n,
 		selected: K,
 		select: G,
@@ -9406,10 +11431,10 @@ function DayPicker(e) {
 		labels: c,
 		formatters: s
 	};
-	return React.createElement(dayPickerContext.Provider, { value: zg }, React.createElement(a.Root, {
-		rootRef: n.animate ? Rg : void 0,
-		className: Pg,
-		style: Fg,
+	return React.createElement(dayPickerContext.Provider, { value: tx }, React.createElement(a.Root, {
+		rootRef: n.animate ? ex : void 0,
+		className: Xb,
+		style: Zb,
 		dir: n.dir,
 		id: n.id,
 		lang: n.lang ?? u.code,
@@ -9418,7 +11443,7 @@ function DayPicker(e) {
 		role: n.role,
 		"aria-label": n["aria-label"],
 		"aria-labelledby": n["aria-labelledby"],
-		...Ig
+		...Qb
 	}, React.createElement(a.Months, {
 		className: p[UI.Months],
 		style: D?.[UI.Months]
@@ -9426,9 +11451,9 @@ function DayPicker(e) {
 		"data-animated-nav": n.animate ? "true" : void 0,
 		className: p[UI.Nav],
 		style: D?.[UI.Nav],
-		"aria-label": gg(),
+		"aria-label": Mb(),
 		onPreviousClick: $,
-		onNextClick: Tg,
+		onNextClick: Vb,
 		previousMonth: B,
 		nextMonth: V
 	}), L.map((e, i) => {
@@ -9446,7 +11471,7 @@ function DayPicker(e) {
 			style: D?.[UI.PreviousMonthButton],
 			tabIndex: B ? void 0 : -1,
 			"aria-disabled": B ? void 0 : !0,
-			"aria-label": _g(B),
+			"aria-label": Nb(B),
 			onClick: $,
 			"data-animated-button": n.animate ? "true" : void 0
 		}, React.createElement(a.Chevron, {
@@ -9467,20 +11492,20 @@ function DayPicker(e) {
 			let i = m === "dropdown" || m === "dropdown-months" ? React.createElement(a.MonthsDropdown, {
 				key: "month",
 				className: p[UI.MonthsDropdown],
-				"aria-label": hg(),
+				"aria-label": jb(),
 				disabled: !!n.disableNavigation,
-				onChange: Mg(e.date, o),
+				onChange: Jb(e.date, o),
 				options: getMonthOptions(e.date, R, z, s, l),
-				style: Lg(UI.MonthsDropdown),
+				style: $b(UI.MonthsDropdown),
 				value: l.getMonth(e.date)
 			}) : React.createElement("span", { key: "month" }, A(e.date, l)), c = m === "dropdown" || m === "dropdown-years" ? React.createElement(a.YearsDropdown, {
 				key: "year",
 				className: p[UI.YearsDropdown],
-				"aria-label": Sg(l.options),
+				"aria-label": Rb(l.options),
 				disabled: !!n.disableNavigation,
-				onChange: Ng(e.date, o),
+				onChange: Yb(e.date, o),
 				options: getYearOptions(R, z, s, l, !!n.reverseYears),
-				style: Lg(UI.YearsDropdown),
+				style: $b(UI.YearsDropdown),
 				value: l.getYear(e.date)
 			}) : React.createElement("span", { key: "year" }, P(e.date, l));
 			return l.getMonthYearOrder() === "year-first" ? [c, i] : [i, c];
@@ -9510,8 +11535,8 @@ function DayPicker(e) {
 			style: D?.[UI.NextMonthButton],
 			tabIndex: V ? void 0 : -1,
 			"aria-disabled": V ? void 0 : !0,
-			"aria-label": vg(V),
-			onClick: Tg,
+			"aria-label": Pb(V),
+			onClick: Vb,
 			"data-animated-button": n.animate ? "true" : void 0
 		}, React.createElement(a.Chevron, {
 			disabled: V ? void 0 : !0,
@@ -9522,15 +11547,15 @@ function DayPicker(e) {
 			"data-animated-nav": n.animate ? "true" : void 0,
 			className: p[UI.Nav],
 			style: D?.[UI.Nav],
-			"aria-label": gg(),
+			"aria-label": Mb(),
 			onPreviousClick: $,
-			onNextClick: Tg,
+			onNextClick: Vb,
 			previousMonth: B,
 			nextMonth: V
 		}), React.createElement(a.MonthGrid, {
 			role: "grid",
 			"aria-multiselectable": h === "multiple" || h === "range",
-			"aria-label": mg(e.date, l.options, l) || void 0,
+			"aria-label": Ab(e.date, l.options, l) || void 0,
 			className: p[UI.MonthGrid],
 			style: D?.[UI.MonthGrid]
 		}, !n.hideWeekdays && React.createElement(a.Weekdays, {
@@ -9538,12 +11563,12 @@ function DayPicker(e) {
 			className: p[UI.Weekdays],
 			style: D?.[UI.Weekdays]
 		}, E && React.createElement(a.WeekNumberHeader, {
-			"aria-label": xg(l.options),
+			"aria-label": Lb(l.options),
 			className: p[UI.WeekNumberHeader],
 			style: D?.[UI.WeekNumberHeader],
 			scope: "col"
-		}, M()), Cg.map((e) => React.createElement(a.Weekday, {
-			"aria-label": yg(e, l.options, l),
+		}, M()), zb.map((e) => React.createElement(a.Weekday, {
+			"aria-label": Fb(e, l.options, l),
 			className: p[UI.Weekday],
 			key: String(e),
 			style: D?.[UI.Weekday],
@@ -9560,7 +11585,7 @@ function DayPicker(e) {
 		}, E && React.createElement(a.WeekNumber, {
 			week: e,
 			style: D?.[UI.WeekNumber],
-			"aria-label": bg(e.weekNumber, { locale: u }),
+			"aria-label": Ib(e.weekNumber, { locale: u }),
 			className: p[UI.WeekNumber],
 			scope: "row",
 			role: "rowheader"
@@ -9570,7 +11595,7 @@ function DayPicker(e) {
 				let { from: e, to: t } = K;
 				o[SelectionState.range_start] = !!(e && t && l.isSameDay(i, e)), o[SelectionState.range_end] = !!(e && t && l.isSameDay(i, t)), o[SelectionState.range_middle] = rangeIncludesDate(K, i, !0, l);
 			}
-			let s = getStyleForModifiers(o, D, n.modifiersStyles), c = getClassNamesForModifiers(o, p, n.modifiersClassNames), u = !wg && !o.hidden ? pg(i, o, l.options, l) : void 0;
+			let s = getStyleForModifiers(o, D, n.modifiersStyles), c = getClassNamesForModifiers(o, p, n.modifiersClassNames), u = !Bb && !o.hidden ? kb(i, o, l.options, l) : void 0;
 			return React.createElement(a.Day, {
 				key: `${e.isoDate}_${e.displayMonthId}`,
 				day: e,
@@ -9588,7 +11613,7 @@ function DayPicker(e) {
 				"data-outside": e.outside || void 0,
 				"data-focused": o.focused || void 0,
 				"data-today": o.today || void 0
-			}, !o.hidden && wg ? React.createElement(a.DayButton, {
+			}, !o.hidden && Bb ? React.createElement(a.DayButton, {
 				className: p[UI.DayButton],
 				style: D?.[UI.DayButton],
 				type: "button",
@@ -9597,13 +11622,13 @@ function DayPicker(e) {
 				disabled: !o.focused && o.disabled || void 0,
 				"aria-disabled": o.focused && o.disabled || void 0,
 				tabIndex: Y(e) ? 0 : -1,
-				"aria-label": fg(i, o, l.options, l),
-				onClick: Eg(e, o),
-				onBlur: Og(e, o),
-				onFocus: Dg(e, o),
-				onKeyDown: kg(e, o),
-				onMouseEnter: Ag(e, o),
-				onMouseLeave: jg(e, o)
+				"aria-label": Ob(i, o, l.options, l),
+				onClick: Hb(e, o),
+				onBlur: Wb(e, o),
+				onFocus: Ub(e, o),
+				onKeyDown: Gb(e, o),
+				onMouseEnter: Kb(e, o),
+				onMouseLeave: qb(e, o)
 			}, k(i, l.options, l)) : !o.hidden && k(e.date, l.options, l));
 		}))))));
 	})), n.footer && React.createElement(a.Footer, {
@@ -9768,6 +11793,181 @@ var DateRangePicker = React$1.forwardRef(({ value: e, defaultValue: t, onValueCh
 	});
 });
 DateRangePicker.displayName = "DateRangePicker";
+const photoUploadVariants = cva([
+	"relative flex w-full min-w-0 overflow-hidden text-sm text-text-primary",
+	"focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-surface",
+	"has-disabled:cursor-not-allowed has-disabled:opacity-50",
+	"transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none"
+], {
+	variants: {
+		variant: {
+			border: "border border-border bg-surface-elevated hover:border-border-strong focus-within:border-border-strong focus-within:ring-ring/40",
+			inset: "border border-transparent bg-surface shadow-[var(--shadow-button-inset)] focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40",
+			raised: [
+				"border border-transparent bg-surface shadow-[var(--shadow-button-raised)]",
+				"[background:var(--background-gradient-raised)]",
+				"focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40"
+			],
+			filled: "border border-transparent bg-surface hover:bg-surface-elevated focus-within:ring-ring/40"
+		},
+		invalid: {
+			true: "",
+			false: ""
+		},
+		rounded: {
+			sm: "rounded-sm",
+			md: "rounded-md",
+			lg: "rounded-lg",
+			full: "rounded-full"
+		},
+		empty: {
+			true: "aspect-[5/3] items-center justify-center px-3 py-3",
+			false: "aspect-[5/3] p-0"
+		}
+	},
+	compoundVariants: [
+		{
+			invalid: !0,
+			variant: "border",
+			class: "border-error hover:border-error focus-within:border-error focus-within:ring-error/40"
+		},
+		{
+			invalid: !0,
+			variant: "inset",
+			class: "border-error shadow-[var(--shadow-button-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-button-inset)] focus-within:ring-error/40"
+		},
+		{
+			invalid: !0,
+			variant: "raised",
+			class: "border border-error focus-within:border-error focus-within:ring-error/40"
+		},
+		{
+			invalid: !0,
+			variant: "filled",
+			class: "border border-error hover:bg-surface focus-within:ring-error/40"
+		}
+	],
+	defaultVariants: {
+		variant: "border",
+		invalid: !1,
+		rounded: "md",
+		empty: !0
+	}
+});
+function formatMaxSize(e) {
+	return e >= 1024 * 1024 ? `${Math.round(e / (1024 * 1024))} MB` : `${Math.round(e / 1024)} KB`;
+}
+var PhotoUpload = React$1.forwardRef(({ value: t, defaultValue: n = null, onValueChange: i, accept: a = "image/*", placeholder: o = "Choose a photo…", disabled: s = !1, errorMessage: u, maxSizeBytes: _, id: v, name: y, variant: b, rounded: x, onChange: S, ...C }, w) => {
+	let T = useId(), E = v ?? T, D = `${E}-error`, O = useRef(null), [k, A] = useState(!1), [j, M] = useState(null), N = t !== void 0, [P, F] = useState(n), I = N ? t ?? null : P, L = useMemo(() => I ? URL.createObjectURL(I) : null, [I]), R = u ?? j ?? void 0, z = !!R;
+	React$1.useImperativeHandle(w, () => O.current), useEffect(() => () => {
+		L && URL.revokeObjectURL(L);
+	}, [L]);
+	let B = (e) => {
+		N || F(e), i?.(e);
+	}, V = () => {
+		O.current && (O.current.value = "");
+	}, H = (e) => {
+		if (M(null), !e) {
+			B(null), V();
+			return;
+		}
+		if (_ !== void 0 && e.size > _) {
+			M(`File must be under ${formatMaxSize(_)}.`), V();
+			return;
+		}
+		B(e);
+	}, U = (e) => {
+		S?.(e), H(e.target.files?.[0] ?? null);
+	}, W = () => {
+		s || O.current?.click();
+	}, G = (e) => {
+		e.preventDefault(), e.stopPropagation(), M(null), B(null), V();
+	}, K = (e) => {
+		e.preventDefault(), s || A(!0);
+	}, q = (e) => {
+		e.preventDefault(), !e.currentTarget.contains(e.relatedTarget) && A(!1);
+	}, J = (e) => {
+		e.preventDefault();
+	}, Y = (e) => {
+		if (e.preventDefault(), A(!1), s) return;
+		let t = e.dataTransfer.files?.[0];
+		t && H(t);
+	}, Z = !!I;
+	return /* @__PURE__ */ jsxs("div", {
+		className: "flex w-full flex-col gap-1.5",
+		children: [/* @__PURE__ */ jsxs("div", {
+			"data-variant": b,
+			"data-invalid": z || void 0,
+			"data-dragging": k || void 0,
+			className: cn(photoUploadVariants({
+				variant: b,
+				invalid: z,
+				rounded: x,
+				empty: !Z
+			}), k && "border-accent ring-2 ring-accent/20 ring-offset-2 ring-offset-surface"),
+			onDragEnter: K,
+			onDragLeave: q,
+			onDragOver: J,
+			onDrop: Y,
+			children: [/* @__PURE__ */ jsx("input", {
+				ref: O,
+				id: E,
+				type: "file",
+				accept: a,
+				name: y,
+				disabled: s,
+				multiple: !1,
+				"aria-invalid": z || void 0,
+				"aria-describedby": z ? D : void 0,
+				className: "sr-only",
+				onChange: U,
+				...C
+			}), Z && L ? /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx("button", {
+				type: "button",
+				disabled: s,
+				onClick: W,
+				"aria-label": "Replace photo",
+				className: "absolute inset-0 bg-transparent outline-none disabled:cursor-not-allowed",
+				children: /* @__PURE__ */ jsx("img", {
+					src: L,
+					alt: I?.name ?? "Selected photo preview",
+					className: "size-full object-cover"
+				})
+			}), /* @__PURE__ */ jsx("div", {
+				className: "absolute top-2 right-2 z-10 [&_button]:size-7 [&_button]:bg-surface-elevated/90 [&_button]:shadow-sm",
+				children: /* @__PURE__ */ jsx(Button, {
+					variant: "ghost",
+					size: "icon",
+					"aria-label": "Remove photo",
+					disabled: s,
+					onClick: G,
+					children: /* @__PURE__ */ jsx(X, {
+						className: "size-4 text-text-muted",
+						"aria-hidden": !0
+					})
+				})
+			})] }) : /* @__PURE__ */ jsxs("button", {
+				type: "button",
+				disabled: s,
+				onClick: W,
+				className: "flex flex-col items-center gap-2 bg-transparent px-2 py-1 text-center outline-none disabled:cursor-not-allowed",
+				children: [/* @__PURE__ */ jsx(ImagePlus, {
+					className: "size-5 text-text-muted",
+					"aria-hidden": !0
+				}), /* @__PURE__ */ jsx("span", {
+					className: "text-sm text-text-subtle",
+					children: o
+				})]
+			})]
+		}), R ? /* @__PURE__ */ jsx("p", {
+			id: D,
+			role: "alert",
+			className: "text-xs text-error",
+			children: R
+		}) : null]
+	});
+});
+PhotoUpload.displayName = "PhotoUpload";
 const THEME_IDS = [
 	"ink",
 	"clay",
@@ -9797,4 +11997,4 @@ function initTheme() {
 	} catch {}
 	return setTheme(e), e;
 }
-export { Button, ButtonLink, Card, CardContent, CardDescription, CardFooter, CardHeader, CardMedia, CardTitle, DEFAULT_THEME, DateRangePicker, Input, Label, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalTrigger, Select, THEME_IDS, getTheme, initTheme, setTheme, setThemeWithPersistence };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Button, ButtonLink, Card, CardContent, CardDescription, CardFooter, CardHeader, CardMedia, CardTitle, DEFAULT_THEME, DateRangePicker, Field, Input, Label, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalTrigger, PhotoUpload, Radio, RadioGroup, Select, THEME_IDS, getTheme, initTheme, setTheme, setThemeWithPersistence };

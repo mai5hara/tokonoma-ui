@@ -11,7 +11,7 @@ export declare const cardVariants: (props?: ({
 export declare const cardSectionVariants: (props?: ({
     direction?: "col" | "row" | null | undefined;
     gap?: "0" | "1" | "2" | "3" | "4" | "6" | "8" | null | undefined;
-    align?: "center" | "start" | "end" | null | undefined;
+    align?: "center" | "end" | "start" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export type CardVariantProps = VariantProps<typeof cardVariants>;
 export type CardSectionVariantProps = VariantProps<typeof cardSectionVariants>;

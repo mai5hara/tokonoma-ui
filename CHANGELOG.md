@@ -1,3 +1,11 @@
+## 0.2.5
+
+- Add `RadioGroup` / `Radio` (`plain` · `border` · `filled` · `inset`) with group `errorMessage`
+- Add `PhotoUpload` single-image field with full-width preview, drag-and-drop, and clear
+- Add `Field` layout wrapper (`vertical` / `horizontal`)
+- Add `Accordion` (`border` · `underline` · `filled` · `accent`; `chevron` / `plus` indicators)
+- Align form Storybook stories (`Default`, `WithLabel`, `WithError`)
+
 ## 0.2.4
 
 - Add `direction` and `gap` layout props to `CardContent` and `CardFooter` (shared section variants)
