@@ -27,6 +27,12 @@ export type { InputProps, InputVariantProps } from './components/ui/input';
 export { Label } from './components/ui/label';
 export type { LabelProps, LabelVariantProps } from './components/ui/label';
 
+export { Field } from './components/ui/field';
+export type {
+  FieldProps,
+  FieldLayoutVariantProps,
+} from './components/ui/field';
+
 export {
   Modal,
   ModalTrigger,
