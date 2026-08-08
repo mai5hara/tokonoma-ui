@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useId } from 'react';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 
 import type { ClosedElementProps } from '@/lib/closed-api';
@@ -30,6 +31,8 @@ type RadioGroupContextValue = {
   variant?: RadioAppearanceProps['variant'];
   size?: RadioAppearanceProps['size'];
   orientation?: NonNullable<RadioGroupVariantProps['orientation']>;
+  invalid?: boolean;
+  errorId?: string;
 };
 
 const RadioGroupContext = React.createContext<RadioGroupContextValue>({});
@@ -45,6 +48,8 @@ type RadioGroupProps = ClosedElementProps<
   variant?: RadioAppearanceProps['variant'];
   /** Default size for child {@link Radio} items. */
   size?: RadioAppearanceProps['size'];
+  /** When set, applies error styling and renders helper text below. */
+  errorMessage?: string;
 };
 
 /** Mutually exclusive option group. Compose with {@link Radio}. */
@@ -53,20 +58,53 @@ const RadioGroup = React.forwardRef<
   RadioGroupProps
 >(
   (
-    { orientation = 'vertical', gap = '3', variant, size, children, ...props },
+    {
+      orientation = 'vertical',
+      gap = '3',
+      variant,
+      size,
+      errorMessage,
+      id: idProp,
+      children,
+      ...props
+    },
     ref,
   ) => {
+    const generatedId = useId();
+    const groupId = idProp ?? generatedId;
+    const errorId = `${groupId}-error`;
+    const isInvalid = Boolean(errorMessage);
+
     return (
-      <RadioGroupContext.Provider value={{ variant, size, orientation }}>
-        <RadioGroupPrimitive.Root
-          ref={ref}
-          orientation={orientation}
-          className={radioGroupVariants({ orientation, gap })}
-          {...props}
+      <div className="flex w-full flex-col gap-1.5">
+        <RadioGroupContext.Provider
+          value={{
+            variant,
+            size,
+            orientation,
+            invalid: isInvalid,
+            errorId: isInvalid ? errorId : undefined,
+          }}
         >
-          {children}
-        </RadioGroupPrimitive.Root>
-      </RadioGroupContext.Provider>
+          <RadioGroupPrimitive.Root
+            ref={ref}
+            id={groupId}
+            orientation={orientation}
+            aria-invalid={isInvalid || undefined}
+            aria-describedby={isInvalid ? errorId : undefined}
+            className={radioGroupVariants({ orientation, gap })}
+            {...props}
+          >
+            {children}
+          </RadioGroupPrimitive.Root>
+        </RadioGroupContext.Provider>
+
+        {errorMessage ? (
+          <p id={errorId} role="alert" className="text-xs text-error">
+            {errorMessage}
+          </p>
+        ) : null}
+      </div>
     );
   },
 );
@@ -103,16 +141,21 @@ const Radio = React.forwardRef<
     const variant = variantProp ?? group.variant ?? 'plain';
     const size = sizeProp ?? group.size ?? 'default';
     const orientation = group.orientation ?? 'vertical';
+    const invalid = group.invalid ?? false;
     const generatedId = React.useId();
     const itemId = id ?? generatedId;
     const descriptionId = description ? `${itemId}-description` : undefined;
+    const describedBy = [descriptionId, group.errorId]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <label
         data-variant={variant}
         data-size={size}
+        data-invalid={invalid || undefined}
         className={cn(
-          radioItemVariants({ variant, size }),
+          radioItemVariants({ variant, size, invalid }),
           orientation === 'vertical' ? 'w-full' : 'w-auto',
         )}
       >
@@ -120,7 +163,8 @@ const Radio = React.forwardRef<
           ref={ref}
           id={itemId}
           disabled={disabled}
-          aria-describedby={descriptionId}
+          aria-invalid={invalid || undefined}
+          aria-describedby={describedBy || undefined}
           className={radioControlVariants({ size })}
           {...props}
         >

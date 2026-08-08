@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import { Label } from '@/components/ui/label';
 
 import { Radio, RadioGroup } from '.';
 
@@ -15,7 +17,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Mutually exclusive options. Compose `RadioGroup` with `Radio`. Option chrome via `variant` (`plain`, `border`, `filled`, `inset`).',
+          'Mutually exclusive options. Compose `RadioGroup` with `Radio`. Option chrome via `variant` (`plain`, `border`, `filled`, `inset`). Pair with **Label** via `id` / `htmlFor`.',
       },
     },
   },
@@ -55,6 +57,10 @@ const meta = {
         type: { summary: 'sm | default' },
         defaultValue: { summary: 'default' },
       },
+    },
+    errorMessage: {
+      control: 'text',
+      description: 'When set, applies error styling and helper text below.',
     },
     disabled: {
       control: 'boolean',
@@ -98,14 +104,58 @@ export const Default: Story = {
   },
 };
 
-export const Disabled: Story = {
+export const WithLabel: Story = {
   parameters: { controls: { disable: true } },
-  render: () =>
-    onSurface(
-      <RadioGroup defaultValue="a" disabled variant="border">
-        <Radio value="a">Option A</Radio>
-        <Radio value="b">Option B</Radio>
-        <Radio value="c">Option C</Radio>
-      </RadioGroup>,
-    ),
+  render: function WithLabelStory() {
+    const id = useId();
+    const [value, setValue] = useState<string>();
+
+    return onSurface(
+      <div className="flex w-full flex-col gap-1.5">
+        <Label htmlFor={id} required>
+          Surface style
+        </Label>
+        <RadioGroup
+          id={id}
+          variant="border"
+          value={value}
+          onValueChange={setValue}
+        >
+          <Radio value="flat" description="Border only, no depth.">
+            Flat
+          </Radio>
+          <Radio value="raised" description="Soft raised depth on surface.">
+            Raised
+          </Radio>
+          <Radio value="inset" description="Soft inset depth on surface.">
+            Inset
+          </Radio>
+        </RadioGroup>
+      </div>,
+    );
+  },
+};
+
+export const WithError: Story = {
+  parameters: { controls: { disable: true } },
+  render: function WithErrorStory() {
+    const id = useId();
+
+    return onSurface(
+      <div className="flex w-full flex-col gap-1.5">
+        <Label htmlFor={id} required>
+          Surface style
+        </Label>
+        <RadioGroup
+          id={id}
+          variant="border"
+          errorMessage="Choose a surface style."
+        >
+          <Radio value="flat">Flat</Radio>
+          <Radio value="raised">Raised</Radio>
+          <Radio value="inset">Inset</Radio>
+        </RadioGroup>
+      </div>,
+    );
+  },
 };

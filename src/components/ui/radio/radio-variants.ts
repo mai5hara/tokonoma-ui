@@ -41,6 +41,10 @@ export const radioItemVariants = cva(
         sm: 'text-xs',
         default: 'text-sm',
       },
+      invalid: {
+        true: '',
+        false: '',
+      },
     },
     compoundVariants: [
       {
@@ -53,10 +57,26 @@ export const radioItemVariants = cva(
         size: 'sm',
         class: 'gap-2 px-2.5 py-2',
       },
+      {
+        invalid: true,
+        variant: 'border',
+        class: 'border-error hover:border-error',
+      },
+      {
+        invalid: true,
+        variant: 'filled',
+        class: 'border border-error',
+      },
+      {
+        invalid: true,
+        variant: 'inset',
+        class: 'border border-error',
+      },
     ],
     defaultVariants: {
       variant: 'plain',
       size: 'default',
+      invalid: false,
     },
   },
 );
