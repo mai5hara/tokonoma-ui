@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import { Label } from '@/components/ui/label';
 
 import { PhotoUpload } from '.';
 
@@ -74,21 +76,38 @@ export const Default: Story = {
   },
 };
 
-export const Error: Story = {
+export const WithLabel: Story = {
   parameters: { controls: { disable: true } },
-  render: () =>
-    onSurface(
-      <div className="space-y-4">
+  render: function WithLabelStory() {
+    const id = useId();
+    const [file, setFile] = useState<File | null>(null);
+
+    return onSurface(
+      <div className="flex w-full flex-col gap-1.5">
+        <Label htmlFor={id} required>
+          Profile photo
+        </Label>
+        <PhotoUpload id={id} value={file} onValueChange={setFile} />
+      </div>,
+    );
+  },
+};
+
+export const WithError: Story = {
+  parameters: { controls: { disable: true } },
+  render: function WithErrorStory() {
+    const id = useId();
+
+    return onSurface(
+      <div className="flex w-full flex-col gap-1.5">
+        <Label htmlFor={id} required>
+          Profile photo
+        </Label>
         <PhotoUpload
-          variant="border"
+          id={id}
           errorMessage="Upload a profile photo to continue."
         />
-        <PhotoUpload
-          variant="inset"
-          maxSizeBytes={512 * 1024}
-          placeholder="Max 512 KB"
-        />
-        <PhotoUpload variant="filled" disabled placeholder="Upload disabled" />
       </div>,
-    ),
+    );
+  },
 };

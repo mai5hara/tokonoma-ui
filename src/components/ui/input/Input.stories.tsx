@@ -1,4 +1,7 @@
+import { useId } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import { Label } from '@/components/ui/label';
 
 import { Input } from '.';
 
@@ -77,28 +80,39 @@ export const Default: Story = {
   render: (args) => onSurface(<Input {...args} />),
 };
 
-export const Error: Story = {
+export const WithLabel: Story = {
   parameters: { controls: { disable: true } },
-  render: () =>
-    onSurface(
-      <div className="space-y-4">
+  render: function WithLabelStory() {
+    const id = useId();
+
+    return onSurface(
+      <div className="flex w-full flex-col gap-1.5">
+        <Label htmlFor={id} required>
+          Email
+        </Label>
+        <Input id={id} type="email" placeholder="you@example.com" />
+      </div>,
+    );
+  },
+};
+
+export const WithError: Story = {
+  parameters: { controls: { disable: true } },
+  render: function WithErrorStory() {
+    const id = useId();
+
+    return onSurface(
+      <div className="flex w-full flex-col gap-1.5">
+        <Label htmlFor={id} required>
+          Email
+        </Label>
         <Input
-          variant="border"
+          id={id}
+          type="email"
           defaultValue="not-an-email"
           errorMessage="Enter a valid email address."
         />
-        <Input
-          variant="inset"
-          mode="search"
-          defaultValue="??"
-          errorMessage="Search query is too short."
-        />
-        <Input
-          variant="filled"
-          type="password"
-          showPasswordToggle
-          errorMessage="Password must be at least 8 characters."
-        />
       </div>,
-    ),
+    );
+  },
 };
