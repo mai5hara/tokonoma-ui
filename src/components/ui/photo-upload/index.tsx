@@ -18,6 +18,10 @@ function formatMaxSize(bytes: number): string {
   return `${Math.round(bytes / 1024)} KB`;
 }
 
+function _isFile(value: File | string | null): value is File {
+  return value instanceof File;
+}
+
 type PhotoUploadProps = ClosedElementProps<
   Omit<
     React.ComponentProps<'input'>,
@@ -25,8 +29,11 @@ type PhotoUploadProps = ClosedElementProps<
   >
 > &
   FieldAppearanceProps & {
-    /** Current file. Pair with `onValueChange` for controlled usage. */
-    value?: File | null;
+    /**
+     * Current image. Pass a `File` for a new pick, or a URL `string` to preview
+     * an already-uploaded image. Pair with `onValueChange` for controlled usage.
+     */
+    value?: File | string | null;
     /** Initial file when uncontrolled. */
     defaultValue?: File | null;
     /** Called when the file changes or is cleared. */
@@ -75,23 +82,32 @@ const PhotoUpload = React.forwardRef<HTMLInputElement, PhotoUploadProps>(
     const [sizeError, setSizeError] = useState<string | null>(null);
     const isControlled = value !== undefined;
     const [internalFile, setInternalFile] = useState<File | null>(defaultValue);
-    const file = isControlled ? (value ?? null) : internalFile;
-    const previewUrl = useMemo(
-      () => (file ? URL.createObjectURL(file) : null),
-      [file],
-    );
+    const selected = isControlled ? (value ?? null) : internalFile;
+
+    const previewUrl = useMemo(() => {
+      if (!selected) {
+        return null;
+      }
+      if (typeof selected === 'string') {
+        return selected;
+      }
+      return URL.createObjectURL(selected);
+    }, [selected]);
+
     const displayError = errorMessage ?? sizeError ?? undefined;
     const isInvalid = Boolean(displayError);
 
     React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
     useEffect(() => {
+      if (!previewUrl || typeof selected === 'string') {
+        return;
+      }
+
       return () => {
-        if (previewUrl) {
-          URL.revokeObjectURL(previewUrl);
-        }
+        URL.revokeObjectURL(previewUrl);
       };
-    }, [previewUrl]);
+    }, [previewUrl, selected]);
 
     const setFile = (next: File | null) => {
       if (!isControlled) {
@@ -176,7 +192,7 @@ const PhotoUpload = React.forwardRef<HTMLInputElement, PhotoUploadProps>(
       }
     };
 
-    const hasFile = Boolean(file);
+    const hasPreview = Boolean(selected && previewUrl);
 
     return (
       <div className="flex w-full flex-col gap-1.5">
@@ -189,7 +205,7 @@ const PhotoUpload = React.forwardRef<HTMLInputElement, PhotoUploadProps>(
               variant,
               invalid: isInvalid,
               rounded,
-              empty: !hasFile,
+              empty: !hasPreview,
             }),
             isDragging &&
               'border-accent ring-2 ring-accent/20 ring-offset-2 ring-offset-surface',
@@ -214,7 +230,7 @@ const PhotoUpload = React.forwardRef<HTMLInputElement, PhotoUploadProps>(
             {...props}
           />
 
-          {hasFile && previewUrl ? (
+          {hasPreview && previewUrl ? (
             <>
               <button
                 type="button"
@@ -225,7 +241,11 @@ const PhotoUpload = React.forwardRef<HTMLInputElement, PhotoUploadProps>(
               >
                 <img
                   src={previewUrl}
-                  alt={file?.name ?? 'Selected photo preview'}
+                  alt={
+                    _isFile(selected)
+                      ? (selected.name ?? 'Selected photo preview')
+                      : 'Selected photo preview'
+                  }
                   className="size-full object-cover"
                 />
               </button>
