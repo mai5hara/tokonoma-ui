@@ -1,3 +1,7 @@
+## 0.2.6
+
+- Allow `PhotoUpload` `value` to be a URL `string` (in addition to `File`) so already-uploaded images can be previewed
+
 ## 0.2.5
 
 - Add `RadioGroup` / `Radio` (`plain` · `border` · `filled` · `inset`) with group `errorMessage`

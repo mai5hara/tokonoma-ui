@@ -2,8 +2,11 @@ import { ClosedElementProps } from '../../../lib/closed-api';
 import { FieldAppearanceProps } from '../field-variants';
 import * as React from 'react';
 type PhotoUploadProps = ClosedElementProps<Omit<React.ComponentProps<'input'>, 'size' | 'type' | 'value' | 'defaultValue'>> & FieldAppearanceProps & {
-    /** Current file. Pair with `onValueChange` for controlled usage. */
-    value?: File | null;
+    /**
+     * Current image. Pass a `File` for a new pick, or a URL `string` to preview
+     * an already-uploaded image. Pair with `onValueChange` for controlled usage.
+     */
+    value?: File | string | null;
     /** Initial file when uncontrolled. */
     defaultValue?: File | null;
     /** Called when the file changes or is cleared. */
