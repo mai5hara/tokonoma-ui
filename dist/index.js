@@ -3653,6 +3653,40 @@ var Input = React$1.forwardRef(({ variant: e, rounded: t, mode: n = "default", s
 	});
 });
 Input.displayName = "Input";
+var resizeClasses = {
+	none: "resize-none",
+	vertical: "resize-y",
+	horizontal: "resize-x",
+	both: "resize"
+}, Textarea = React$1.forwardRef(({ variant: e, rounded: t, resize: n = "vertical", errorMessage: i, id: a, ...o }, s) => {
+	let c = useId(), u = a ?? c, d = `${u}-error`, f = !!i;
+	return /* @__PURE__ */ jsxs("div", {
+		className: "flex w-full flex-col gap-1.5",
+		children: [/* @__PURE__ */ jsx("div", {
+			"data-variant": e,
+			"data-invalid": f || void 0,
+			className: cn(fieldVariants({
+				variant: e,
+				invalid: f,
+				rounded: t
+			}), "h-auto items-stretch p-0"),
+			children: /* @__PURE__ */ jsx("textarea", {
+				ref: s,
+				id: u,
+				"aria-invalid": f || void 0,
+				"aria-describedby": f ? d : void 0,
+				className: cn("min-h-20 w-full bg-transparent px-3 py-2 text-sm text-text-primary placeholder:text-text-subtle", "outline-none disabled:cursor-not-allowed", resizeClasses[n]),
+				...o
+			})
+		}), i ? /* @__PURE__ */ jsx("p", {
+			id: d,
+			role: "alert",
+			className: "text-xs text-error",
+			children: i
+		}) : null]
+	});
+});
+Textarea.displayName = "Textarea";
 const labelVariants = cva("inline-flex cursor-pointer items-center gap-1 font-medium text-text-primary", {
 	variants: { size: {
 		sm: "text-xs",
@@ -11333,34 +11367,34 @@ function DayPicker(e) {
 		...n,
 		today: l.today()
 	});
-	let { captionLayout: m, mode: h, navLayout: g, numberOfMonths: _ = 1, onDayBlur: v, onDayClick: y, onDayFocus: b, onDayKeyDown: x, onDayMouseEnter: S, onDayMouseLeave: C, onNextClick: w, onPrevClick: T, showWeekNumber: E, styles: D } = n, { formatCaption: O, formatDay: k, formatMonthDropdown: A, formatWeekNumber: j, formatWeekNumberHeader: M, formatWeekdayName: N, formatYearDropdown: P } = s, F = useCalendar(n, l), { days: I, months: L, navStart: R, navEnd: z, previousMonth: B, nextMonth: V, goToMonth: H } = F, U = createGetModifiers(I, n, R, z, l), { isSelected: W, select: G, selected: K } = useSelection(n, l) ?? {}, { blur: q, focused: J, isFocusTarget: Y, moveFocus: Z, setFocused: Q } = useFocus(n, F, U, W ?? (() => !1), l), { labelDayButton: kb, labelGridcell: Ab, labelGrid: jb, labelMonthDropdown: Mb, labelNav: Nb, labelPrevious: Pb, labelNext: Fb, labelWeekday: Ib, labelWeekNumber: Lb, labelWeekNumberHeader: Rb, labelYearDropdown: zb } = c, Bb = useMemo(() => getWeekdays(l, n.ISOWeek, n.broadcastCalendar, n.today), [
+	let { captionLayout: m, mode: h, navLayout: g, numberOfMonths: _ = 1, onDayBlur: v, onDayClick: y, onDayFocus: b, onDayKeyDown: x, onDayMouseEnter: S, onDayMouseLeave: C, onNextClick: w, onPrevClick: T, showWeekNumber: E, styles: D } = n, { formatCaption: O, formatDay: k, formatMonthDropdown: A, formatWeekNumber: j, formatWeekNumberHeader: M, formatWeekdayName: N, formatYearDropdown: P } = s, F = useCalendar(n, l), { days: I, months: L, navStart: R, navEnd: z, previousMonth: B, nextMonth: V, goToMonth: H } = F, U = createGetModifiers(I, n, R, z, l), { isSelected: W, select: G, selected: K } = useSelection(n, l) ?? {}, { blur: q, focused: J, isFocusTarget: Y, moveFocus: Z, setFocused: Q } = useFocus(n, F, U, W ?? (() => !1), l), { labelDayButton: jb, labelGridcell: Mb, labelGrid: Nb, labelMonthDropdown: Pb, labelNav: Fb, labelPrevious: Ib, labelNext: Lb, labelWeekday: Rb, labelWeekNumber: zb, labelWeekNumberHeader: Bb, labelYearDropdown: Vb } = c, Hb = useMemo(() => getWeekdays(l, n.ISOWeek, n.broadcastCalendar, n.today), [
 		l,
 		n.ISOWeek,
 		n.broadcastCalendar,
 		n.today
-	]), Vb = h !== void 0 || y !== void 0, $ = useCallback(() => {
+	]), Ub = h !== void 0 || y !== void 0, $ = useCallback(() => {
 		B && (H(B), T?.(B));
 	}, [
 		B,
 		H,
 		T
-	]), Hb = useCallback(() => {
+	]), Wb = useCallback(() => {
 		V && (H(V), w?.(V));
 	}, [
 		H,
 		V,
 		w
-	]), Ub = useCallback((e, t) => (n) => {
+	]), Gb = useCallback((e, t) => (n) => {
 		n.preventDefault(), n.stopPropagation(), Q(e), !t.disabled && (G?.(e.date, t, n), y?.(e.date, t, n));
 	}, [
 		G,
 		y,
 		Q
-	]), Wb = useCallback((e, t) => (n) => {
+	]), Kb = useCallback((e, t) => (n) => {
 		Q(e), b?.(e.date, t, n);
-	}, [b, Q]), Gb = useCallback((e, t) => (n) => {
+	}, [b, Q]), qb = useCallback((e, t) => (n) => {
 		q(), v?.(e.date, t, n);
-	}, [q, v]), Kb = useCallback((e, t) => (i) => {
+	}, [q, v]), Jb = useCallback((e, t) => (i) => {
 		let a = {
 			ArrowLeft: [i.shiftKey ? "month" : "day", n.dir === "rtl" ? "after" : "before"],
 			ArrowRight: [i.shiftKey ? "month" : "day", n.dir === "rtl" ? "before" : "after"],
@@ -11381,17 +11415,17 @@ function DayPicker(e) {
 		Z,
 		x,
 		n.dir
-	]), qb = useCallback((e, t) => (n) => {
+	]), Yb = useCallback((e, t) => (n) => {
 		S?.(e.date, t, n);
-	}, [S]), Jb = useCallback((e, t) => (n) => {
+	}, [S]), Xb = useCallback((e, t) => (n) => {
 		C?.(e.date, t, n);
-	}, [C]), Yb = useCallback((e, t) => (n) => {
+	}, [C]), Zb = useCallback((e, t) => (n) => {
 		let i = Number(n.target.value), a = l.setMonth(l.startOfMonth(e), i);
 		H(l.addMonths(a, -t));
-	}, [l, H]), Xb = useCallback((e, t) => (n) => {
+	}, [l, H]), Qb = useCallback((e, t) => (n) => {
 		let i = Number(n.target.value), a = l.setYear(l.startOfMonth(e), i);
 		H(l.addMonths(a, -t));
-	}, [l, H]), { className: Zb, style: Qb } = useMemo(() => ({
+	}, [l, H]), { className: $b, style: ex } = useMemo(() => ({
 		className: [p[UI.Root], n.className].filter(Boolean).join(" "),
 		style: {
 			...D?.[UI.Root],
@@ -11402,20 +11436,20 @@ function DayPicker(e) {
 		n.className,
 		n.style,
 		D
-	]), $b = getDataAttributes(n), ex = (e) => {
+	]), tx = getDataAttributes(n), nx = (e) => {
 		let t = D?.[UI.Dropdown], n = D?.[e];
 		if (!(!t && !n)) return {
 			...t,
 			...n
 		};
-	}, tx = useRef(null);
-	useAnimation(tx, !!n.animate, {
+	}, rx = useRef(null);
+	useAnimation(rx, !!n.animate, {
 		classNames: p,
 		months: L,
 		focused: J,
 		dateLib: l
 	});
-	let nx = {
+	let ix = {
 		dayPickerProps: n,
 		selected: K,
 		select: G,
@@ -11431,10 +11465,10 @@ function DayPicker(e) {
 		labels: c,
 		formatters: s
 	};
-	return React.createElement(dayPickerContext.Provider, { value: nx }, React.createElement(a.Root, {
-		rootRef: n.animate ? tx : void 0,
-		className: Zb,
-		style: Qb,
+	return React.createElement(dayPickerContext.Provider, { value: ix }, React.createElement(a.Root, {
+		rootRef: n.animate ? rx : void 0,
+		className: $b,
+		style: ex,
 		dir: n.dir,
 		id: n.id,
 		lang: n.lang ?? u.code,
@@ -11443,7 +11477,7 @@ function DayPicker(e) {
 		role: n.role,
 		"aria-label": n["aria-label"],
 		"aria-labelledby": n["aria-labelledby"],
-		...$b
+		...tx
 	}, React.createElement(a.Months, {
 		className: p[UI.Months],
 		style: D?.[UI.Months]
@@ -11451,9 +11485,9 @@ function DayPicker(e) {
 		"data-animated-nav": n.animate ? "true" : void 0,
 		className: p[UI.Nav],
 		style: D?.[UI.Nav],
-		"aria-label": Nb(),
+		"aria-label": Fb(),
 		onPreviousClick: $,
-		onNextClick: Hb,
+		onNextClick: Wb,
 		previousMonth: B,
 		nextMonth: V
 	}), L.map((e, i) => {
@@ -11471,7 +11505,7 @@ function DayPicker(e) {
 			style: D?.[UI.PreviousMonthButton],
 			tabIndex: B ? void 0 : -1,
 			"aria-disabled": B ? void 0 : !0,
-			"aria-label": Pb(B),
+			"aria-label": Ib(B),
 			onClick: $,
 			"data-animated-button": n.animate ? "true" : void 0
 		}, React.createElement(a.Chevron, {
@@ -11492,20 +11526,20 @@ function DayPicker(e) {
 			let i = m === "dropdown" || m === "dropdown-months" ? React.createElement(a.MonthsDropdown, {
 				key: "month",
 				className: p[UI.MonthsDropdown],
-				"aria-label": Mb(),
+				"aria-label": Pb(),
 				disabled: !!n.disableNavigation,
-				onChange: Yb(e.date, o),
+				onChange: Zb(e.date, o),
 				options: getMonthOptions(e.date, R, z, s, l),
-				style: ex(UI.MonthsDropdown),
+				style: nx(UI.MonthsDropdown),
 				value: l.getMonth(e.date)
 			}) : React.createElement("span", { key: "month" }, A(e.date, l)), c = m === "dropdown" || m === "dropdown-years" ? React.createElement(a.YearsDropdown, {
 				key: "year",
 				className: p[UI.YearsDropdown],
-				"aria-label": zb(l.options),
+				"aria-label": Vb(l.options),
 				disabled: !!n.disableNavigation,
-				onChange: Xb(e.date, o),
+				onChange: Qb(e.date, o),
 				options: getYearOptions(R, z, s, l, !!n.reverseYears),
-				style: ex(UI.YearsDropdown),
+				style: nx(UI.YearsDropdown),
 				value: l.getYear(e.date)
 			}) : React.createElement("span", { key: "year" }, P(e.date, l));
 			return l.getMonthYearOrder() === "year-first" ? [c, i] : [i, c];
@@ -11535,8 +11569,8 @@ function DayPicker(e) {
 			style: D?.[UI.NextMonthButton],
 			tabIndex: V ? void 0 : -1,
 			"aria-disabled": V ? void 0 : !0,
-			"aria-label": Fb(V),
-			onClick: Hb,
+			"aria-label": Lb(V),
+			onClick: Wb,
 			"data-animated-button": n.animate ? "true" : void 0
 		}, React.createElement(a.Chevron, {
 			disabled: V ? void 0 : !0,
@@ -11547,15 +11581,15 @@ function DayPicker(e) {
 			"data-animated-nav": n.animate ? "true" : void 0,
 			className: p[UI.Nav],
 			style: D?.[UI.Nav],
-			"aria-label": Nb(),
+			"aria-label": Fb(),
 			onPreviousClick: $,
-			onNextClick: Hb,
+			onNextClick: Wb,
 			previousMonth: B,
 			nextMonth: V
 		}), React.createElement(a.MonthGrid, {
 			role: "grid",
 			"aria-multiselectable": h === "multiple" || h === "range",
-			"aria-label": jb(e.date, l.options, l) || void 0,
+			"aria-label": Nb(e.date, l.options, l) || void 0,
 			className: p[UI.MonthGrid],
 			style: D?.[UI.MonthGrid]
 		}, !n.hideWeekdays && React.createElement(a.Weekdays, {
@@ -11563,12 +11597,12 @@ function DayPicker(e) {
 			className: p[UI.Weekdays],
 			style: D?.[UI.Weekdays]
 		}, E && React.createElement(a.WeekNumberHeader, {
-			"aria-label": Rb(l.options),
+			"aria-label": Bb(l.options),
 			className: p[UI.WeekNumberHeader],
 			style: D?.[UI.WeekNumberHeader],
 			scope: "col"
-		}, M()), Bb.map((e) => React.createElement(a.Weekday, {
-			"aria-label": Ib(e, l.options, l),
+		}, M()), Hb.map((e) => React.createElement(a.Weekday, {
+			"aria-label": Rb(e, l.options, l),
 			className: p[UI.Weekday],
 			key: String(e),
 			style: D?.[UI.Weekday],
@@ -11585,7 +11619,7 @@ function DayPicker(e) {
 		}, E && React.createElement(a.WeekNumber, {
 			week: e,
 			style: D?.[UI.WeekNumber],
-			"aria-label": Lb(e.weekNumber, { locale: u }),
+			"aria-label": zb(e.weekNumber, { locale: u }),
 			className: p[UI.WeekNumber],
 			scope: "row",
 			role: "rowheader"
@@ -11595,7 +11629,7 @@ function DayPicker(e) {
 				let { from: e, to: t } = K;
 				o[SelectionState.range_start] = !!(e && t && l.isSameDay(i, e)), o[SelectionState.range_end] = !!(e && t && l.isSameDay(i, t)), o[SelectionState.range_middle] = rangeIncludesDate(K, i, !0, l);
 			}
-			let s = getStyleForModifiers(o, D, n.modifiersStyles), c = getClassNamesForModifiers(o, p, n.modifiersClassNames), u = !Vb && !o.hidden ? Ab(i, o, l.options, l) : void 0;
+			let s = getStyleForModifiers(o, D, n.modifiersStyles), c = getClassNamesForModifiers(o, p, n.modifiersClassNames), u = !Ub && !o.hidden ? Mb(i, o, l.options, l) : void 0;
 			return React.createElement(a.Day, {
 				key: `${e.isoDate}_${e.displayMonthId}`,
 				day: e,
@@ -11613,7 +11647,7 @@ function DayPicker(e) {
 				"data-outside": e.outside || void 0,
 				"data-focused": o.focused || void 0,
 				"data-today": o.today || void 0
-			}, !o.hidden && Vb ? React.createElement(a.DayButton, {
+			}, !o.hidden && Ub ? React.createElement(a.DayButton, {
 				className: p[UI.DayButton],
 				style: D?.[UI.DayButton],
 				type: "button",
@@ -11622,13 +11656,13 @@ function DayPicker(e) {
 				disabled: !o.focused && o.disabled || void 0,
 				"aria-disabled": o.focused && o.disabled || void 0,
 				tabIndex: Y(e) ? 0 : -1,
-				"aria-label": kb(i, o, l.options, l),
-				onClick: Ub(e, o),
-				onBlur: Gb(e, o),
-				onFocus: Wb(e, o),
-				onKeyDown: Kb(e, o),
-				onMouseEnter: qb(e, o),
-				onMouseLeave: Jb(e, o)
+				"aria-label": jb(i, o, l.options, l),
+				onClick: Gb(e, o),
+				onBlur: qb(e, o),
+				onFocus: Kb(e, o),
+				onKeyDown: Jb(e, o),
+				onMouseEnter: Yb(e, o),
+				onMouseLeave: Xb(e, o)
 			}, k(i, l.options, l)) : !o.hidden && k(e.date, l.options, l));
 		}))))));
 	})), n.footer && React.createElement(a.Footer, {
@@ -12002,4 +12036,4 @@ function initTheme() {
 	} catch {}
 	return setTheme(e), e;
 }
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Button, ButtonLink, Card, CardContent, CardDescription, CardFooter, CardHeader, CardMedia, CardTitle, DEFAULT_THEME, DateRangePicker, Field, Input, Label, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalTrigger, PhotoUpload, Radio, RadioGroup, Select, THEME_IDS, getTheme, initTheme, setTheme, setThemeWithPersistence };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Button, ButtonLink, Card, CardContent, CardDescription, CardFooter, CardHeader, CardMedia, CardTitle, DEFAULT_THEME, DateRangePicker, Field, Input, Label, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalTrigger, PhotoUpload, Radio, RadioGroup, Select, THEME_IDS, Textarea, getTheme, initTheme, setTheme, setThemeWithPersistence };
