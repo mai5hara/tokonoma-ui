@@ -38,6 +38,9 @@ export type {
 export { Input } from './components/ui/input';
 export type { InputProps, InputVariantProps } from './components/ui/input';
 
+export { Textarea } from './components/ui/textarea';
+export type { TextareaProps, TextareaVariantProps } from './components/ui/textarea';
+
 export { Label } from './components/ui/label';
 export type { LabelProps, LabelVariantProps } from './components/ui/label';
 
