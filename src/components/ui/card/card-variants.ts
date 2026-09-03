@@ -6,7 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
  * inset — soft inset depth on surface.
  */
 export const cardVariants = cva(
-  'group/card flex flex-col overflow-hidden rounded-lg text-sm text-text-primary',
+  'group/card flex flex-col overflow-hidden rounded-lg text-sm text-text-primary w-full',
   {
     variants: {
       variant: {
