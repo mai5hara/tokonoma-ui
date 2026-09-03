@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const fieldTransition =
-  'transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none';
+  'transition-[box-shadow,border-color,color,--tokonoma-clarify] duration-300 ease-[var(--ease-tokonoma)] motion-reduce:transition-none';
 
 /**
  * Shared field chrome for Input, Select, DateRangePicker, PhotoUpload, and future controls.
@@ -22,15 +22,19 @@ export const fieldVariants = cva(
       variant: {
         border:
           'border border-border bg-surface-elevated hover:border-border-strong focus-within:border-border-strong focus-within:ring-ring/40',
-        inset:
-          'border border-transparent bg-surface shadow-[var(--shadow-button-inset)] focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40',
-        raised: [
-          'border border-transparent bg-surface shadow-[var(--shadow-button-raised)]',
-          '[background:var(--background-gradient-raised)]',
-          'focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40',
+        inset: [
+          'tokonoma-clarify border border-transparent bg-[var(--color-surface-clarified)] shadow-[var(--shadow-button-inset)]',
+          'focus-within:ring-ring/40',
         ],
-        filled:
-          'border border-transparent bg-surface text-text-primary hover:bg-surface-elevated focus-within:ring-ring/40',
+        raised: [
+          'tokonoma-clarify border border-transparent shadow-[var(--shadow-button-raised)]',
+          '[background:var(--background-gradient-raised)]',
+          'focus-within:ring-ring/40',
+        ],
+        filled: [
+          'tokonoma-clarify border border-transparent bg-[var(--color-surface-clarified)] text-text-primary',
+          'focus-within:ring-ring/40',
+        ],
       },
       invalid: {
         true: '',

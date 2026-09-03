@@ -1,6 +1,12 @@
 import type { PointerEvent, PointerEventHandler } from 'react';
 
-const SUIMON_VARIANTS = new Set(['raised', 'inset', 'accent', 'outline', 'flat']);
+const SUIMON_VARIANTS = new Set([
+  'raised',
+  'inset',
+  'accent',
+  'outline',
+  'flat',
+]);
 
 type SuimonPointerProps = {
   onPointerEnter?: PointerEventHandler<HTMLElement>;

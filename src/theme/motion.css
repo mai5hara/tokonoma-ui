@@ -1,6 +1,5 @@
 /**
- * Tokonoma button motion — suimon (水紋) hover ripple and calm easing.
- * Triggered via .is-suimon-playing (pointerenter), not :hover alone.
+ * Tokonoma motion — shared tokens, button suimon, and field surface clarify.
  */
 
 :root {
@@ -8,6 +7,8 @@
   --duration-tokonoma: 300ms;
   --duration-suimon: 650ms;
 }
+
+/* —— Button suimon (水紋) —— */
 
 @keyframes tokonoma-suimon {
   from {
@@ -58,7 +59,8 @@
 }
 
 [data-suimon].is-suimon-playing::before {
-  animation: tokonoma-suimon var(--duration-suimon) var(--ease-tokonoma) forwards;
+  animation: tokonoma-suimon var(--duration-suimon) var(--ease-tokonoma)
+    forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -71,5 +73,57 @@
 
   [data-suimon]:not(.is-suimon-playing)::before {
     opacity: 0;
+  }
+}
+
+/* —— Field surface clarify —— */
+/* Mix must live on the same element as --tokonoma-clarify. */
+
+@property --tokonoma-clarify {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.tokonoma-clarify {
+  --color-surface-clarified: color-mix(
+    in oklab,
+    var(--color-surface-elevated) calc(var(--tokonoma-clarify) * 1%),
+    var(--color-surface)
+  );
+  --background-gradient-raised: linear-gradient(
+    to top left,
+    var(--color-surface-clarified) 0%,
+    color-mix(
+        in oklab,
+        var(--color-text-primary) 2%,
+        var(--color-surface-clarified)
+      )
+      65%,
+    color-mix(
+        in oklab,
+        var(--color-text-primary) 3%,
+        var(--color-surface-clarified)
+      )
+      100%
+  );
+  transition: --tokonoma-clarify var(--duration-tokonoma) var(--ease-tokonoma);
+}
+
+.tokonoma-clarify[data-variant='inset']:hover {
+  --tokonoma-clarify: 80;
+}
+
+.tokonoma-clarify[data-variant='raised']:hover {
+  --tokonoma-clarify: 50;
+}
+
+.tokonoma-clarify[data-variant='filled']:hover {
+  --tokonoma-clarify: 48;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tokonoma-clarify {
+    transition: none;
   }
 }
