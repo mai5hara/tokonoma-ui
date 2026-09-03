@@ -76,7 +76,7 @@
   }
 }
 
-/* —— Field surface clarify —— */
+/* —— Surface clarify (fields, radios) —— */
 /* Mix must live on the same element as --tokonoma-clarify. */
 
 @property --tokonoma-clarify {
