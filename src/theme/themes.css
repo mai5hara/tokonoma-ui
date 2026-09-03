@@ -136,6 +136,14 @@
         var(--color-surface)
       );
 
+  /*
+   * Modal — over a mist overlay, so no light top-left rim (reads as a white
+   * blur border). Soft dark drop only, layered for depth.
+   */
+  --shadow-modal:
+    0 4px 10px color-mix(in oklab, var(--color-text-primary) 8%, transparent),
+    0 12px 28px color-mix(in oklab, var(--color-text-primary) 12%, transparent);
+
   /* Button — softer, smaller than card (same vocabulary: flat / raised / inset) */
   --shadow-raised:
     2px 2px 8px var(--color-card-shadow-dark-raised),

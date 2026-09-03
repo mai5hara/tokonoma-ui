@@ -6,6 +6,9 @@
   --ease-tokonoma: cubic-bezier(0.45, 0, 0.55, 1);
   --duration-tokonoma: 300ms;
   --duration-suimon: 650ms;
+  /* Soft decelerate — rises then settles like something finding the waterline */
+  --ease-tokonoma-float: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-tokonoma-float: 520ms;
 }
 
 /* —— Button suimon (水紋) —— */
@@ -125,5 +128,84 @@
 @media (prefers-reduced-motion: reduce) {
   .tokonoma-clarify {
     transition: none;
+  }
+}
+
+/* —— Modal reveal (Radix mounts as open — use keyframes, not transition) —— */
+
+@keyframes tokonoma-modal-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tokonoma-modal-overlay-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes tokonoma-modal-in {
+  from {
+    opacity: 0;
+    clip-path: circle(0% at 50% 50%);
+    box-shadow: none;
+  }
+
+  to {
+    opacity: 1;
+    clip-path: circle(150% at 50% 50%);
+    box-shadow: var(--shadow-modal);
+  }
+}
+
+@keyframes tokonoma-modal-out {
+  from {
+    opacity: 1;
+    clip-path: circle(150% at 50% 50%);
+    box-shadow: var(--shadow-modal);
+  }
+
+  to {
+    opacity: 0;
+    clip-path: circle(0% at 50% 50%);
+    box-shadow: none;
+  }
+}
+
+[data-tokonoma-modal='overlay'][data-state='open'] {
+  animation: tokonoma-modal-overlay-in var(--duration-tokonoma)
+    var(--ease-tokonoma) forwards;
+}
+
+[data-tokonoma-modal='overlay'][data-state='closed'] {
+  animation: tokonoma-modal-overlay-out var(--duration-tokonoma)
+    var(--ease-tokonoma) forwards;
+}
+
+[data-tokonoma-modal='panel'][data-state='open'] {
+  animation: tokonoma-modal-in var(--duration-tokonoma-float)
+    var(--ease-tokonoma-float) forwards;
+}
+
+[data-tokonoma-modal='panel'][data-state='closed'] {
+  animation: tokonoma-modal-out var(--duration-tokonoma-float)
+    var(--ease-tokonoma-float) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tokonoma-modal='overlay'][data-state='open'],
+  [data-tokonoma-modal='overlay'][data-state='closed'],
+  [data-tokonoma-modal='panel'][data-state='open'],
+  [data-tokonoma-modal='panel'][data-state='closed'] {
+    animation-duration: 1ms;
   }
 }

@@ -32,12 +32,11 @@ export const modalTextAlign = {
 
 export const modalOverlay = [
   'fixed inset-0 z-50 bg-[color-mix(in_oklab,var(--color-text-primary)_5%,transparent)]',
-  'transition-opacity duration-200 data-[state=closed]:opacity-0 data-[state=open]:opacity-100',
 ].join(' ');
 
 export const modalContentPanel = [
-  'fixed top-1/2 left-1/2 z-50 flex w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-lg border border-border bg-surface-elevated text-text-primary outline-none',
-  'transition-[opacity,transform] duration-200 data-[state=closed]:scale-[0.98] data-[state=closed]:opacity-0 data-[state=open]:scale-100 data-[state=open]:opacity-100',
+  'fixed top-1/2 left-1/2 z-50 flex w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-lg text-text-primary outline-none',
+  '[background:var(--background-gradient-raised)]',
   'max-h-[min(85vh,40rem)]',
 ].join(' ');
 
