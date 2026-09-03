@@ -79,7 +79,7 @@ export function CodeBlock({
   return (
     <pre
       className={cn(
-        'w-full overflow-x-auto rounded-lg bg-surface p-4 font-mono text-xs leading-relaxed text-text-primary shadow-[var(--shadow-button-inset)] sm:text-sm',
+        'w-full overflow-x-auto rounded-lg bg-surface p-4 font-mono text-xs leading-relaxed text-text-primary shadow-[var(--shadow-inset)] sm:text-sm',
         className,
       )}
     >

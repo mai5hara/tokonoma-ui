@@ -19,11 +19,11 @@ export const photoUploadVariants = cva(
         border:
           'border border-border bg-surface-elevated hover:border-border-strong focus-within:border-border-strong focus-within:ring-ring/40',
         inset: [
-          'tokonoma-clarify border border-transparent bg-[var(--color-surface-clarified)] shadow-[var(--shadow-button-inset)]',
+          'tokonoma-clarify border border-transparent bg-[var(--color-surface-clarified)] shadow-[var(--shadow-inset)]',
           'focus-within:ring-ring/40',
         ],
         raised: [
-          'tokonoma-clarify border border-transparent shadow-[var(--shadow-button-raised)]',
+          'tokonoma-clarify border border-transparent shadow-[var(--shadow-raised)]',
           '[background:var(--background-gradient-raised)]',
           'focus-within:ring-ring/40',
         ],
@@ -58,7 +58,7 @@ export const photoUploadVariants = cva(
         invalid: true,
         variant: 'inset',
         class:
-          'border-error shadow-[var(--shadow-button-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-button-inset)] focus-within:ring-error/40',
+          'border-error shadow-[var(--shadow-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-inset)] focus-within:ring-error/40',
       },
       {
         invalid: true,

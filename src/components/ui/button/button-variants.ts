@@ -29,18 +29,18 @@ export const buttonVariants = cva(
         ],
         raised: [
           '[background:var(--background-gradient-raised)] border border-transparent bg-surface text-text-primary',
-          'shadow-[var(--shadow-button-raised)]',
-          'active:shadow-[var(--shadow-button-inset-active)]',
+          'shadow-[var(--shadow-raised)]',
+          'active:shadow-[var(--shadow-inset-active)]',
         ],
         inset: [
           'border border-transparent bg-surface text-text-primary',
-          'shadow-[var(--shadow-button-inset)]',
-          'active:shadow-[var(--shadow-button-inset-active)]',
+          'shadow-[var(--shadow-inset)]',
+          'active:shadow-[var(--shadow-inset-active)]',
         ],
         accent: [
           'border border-transparent bg-accent text-surface-elevated',
           'hover:bg-accent-hover hover:text-surface-elevated',
-          'active:bg-accent-hover active:shadow-[var(--shadow-button-inset-active)]',
+          'active:bg-accent-hover active:shadow-[var(--shadow-inset-active)]',
         ],
         outline: [
           'border border-accent bg-transparent text-accent',

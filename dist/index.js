@@ -3338,15 +3338,15 @@ const buttonVariants = cva([
 			],
 			raised: [
 				"[background:var(--background-gradient-raised)] border border-transparent bg-surface text-text-primary",
-				"shadow-[var(--shadow-button-raised)]",
-				"hover:-translate-y-px hover:text-text-primary hover:shadow-[var(--shadow-button-raised-hover)]",
-				"active:translate-y-0 active:shadow-[var(--shadow-button-inset)]"
+				"shadow-[var(--shadow-raised)]",
+				"hover:-translate-y-px hover:text-text-primary hover:shadow-[var(--shadow-raised-hover)]",
+				"active:translate-y-0 active:shadow-[var(--shadow-inset)]"
 			],
 			inset: [
 				"border border-transparent bg-surface text-text-primary",
-				"shadow-[var(--shadow-button-inset)]",
-				"hover:-translate-y-px hover:text-text-primary hover:shadow-[var(--shadow-button-raised-hover)]",
-				"active:translate-y-px active:shadow-[var(--shadow-button-inset)]"
+				"shadow-[var(--shadow-inset)]",
+				"hover:-translate-y-px hover:text-text-primary hover:shadow-[var(--shadow-raised-hover)]",
+				"active:translate-y-px active:shadow-[var(--shadow-inset)]"
 			],
 			accent: [
 				"border border-transparent bg-accent text-surface-elevated",
@@ -3611,11 +3611,11 @@ const fieldVariants = cva([
 	variants: {
 		variant: {
 			border: "border border-border bg-surface-elevated hover:border-border-strong focus-within:border-border-strong focus-within:ring-ring/40",
-			inset: "border border-transparent bg-surface shadow-[var(--shadow-button-inset)] focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40",
+			inset: "border border-transparent bg-surface shadow-[var(--shadow-inset)] focus-within:shadow-[var(--shadow-raised-hover)] focus-within:ring-ring/40",
 			raised: [
-				"border border-transparent bg-surface shadow-[var(--shadow-button-raised)]",
+				"border border-transparent bg-surface shadow-[var(--shadow-raised)]",
 				"[background:var(--background-gradient-raised)]",
-				"focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40"
+				"focus-within:shadow-[var(--shadow-raised-hover)] focus-within:ring-ring/40"
 			],
 			filled: "border border-transparent bg-surface text-text-primary hover:bg-surface-elevated focus-within:ring-ring/40"
 		},
@@ -3639,7 +3639,7 @@ const fieldVariants = cva([
 		{
 			invalid: !0,
 			variant: "inset",
-			class: "border-error shadow-[var(--shadow-button-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-button-inset)] focus-within:ring-error/40"
+			class: "border-error shadow-[var(--shadow-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-inset)] focus-within:ring-error/40"
 		},
 		{
 			invalid: !0,
@@ -7717,8 +7717,8 @@ const radioItemVariants = cva([
 			],
 			inset: [
 				"rounded-md border border-transparent bg-surface px-3 py-2.5",
-				"shadow-[var(--shadow-button-inset)]",
-				"hover:shadow-[var(--shadow-button-raised-hover)]",
+				"shadow-[var(--shadow-inset)]",
+				"hover:shadow-[var(--shadow-raised-hover)]",
 				"has-[[data-state=checked]]:bg-accent/4"
 			]
 		},
@@ -11883,11 +11883,11 @@ const photoUploadVariants = cva([
 	variants: {
 		variant: {
 			border: "border border-border bg-surface-elevated hover:border-border-strong focus-within:border-border-strong focus-within:ring-ring/40",
-			inset: "border border-transparent bg-surface shadow-[var(--shadow-button-inset)] focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40",
+			inset: "border border-transparent bg-surface shadow-[var(--shadow-inset)] focus-within:shadow-[var(--shadow-raised-hover)] focus-within:ring-ring/40",
 			raised: [
-				"border border-transparent bg-surface shadow-[var(--shadow-button-raised)]",
+				"border border-transparent bg-surface shadow-[var(--shadow-raised)]",
 				"[background:var(--background-gradient-raised)]",
-				"focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40"
+				"focus-within:shadow-[var(--shadow-raised-hover)] focus-within:ring-ring/40"
 			],
 			filled: "border border-transparent bg-surface hover:bg-surface-elevated focus-within:ring-ring/40"
 		},
@@ -11915,7 +11915,7 @@ const photoUploadVariants = cva([
 		{
 			invalid: !0,
 			variant: "inset",
-			class: "border-error shadow-[var(--shadow-button-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-button-inset)] focus-within:ring-error/40"
+			class: "border-error shadow-[var(--shadow-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-inset)] focus-within:ring-error/40"
 		},
 		{
 			invalid: !0,
