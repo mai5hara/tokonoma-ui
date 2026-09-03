@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import type { ClosedElementProps } from '@/lib/closed-api';
 
 import { buttonVariants, type ButtonVariantProps } from './button-variants';
+import { getSuimonProps, resolveButtonVariant } from './suimon';
 
 type ButtonAppearanceProps = {
   /**
@@ -46,11 +47,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       width,
       asChild = false,
       type = 'button',
+      onPointerEnter,
+      onPointerLeave,
       ...props
     },
     ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
+    const suimonProps = getSuimonProps(resolveButtonVariant(variant), {
+      onPointerEnter,
+      onPointerLeave,
+    });
+
     return (
       <Comp
         ref={ref}
@@ -60,6 +68,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-width={width}
         className={buttonVariants({ variant, size, rounded, width })}
         {...props}
+        {...suimonProps}
       />
     );
   },
@@ -90,6 +99,10 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
       target,
       rel,
       'aria-disabled': ariaDisabled,
+      onPointerEnter,
+      onPointerLeave,
+      onClick,
+      tabIndex,
       ...props
     },
     ref,
@@ -97,6 +110,10 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
     const isExternal =
       external ?? (typeof href === 'string' && /^https?:\/\//.test(href));
     const isDisabled = ariaDisabled === true || ariaDisabled === 'true';
+    const suimonProps = getSuimonProps(resolveButtonVariant(variant), {
+      onPointerEnter,
+      onPointerLeave,
+    });
 
     return (
       <a
@@ -109,7 +126,7 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
             : rel
         }
         aria-disabled={ariaDisabled}
-        tabIndex={isDisabled ? -1 : props.tabIndex}
+        tabIndex={isDisabled ? -1 : tabIndex}
         data-variant={variant}
         data-size={size}
         data-width={width}
@@ -117,15 +134,16 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
           buttonVariants({ variant, size, rounded, width }),
           isDisabled && 'pointer-events-none opacity-50',
         )}
+        {...props}
+        {...suimonProps}
         onClick={
           isDisabled
             ? (event) => {
                 event.preventDefault();
-                props.onClick?.(event);
+                onClick?.(event);
               }
-            : props.onClick
+            : onClick
         }
-        {...props}
       />
     );
   },

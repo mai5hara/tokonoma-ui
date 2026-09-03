@@ -161,4 +161,14 @@
         var(--color-surface-elevated) 90%,
         var(--color-surface)
       );
+  /* One step deeper than inset — shared press state for raised / inset / accent */
+  --shadow-button-inset-active:
+    inset 3px 3px 10px
+      color-mix(in oklab, var(--color-text-primary) 20%, transparent),
+    2px 2px 4px 1px
+      color-mix(
+        in oklab,
+        var(--color-surface-elevated) 90%,
+        var(--color-surface)
+      );
 }
