@@ -8,8 +8,9 @@ export const dateRangePickerContent = [
 const dropdownRoot = [
   'relative inline-flex min-w-0 items-center gap-1',
   'rounded-md border border-border bg-surface-elevated px-2 py-1.5',
-  'text-sm font-medium text-text-primary',
+  'text-sm font-medium text-text-primary outline-none',
   'hover:border-border-strong',
+  'focus-within:border-border-strong focus-within:ring-2 focus-within:ring-ring/40 focus-within:ring-inset',
   'data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
 ].join(' ');
 
@@ -25,10 +26,17 @@ export const calendarClassNames: Partial<ClassNames> = {
   [UI.Month]: 'relative space-y-4',
   [UI.MonthCaption]: 'relative flex h-9 items-center justify-end',
   [UI.Dropdowns]: 'flex items-center justify-center gap-2',
-  [UI.Nav]: 'absolute flex gap-2 z-10 cursor-pointer top-5 left-4',
-  [UI.NextMonthButton]: 'flex items-center justify-center -rotate-90 w-6 h-6',
-  [UI.PreviousMonthButton]:
-    'flex items-center justify-center rotate-90 w-6 h-6',
+  [UI.Nav]: 'absolute left-4 top-5 z-10 flex gap-2',
+  [UI.NextMonthButton]: [
+    'flex size-6 -rotate-90 items-center justify-center rounded-md text-text-muted outline-none',
+    'hover:bg-surface hover:text-text-primary',
+    'focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-inset',
+  ].join(' '),
+  [UI.PreviousMonthButton]: [
+    'flex size-6 rotate-90 items-center justify-center rounded-md text-text-muted outline-none',
+    'hover:bg-surface hover:text-text-primary',
+    'focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-inset',
+  ].join(' '),
   [UI.DropdownRoot]: dropdownRoot,
   [UI.Dropdown]: dropdownSelect,
   [UI.MonthsDropdown]: 'max-w-[5.5rem]',
@@ -46,20 +54,24 @@ export const calendarClassNames: Partial<ClassNames> = {
   ].join(' '),
   [UI.DayButton]: [
     'inline-flex size-9 items-center justify-center rounded-md p-0 font-normal',
-    'text-text-primary',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40',
+    'text-text-primary outline-none',
+    'focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-inset',
     'aria-selected:opacity-100',
   ].join(' '),
-  [DayFlag.today]: 'bg-surface font-medium text-text-primary',
+  [DayFlag.today]: 'bg-surface font-medium text-text-primary rounded-md',
   [DayFlag.outside]: 'text-text-subtle opacity-50',
   [DayFlag.disabled]: 'text-text-subtle opacity-50',
   [DayFlag.hidden]: 'invisible',
   [SelectionState.selected]:
     'rounded-md bg-accent text-surface-elevated [&_button:hover]:bg-transparent',
+  /*
+   * range_* share the Day cell with `selected`. Force range geometry; same-day
+   * (start+end) is restored in themes.css via .tokonoma-rdp-range-start.end.
+   */
   [SelectionState.range_start]:
-    'rounded-l-md bg-accent text-surface-elevated [&_button:hover]:bg-transparent',
+    'tokonoma-rdp-range-start !rounded-l-md rounded-r-none bg-accent text-surface-elevated [&_button:hover]:bg-transparent',
   [SelectionState.range_end]:
-    'rounded-r-md bg-accent text-surface-elevated [&_button:hover]:bg-transparent',
+    'tokonoma-rdp-range-end !rounded-r-md rounded-l-none bg-accent text-surface-elevated [&_button:hover]:bg-transparent',
   [SelectionState.range_middle]:
-    'rounded-none bg-accent/15 text-text-primary hover:bg-accent/20 [&_button:hover]:bg-transparent',
+    'rounded-none !bg-accent/15 text-text-primary hover:bg-accent/20 [&_button:hover]:bg-transparent',
 };

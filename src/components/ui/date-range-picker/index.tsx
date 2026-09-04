@@ -162,15 +162,15 @@ const DateRangePicker = React.forwardRef<
                   <XIcon className="size-4 text-text-muted" aria-hidden />
                 </Button>
               ) : null}
-              <button
-                type="button"
-                disabled={disabled}
+              <Button
+                variant="ghost"
+                size="icon"
                 aria-label="Open calendar"
-                className="inline-flex size-6 shrink-0 items-center justify-center text-text-muted outline-none hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                disabled={disabled}
                 onClick={toggleOpen}
               >
-                <CalendarIcon className="size-4" aria-hidden />
-              </button>
+                <CalendarIcon className="size-4 text-text-muted" aria-hidden />
+              </Button>
             </div>
           </div>
 
