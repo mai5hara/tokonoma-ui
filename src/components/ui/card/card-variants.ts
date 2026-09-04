@@ -4,7 +4,7 @@ const cardTransition =
   'transition-[box-shadow,border-color,background-color] duration-300 ease-[var(--ease-tokonoma)] motion-reduce:transition-none';
 
 /**
- * flat — border only at rest; interactive hover softens the line into depth.
+ * flat — border only at rest; interactive hover/focus softens the line into depth.
  * raised — soft raised depth on surface.
  * inset — soft inset depth on surface.
  */
@@ -25,9 +25,15 @@ export const cardVariants = cva(
         default: 'gap-6 py-6',
         sm: 'gap-4 py-4',
       },
-      /** Clickable card — cursor pointer and depth hover. Non-interactive stays still. */
+      /**
+       * Clickable card — pointer, inset focus ring, and depth on hover/focus.
+       * Non-interactive stays still.
+       */
       interactive: {
-        true: 'cursor-pointer',
+        true: [
+          'cursor-pointer outline-none',
+          'focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-inset',
+        ],
         false: '',
       },
     },
@@ -35,18 +41,26 @@ export const cardVariants = cva(
       {
         interactive: true,
         variant: 'flat',
-        class:
+        class: [
           'hover:border-transparent hover:shadow-[var(--shadow-card-flat-hover)]',
+          'focus-visible:border-transparent focus-visible:shadow-[var(--shadow-card-flat-hover)]',
+        ],
       },
       {
         interactive: true,
         variant: 'raised',
-        class: 'hover:shadow-[var(--shadow-card-raised-hover)]',
+        class: [
+          'hover:shadow-[var(--shadow-card-raised-hover)]',
+          'focus-visible:shadow-[var(--shadow-card-raised-hover)]',
+        ],
       },
       {
         interactive: true,
         variant: 'inset',
-        class: 'hover:shadow-[var(--shadow-card-inset-hover)]',
+        class: [
+          'hover:shadow-[var(--shadow-card-inset-hover)]',
+          'focus-visible:shadow-[var(--shadow-card-inset-hover)]',
+        ],
       },
     ],
     defaultVariants: {
@@ -104,8 +118,8 @@ export type CardAppearanceProps = {
    */
   size?: NonNullable<CardVariantProps['size']>;
   /**
-   * When true, the card is a clickable surface: `cursor-pointer` and depth hover.
-   * When false (default), the card stays still on hover.
+   * When true, the card is a clickable surface: pointer cursor, inset focus ring,
+   * and depth on hover/focus. When false (default), the card stays still.
    */
   interactive?: boolean;
 };

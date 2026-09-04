@@ -53,7 +53,7 @@ const meta = {
     interactive: {
       control: 'boolean',
       description:
-        'Clickable surface: pointer cursor and depth hover. Non-interactive cards stay still.',
+        'Clickable surface: pointer, inset focus ring, and depth on hover/focus. Non-interactive stays still.',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
@@ -115,8 +115,9 @@ export const Interactive: Story = {
         </CardHeader>
         <CardContent>
           <p className="text-text-muted">
-            Depth hover and pointer cursor apply only when{' '}
-            <code className="text-text-subtle">interactive</code> is set.
+            Depth, pointer, and an inset focus ring apply only when{' '}
+            <code className="text-text-subtle">interactive</code> is set. Tab to
+            focus.
           </p>
         </CardContent>
       </>,

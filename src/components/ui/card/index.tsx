@@ -15,12 +15,19 @@ type CardProps = ClosedElementProps<React.ComponentProps<'div'>> &
   CardAppearanceProps;
 
 /** Content container with header, body, footer, and optional media slots. */
-function Card({ variant, size, interactive = false, ...props }: CardProps) {
+function Card({
+  variant,
+  size,
+  interactive = false,
+  tabIndex,
+  ...props
+}: CardProps) {
   return (
     <div
       data-variant={variant}
       data-size={size}
       data-interactive={interactive || undefined}
+      tabIndex={interactive ? (tabIndex ?? 0) : tabIndex}
       className={cardVariants({ variant, size, interactive })}
       {...props}
     />
