@@ -199,11 +199,14 @@ function CardFooter({
   );
 }
 
-/** Place first to bleed media to the top; top corners follow Card rounded-lg. */
+/**
+ * Place first to bleed media to the top; top corners follow Card rounded-lg.
+ * Frame is a fixed 5∶3 ratio (same as PhotoUpload) so gallery cards share height.
+ */
 function CardMedia(props: ClosedElementProps<React.ComponentProps<'div'>>) {
   return (
     <div
-      className="-mt-6 w-full overflow-hidden group-data-[size=sm]/card:-mt-4 [&_img]:block [&_img]:size-full [&_img]:object-cover rounded-t-lg"
+      className="-mt-6 aspect-[5/3] w-full overflow-hidden rounded-t-lg group-data-[size=sm]/card:-mt-4 [&_img]:block [&_img]:size-full [&_img]:object-cover"
       {...props}
     />
   );

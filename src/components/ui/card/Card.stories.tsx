@@ -158,25 +158,38 @@ export const WithAction: Story = {
 export const WithMedia: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div className="max-w-md bg-surface p-8">
+    <div className="grid max-w-2xl grid-cols-2 gap-4 bg-surface p-8">
       <Card variant="raised">
         <CardMedia>
           <img
             src="https://picsum.photos/seed/tokonoma/640/240"
-            alt="Sample artwork"
+            alt="Wide sample"
             width={640}
             height={240}
           />
         </CardMedia>
         <CardHeader>
-          <CardTitle>With media</CardTitle>
+          <CardTitle>Wide source</CardTitle>
           <CardDescription>
-            CardMedia as the first child bleeds to the top edge.
+            CardMedia keeps a fixed 5∶3 frame; images cover with object-fit.
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <p className="text-text-muted">Useful for gallery-style layouts.</p>
-        </CardContent>
+      </Card>
+      <Card variant="raised">
+        <CardMedia>
+          <img
+            src="https://picsum.photos/seed/tokonoma-tall/400/600"
+            alt="Tall sample"
+            width={400}
+            height={600}
+          />
+        </CardMedia>
+        <CardHeader>
+          <CardTitle>Tall source</CardTitle>
+          <CardDescription>
+            Different intrinsic ratios still share the same media height.
+          </CardDescription>
+        </CardHeader>
       </Card>
     </div>
   ),
