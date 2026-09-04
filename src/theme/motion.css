@@ -209,3 +209,60 @@
     animation-duration: 1ms;
   }
 }
+
+/* —— Accordion (height via Radix --radix-accordion-content-height) —— */
+
+@keyframes tokonoma-accordion-down {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes tokonoma-accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+
+  to {
+    height: 0;
+  }
+}
+
+@keyframes tokonoma-accordion-body-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-tokonoma-accordion='content'][data-state='open'] {
+  animation: tokonoma-accordion-down var(--duration-tokonoma) var(--ease-tokonoma);
+}
+
+[data-tokonoma-accordion='content'][data-state='closed'] {
+  animation: tokonoma-accordion-up var(--duration-tokonoma) var(--ease-tokonoma);
+}
+
+[data-tokonoma-accordion='content'][data-state='open']
+  > [data-tokonoma-accordion='body'] {
+  animation: tokonoma-accordion-body-in var(--duration-tokonoma)
+    var(--ease-tokonoma);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tokonoma-accordion='content'][data-state='open'],
+  [data-tokonoma-accordion='content'][data-state='closed'],
+  [data-tokonoma-accordion='content'][data-state='open']
+    > [data-tokonoma-accordion='body'] {
+    animation-duration: 1ms;
+  }
+}

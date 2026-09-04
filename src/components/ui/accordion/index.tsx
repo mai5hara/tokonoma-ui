@@ -121,7 +121,7 @@ const AccordionTrigger = React.forwardRef<
             )}
           >
             <Minus
-              className="absolute inset-0 size-4 rotate-90 transition-transform duration-200 ease-out group-data-[state=open]:rotate-180"
+              className="absolute inset-0 size-4 rotate-90 transition-transform duration-300 ease-[var(--ease-tokonoma)] motion-reduce:transition-none group-data-[state=open]:rotate-180"
               aria-hidden
             />
             <Minus className="absolute inset-0 size-4" aria-hidden />
@@ -130,7 +130,7 @@ const AccordionTrigger = React.forwardRef<
           <ChevronDown
             className={cn(
               accordionIndicatorVariants({ variant, indicator: 'chevron' }),
-              'transition-transform duration-200 ease-out group-data-[state=open]:rotate-180 motion-reduce:transition-none',
+              'transition-transform duration-300 ease-[var(--ease-tokonoma)] motion-reduce:transition-none group-data-[state=open]:rotate-180',
             )}
             aria-hidden
           />
@@ -154,10 +154,14 @@ const AccordionContent = React.forwardRef<
   return (
     <AccordionPrimitive.Content
       ref={ref}
+      data-tokonoma-accordion="content"
       className={accordionContentVariants({ size })}
       {...props}
     >
-      <div className={accordionContentInnerVariants({ variant, size })}>
+      <div
+        data-tokonoma-accordion="body"
+        className={accordionContentInnerVariants({ variant, size })}
+      >
         {children}
       </div>
     </AccordionPrimitive.Content>

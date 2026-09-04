@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const accordionTransition =
-  'transition-[background-color,border-color,box-shadow,color] duration-200 ease-out motion-reduce:transition-none';
+  'transition-[background-color,border-color,box-shadow,color] duration-300 ease-[var(--ease-tokonoma)] motion-reduce:transition-none';
 
 /**
  * border — framed group (default).
@@ -96,7 +96,7 @@ export const accordionTriggerVariants = cva(
 );
 
 export const accordionContentVariants = cva(
-  'overflow-hidden text-text-muted data-[state=closed]:animate-none',
+  'overflow-hidden text-text-muted',
   {
     variants: {
       size: {
