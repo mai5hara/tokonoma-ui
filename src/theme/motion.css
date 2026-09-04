@@ -245,7 +245,8 @@
 }
 
 [data-tokonoma-accordion='content'][data-state='open'] {
-  animation: tokonoma-accordion-down var(--duration-tokonoma) var(--ease-tokonoma);
+  animation: tokonoma-accordion-down var(--duration-tokonoma)
+    var(--ease-tokonoma);
 }
 
 [data-tokonoma-accordion='content'][data-state='closed'] {

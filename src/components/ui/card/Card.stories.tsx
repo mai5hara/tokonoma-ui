@@ -35,7 +35,7 @@ const meta = {
       control: 'select',
       options: ['flat', 'inset', 'raised'],
       description:
-        '`flat` — border only, no depth. `raised` / `inset` — soft depth on `surface`.',
+        '`flat` — border at rest; interactive hover softens into soft depth. `raised` / `inset` — soft depth on `surface`.',
       table: {
         type: { summary: 'flat | raised | inset' },
         defaultValue: { summary: 'flat' },
@@ -50,10 +50,20 @@ const meta = {
         defaultValue: { summary: 'default' },
       },
     },
+    interactive: {
+      control: 'boolean',
+      description:
+        'Clickable surface: pointer cursor and depth hover. Non-interactive cards stay still.',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
   },
   args: {
     variant: 'flat',
     size: 'default',
+    interactive: false,
   },
 } satisfies Meta<typeof Card>;
 
@@ -70,7 +80,9 @@ const cardBody = (
     </CardHeader>
     <CardContent>
       <p className="text-text-muted">
-        <strong className="text-text-primary">flat</strong> uses a border only.{' '}
+        <strong className="text-text-primary">flat</strong> uses a border at
+        rest; with <code className="text-text-subtle">interactive</code>, hover
+        softens it into a whisper of depth.{' '}
         <strong className="text-text-primary">raised</strong> and{' '}
         <strong className="text-text-primary">inset</strong> match the page{' '}
         <code className="text-text-subtle">surface</code> background with light
@@ -89,10 +101,26 @@ const cardOnSurface = (args: Story['args'], children = cardBody) => (
   </div>
 );
 
-/** Canonical entry — keeps the `components-ui-card--default` story id. */
-export const Default: Story = {
-  args: { variant: 'flat' },
-  render: (args) => cardOnSurface(args),
+export const Interactive: Story = {
+  args: { variant: 'raised', interactive: true },
+  render: (args) =>
+    cardOnSurface(
+      args,
+      <>
+        <CardHeader>
+          <CardTitle>Interactive card</CardTitle>
+          <CardDescription>
+            Hover deepens the surface. Use when the whole card is the action.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-text-muted">
+            Depth hover and pointer cursor apply only when{' '}
+            <code className="text-text-subtle">interactive</code> is set.
+          </p>
+        </CardContent>
+      </>,
+    ),
 };
 
 export const WithAction: Story = {

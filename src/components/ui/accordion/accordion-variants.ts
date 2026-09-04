@@ -95,20 +95,17 @@ export const accordionTriggerVariants = cva(
   },
 );
 
-export const accordionContentVariants = cva(
-  'overflow-hidden text-text-muted',
-  {
-    variants: {
-      size: {
-        sm: 'text-xs',
-        default: 'text-sm',
-      },
-    },
-    defaultVariants: {
-      size: 'default',
+export const accordionContentVariants = cva('overflow-hidden text-text-muted', {
+  variants: {
+    size: {
+      sm: 'text-xs',
+      default: 'text-sm',
     },
   },
-);
+  defaultVariants: {
+    size: 'default',
+  },
+});
 
 export const accordionContentInnerVariants = cva('text-text-muted', {
   variants: {

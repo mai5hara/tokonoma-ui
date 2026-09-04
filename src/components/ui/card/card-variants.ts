@@ -1,29 +1,58 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
+const cardTransition =
+  'transition-[box-shadow,border-color,background-color] duration-300 ease-[var(--ease-tokonoma)] motion-reduce:transition-none';
+
 /**
- * flat — neutral surface with border only, no depth.
+ * flat — border only at rest; interactive hover softens the line into depth.
  * raised — soft raised depth on surface.
  * inset — soft inset depth on surface.
  */
 export const cardVariants = cva(
-  'group/card flex flex-col overflow-hidden rounded-lg text-sm text-text-primary w-full',
+  [
+    'group/card flex w-full flex-col overflow-hidden rounded-lg text-sm text-text-primary',
+    cardTransition,
+  ],
   {
     variants: {
       variant: {
-        flat: 'border border-border bg-surface-elevated',
-        raised: [
+        flat: 'border border-border bg-surface-elevated shadow-[var(--shadow-card-flat)]',
+        raised:
           '[background:var(--background-gradient-raised)] shadow-[var(--shadow-card-raised)]',
-        ],
         inset: 'bg-surface shadow-[var(--shadow-card-inset)]',
       },
       size: {
         default: 'gap-6 py-6',
         sm: 'gap-4 py-4',
       },
+      /** Clickable card — cursor pointer and depth hover. Non-interactive stays still. */
+      interactive: {
+        true: 'cursor-pointer',
+        false: '',
+      },
     },
+    compoundVariants: [
+      {
+        interactive: true,
+        variant: 'flat',
+        class:
+          'hover:border-transparent hover:shadow-[var(--shadow-card-flat-hover)]',
+      },
+      {
+        interactive: true,
+        variant: 'raised',
+        class: 'hover:shadow-[var(--shadow-card-raised-hover)]',
+      },
+      {
+        interactive: true,
+        variant: 'inset',
+        class: 'hover:shadow-[var(--shadow-card-inset-hover)]',
+      },
+    ],
     defaultVariants: {
       variant: 'flat',
       size: 'default',
+      interactive: false,
     },
   },
 );
@@ -65,7 +94,7 @@ export type CardSectionVariantProps = VariantProps<typeof cardSectionVariants>;
 export type CardAppearanceProps = {
   /**
    * Surface style.
-   * - `flat` — neutral surface with border only, no depth.
+   * - `flat` — border only at rest; interactive hover softens into soft depth.
    * - `raised` — soft raised depth on `surface`.
    * - `inset` — soft inset depth on `surface`.
    */
@@ -74,4 +103,9 @@ export type CardAppearanceProps = {
    * Padding density. `sm` tightens vertical rhythm for dense layouts.
    */
   size?: NonNullable<CardVariantProps['size']>;
+  /**
+   * When true, the card is a clickable surface: `cursor-pointer` and depth hover.
+   * When false (default), the card stays still on hover.
+   */
+  interactive?: boolean;
 };

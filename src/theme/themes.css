@@ -127,12 +127,45 @@
         var(--color-surface-elevated) 90%,
         var(--color-surface)
       );
+  /* Card hover — shadow stands a little taller */
+  --shadow-card-raised-hover:
+    5px 5px 20px color-mix(in oklab, var(--color-text-primary) 22%, transparent),
+    -8px -8px 22px 2px
+      color-mix(
+        in oklab,
+        var(--color-surface-elevated) 90%,
+        var(--color-surface)
+      );
   --shadow-card-inset:
     inset 3px 3px 14px var(--color-card-shadow-dark-inset),
     5px 5px 12px 1px
       color-mix(
         in oklab,
         var(--color-surface-elevated) 90%,
+        var(--color-surface)
+      );
+  /* Inset hover — less recessed, clearer outer lift */
+  --shadow-card-inset-hover:
+    inset 1px 1px 6px
+      color-mix(in oklab, var(--color-text-primary) 8%, transparent),
+    6px 6px 18px 2px
+      color-mix(
+        in oklab,
+        var(--color-surface-elevated) 95%,
+        var(--color-surface)
+      );
+
+  /*
+   * flat — rest is border only. Hover: line softens and a whisper of dual-shadow
+   * depth awakens (lighter than raised resting). Same layer count for transition.
+   */
+  --shadow-card-flat: 0 0 0 transparent, 0 0 0 transparent;
+  --shadow-card-flat-hover:
+    3px 3px 12px color-mix(in oklab, var(--color-text-primary) 10%, transparent),
+    -4px -4px 14px 1px
+      color-mix(
+        in oklab,
+        var(--color-surface-elevated) 92%,
         var(--color-surface)
       );
 
