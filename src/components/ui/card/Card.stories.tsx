@@ -26,7 +26,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Content container composed of `CardHeader`, `CardContent`, `CardFooter`, and optional `CardMedia`. Colors follow the active theme.',
+          'Content container composed of `CardHeader`, `CardContent`, `CardFooter`, and optional `CardMedia`. For navigation, use **CardLink** (see **Components/Card/CardLink**). Colors follow the active theme.',
       },
     },
   },
@@ -101,6 +101,10 @@ const cardOnSurface = (args: Story['args'], children = cardBody) => (
   </div>
 );
 
+export const Default: Story = {
+  render: (args) => cardOnSurface(args),
+};
+
 export const Interactive: Story = {
   args: { variant: 'raised', interactive: true },
   render: (args) =>
@@ -115,9 +119,10 @@ export const Interactive: Story = {
         </CardHeader>
         <CardContent>
           <p className="text-text-muted">
-            Depth, pointer, and an inset focus ring apply only when{' '}
-            <code className="text-text-subtle">interactive</code> is set. Tab to
-            focus.
+            Depth, pointer, and an inset focus ring apply when{' '}
+            <code className="text-text-subtle">interactive</code> is set. For
+            navigation, prefer{' '}
+            <code className="text-text-subtle">CardLink</code>.
           </p>
         </CardContent>
       </>,

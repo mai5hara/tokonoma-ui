@@ -21,6 +21,7 @@ export type {
 
 export {
   Card,
+  CardLink,
   CardHeader,
   CardFooter,
   CardTitle,
@@ -30,9 +31,12 @@ export {
 } from './components/ui/card';
 export type {
   CardProps,
+  CardLinkProps,
   CardHeaderProps,
   CardFooterProps,
   CardContentProps,
+  CardAppearanceProps,
+  CardSurfaceProps,
 } from './components/ui/card';
 
 export { Input } from './components/ui/input';

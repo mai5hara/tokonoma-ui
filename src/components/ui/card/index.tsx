@@ -1,12 +1,14 @@
 import * as React from 'react';
 
 import type { ClosedElementProps } from '@/lib/closed-api';
+import { cn } from '@/lib/utils';
 
 import {
   cardSectionVariants,
   cardVariants,
   type CardAppearanceProps,
   type CardSectionVariantProps,
+  type CardSurfaceProps,
 } from './card-variants';
 
 const cardSectionX = 'px-6 group-data-[size=sm]/card:px-4';
@@ -33,6 +35,73 @@ function Card({
     />
   );
 }
+
+type CardLinkProps = ClosedElementProps<React.ComponentProps<'a'>> &
+  CardSurfaceProps & {
+    /** Destination URL. Omitted when `aria-disabled` is set. */
+    href?: string;
+    /** Opens in a new tab with safe `rel` when true or `href` is http(s). */
+    external?: boolean;
+  };
+
+/**
+ * Anchor styled as a card. Prefer over wrapping `Card` when navigation is the
+ * primary action. Always uses interactive depth hover/focus. Shares `variant`
+ * and `size` with {@link Card}.
+ */
+const CardLink = React.forwardRef<HTMLAnchorElement, CardLinkProps>(
+  (
+    {
+      variant,
+      size,
+      external,
+      href,
+      target,
+      rel,
+      'aria-disabled': ariaDisabled,
+      onClick,
+      tabIndex,
+      ...props
+    },
+    ref,
+  ) => {
+    const isExternal =
+      external ?? (typeof href === 'string' && /^https?:\/\//.test(href));
+    const isDisabled = ariaDisabled === true || ariaDisabled === 'true';
+
+    return (
+      <a
+        ref={ref}
+        href={isDisabled ? undefined : href}
+        target={isExternal ? '_blank' : target}
+        rel={
+          isExternal
+            ? [rel, 'noopener', 'noreferrer'].filter(Boolean).join(' ')
+            : rel
+        }
+        aria-disabled={ariaDisabled}
+        tabIndex={isDisabled ? -1 : tabIndex}
+        data-variant={variant}
+        data-size={size}
+        data-interactive=""
+        className={cn(
+          cardVariants({ variant, size, interactive: true }),
+          isDisabled && 'pointer-events-none opacity-50',
+        )}
+        {...props}
+        onClick={
+          isDisabled
+            ? (event) => {
+                event.preventDefault();
+                onClick?.(event);
+              }
+            : onClick
+        }
+      />
+    );
+  },
+);
+CardLink.displayName = 'CardLink';
 
 type CardHeaderProps = ClosedElementProps<React.ComponentProps<'div'>> & {
   /** Top-right controls (buttons, menus, links). */
@@ -142,6 +211,7 @@ function CardMedia(props: ClosedElementProps<React.ComponentProps<'div'>>) {
 
 export {
   Card,
+  CardLink,
   CardHeader,
   CardFooter,
   CardTitle,
@@ -151,8 +221,10 @@ export {
 };
 export type {
   CardProps,
+  CardLinkProps,
   CardHeaderProps,
   CardContentProps,
   CardFooterProps,
   CardAppearanceProps,
+  CardSurfaceProps,
 };

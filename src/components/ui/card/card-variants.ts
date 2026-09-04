@@ -105,7 +105,8 @@ export const cardSectionVariants = cva(
 export type CardVariantProps = VariantProps<typeof cardVariants>;
 export type CardSectionVariantProps = VariantProps<typeof cardSectionVariants>;
 
-export type CardAppearanceProps = {
+/** Shared surface props for `Card` and `CardLink`. */
+export type CardSurfaceProps = {
   /**
    * Surface style.
    * - `flat` — border only at rest; interactive hover softens into soft depth.
@@ -117,9 +118,13 @@ export type CardAppearanceProps = {
    * Padding density. `sm` tightens vertical rhythm for dense layouts.
    */
   size?: NonNullable<CardVariantProps['size']>;
+};
+
+export type CardAppearanceProps = CardSurfaceProps & {
   /**
    * When true, the card is a clickable surface: pointer cursor, inset focus ring,
    * and depth on hover/focus. When false (default), the card stays still.
+   * For navigation, prefer `CardLink` instead.
    */
   interactive?: boolean;
 };
