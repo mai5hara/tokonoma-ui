@@ -1,16 +1,33 @@
-import { Card, CardContent } from '@/components/ui/card';
+import { useId, useState } from 'react';
 
-import { ActivityRow, StatTile } from '../mock-atoms';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Field } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select } from '@/components/ui/select';
+
 import { Section, SectionHeading } from '../ui';
 
-const ACTIVITY = [
-  { name: 'Project A', time: '2h ago' },
-  { name: 'Project B', time: '5h ago' },
-  { name: 'Project C', time: 'yesterday' },
+const STATUS_OPTIONS = [
+  { value: 'active', label: 'Active' },
+  { value: 'paused', label: 'Paused' },
+  { value: 'archived', label: 'Archived' },
 ];
 
 /** Design Principles showed the parts. This shows what they build together. */
 export function BuiltWith() {
+  const nameId = useId();
+  const statusId = useId();
+  const [status, setStatus] = useState('active');
+
   return (
     <Section>
       <div className="flex flex-col items-center gap-12">
@@ -20,45 +37,45 @@ export function BuiltWith() {
           description="Components designed to work together as one system."
         />
 
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-md">
           <Card variant="raised">
-            <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <span className="text-xs font-semibold tracking-[0.15em] text-text-primary uppercase">
-                Tokonoma
-              </span>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-text-muted">Profile</span>
-                <span className="size-6 rounded-full bg-accent" />
-              </div>
-            </div>
-
-            <CardContent gap="6">
-              <div className="flex flex-col gap-1 pt-6">
-                <p className="text-lg font-medium text-text-primary">
-                  Good morning, Tokonoma
-                </p>
-                <p className="text-sm text-text-muted">
-                  Here&apos;s what&apos;s happening today.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-3 gap-3">
-                <StatTile label="Projects" value="12" />
-                <StatTile label="Tasks" value="24" />
-                <StatTile label="Progress" value="78%" />
-              </div>
-
-              <div className="flex flex-col gap-2 pb-6">
-                <p className="text-xs font-medium tracking-wide text-text-muted uppercase">
-                  Recent activity
-                </p>
-                <div className="rounded-lg border border-border px-4">
-                  {ACTIVITY.map((item) => (
-                    <ActivityRow key={item.name} {...item} />
-                  ))}
-                </div>
-              </div>
+            <CardHeader>
+              <CardTitle>New project</CardTitle>
+              <CardDescription>
+                Shared field chrome and soft depth — one surface, several
+                controls.
+              </CardDescription>
+            </CardHeader>
+            <CardContent gap="4">
+              <Field>
+                <Label htmlFor={nameId}>Project name</Label>
+                <Input
+                  id={nameId}
+                  variant="inset"
+                  placeholder="Tokonoma gallery…"
+                  aria-label="Project name"
+                />
+              </Field>
+              <Field>
+                <Label htmlFor={statusId}>Status</Label>
+                <Select
+                  id={statusId}
+                  options={STATUS_OPTIONS}
+                  value={status}
+                  variant="inset"
+                  onValueChange={setStatus}
+                  placeholder="Choose status…"
+                />
+              </Field>
             </CardContent>
+            <CardFooter align="end" gap="3">
+              <Button type="button" variant="flat">
+                Cancel
+              </Button>
+              <Button type="button" variant="accent">
+                Create project
+              </Button>
+            </CardFooter>
           </Card>
         </div>
 
