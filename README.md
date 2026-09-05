@@ -4,7 +4,9 @@ A React design system for calm, tactile interfaces — soft-depth surfaces, swit
 
 Named after _tokonoma_ (床の間), the Japanese alcove for intentional display — quiet surfaces, focused content.
 
-**Storybook:** [mai5hara.github.io/tokonoma-ui](https://mai5hara.github.io/tokonoma-ui/)
+**Storybook:** [mai5hara.github.io/tokonoma-ui/storybook](https://mai5hara.github.io/tokonoma-ui/storybook/)
+
+**Landing:** [mai5hara.github.io/tokonoma-ui](https://mai5hara.github.io/tokonoma-ui/)
 
 **Stack:** React 19 · Radix UI · Tailwind CSS v4 · class-variance-authority (cva)
 
@@ -156,6 +158,10 @@ If your app already uses Tailwind and includes tokonoma’s theme tokens, `class
 ## Storybook
 
 Component documentation and live previews:
+
+**https://mai5hara.github.io/tokonoma-ui/storybook/**
+
+Landing page:
 
 **https://mai5hara.github.io/tokonoma-ui/**
 

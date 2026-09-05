@@ -15,6 +15,8 @@ const dirname =
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
+  // GitHub Pages project site: set SITE_BASE_PATH=/tokonoma-ui/ in CI.
+  base: process.env.SITE_BASE_PATH ?? '/',
   resolve: {
     alias: {
       '@': path.resolve(dirname, './src'),
@@ -28,6 +30,11 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    // Keep separate from library `dist/` (vite.lib.config.ts).
+    outDir: 'dist-site',
+    emptyOutDir: true,
+  },
   test: {
     projects: [
       {

@@ -1,4 +1,4 @@
-name: Deploy Storybook
+name: Deploy site
 
 on:
   push:
@@ -31,14 +31,20 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Build Storybook
-        run: pnpm build-storybook
+      # Landing at /tokonoma-ui/ — Storybook at /tokonoma-ui/storybook/
+      - name: Build landing page
+        run: pnpm build:landing
         env:
-          STORYBOOK_BASE_PATH: /tokonoma-ui/
+          SITE_BASE_PATH: /tokonoma-ui/
+
+      - name: Build Storybook
+        run: pnpm exec storybook build -o dist-site/storybook
+        env:
+          STORYBOOK_BASE_PATH: /tokonoma-ui/storybook/
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: storybook-static
+          path: dist-site
 
   deploy:
     needs: build

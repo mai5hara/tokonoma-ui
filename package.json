@@ -27,6 +27,8 @@
     "dev": "vite",
     "build": "pnpm build:lib",
     "build:lib": "vite build --config vite.lib.config.ts",
+    "build:landing": "vite build",
+    "build:pages": "pnpm build:landing && pnpm exec storybook build -o dist-site/storybook",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
