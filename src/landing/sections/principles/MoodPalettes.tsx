@@ -14,8 +14,13 @@ import { cn } from '@/lib/utils';
 
 import { StatTile } from '../../mock-atoms';
 
+function moodSwatchClass(id: ThemeId): string {
+  if (id === 'dark') return 'bg-ink-800';
+  return colorBgClass(id, 500);
+}
+
 /**
- * 3-2 — one system, five moods. `data-theme` is set on the preview wrapper
+ * 3-2 — one system, several moods. `data-theme` is set on the preview wrapper
  * only, so switching it never touches the rest of the page (semantic tokens
  * cascade to descendants; nothing outside this box re-themes).
  */
@@ -42,7 +47,7 @@ export function MoodPalettes() {
             <span
               className={cn(
                 'size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface-elevated transition',
-                colorBgClass(id, 500),
+                moodSwatchClass(id),
                 mood === id ? 'ring-accent' : 'ring-transparent',
               )}
             />

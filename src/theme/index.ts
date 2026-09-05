@@ -1,4 +1,11 @@
-export const THEME_IDS = ['ink', 'clay', 'moss', 'mist', 'neutral'] as const;
+export const THEME_IDS = [
+  'ink',
+  'clay',
+  'moss',
+  'mist',
+  'neutral',
+  'dark',
+] as const;
 
 export type ThemeId = (typeof THEME_IDS)[number];
 

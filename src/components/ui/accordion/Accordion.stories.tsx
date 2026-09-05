@@ -97,8 +97,8 @@ export const Default: Story = {
         <AccordionItem value="palettes">
           <AccordionTrigger>Mood palettes</AccordionTrigger>
           <AccordionContent>
-            Switch ink, clay, moss, mist, or neutral from the theme toolbar.
-            Semantic tokens remap automatically.
+            Switch ink, clay, moss, mist, neutral, or dark from the theme
+            toolbar. Semantic tokens remap automatically.
           </AccordionContent>
         </AccordionItem>
       </Accordion>,

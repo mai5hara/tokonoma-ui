@@ -17,7 +17,7 @@ Named after _tokonoma_ (床の間), the Japanese alcove for intentional display 
 tokonoma-ui is a compact component library with:
 
 - **Soft depth visuals** — `flat`, `raised`, and `inset` variants with a neumorphic feel on `surface` backgrounds
-- **Switchable palettes** — `ink`, `clay`, `moss`, `mist`, and `neutral`
+- **Switchable palettes** — `ink`, `clay`, `moss`, `mist`, `neutral`, and `dark`
 - **Closed API** — appearance is controlled through documented props (`variant`, `size`, `rounded`, …), not `className` on components
 - **Aligned form controls** — `Input`, `Select`, and `DateRangePicker` share the same field styling and error treatment
 
@@ -90,7 +90,7 @@ Palettes are selected with the `data-theme` attribute on the document root (`<ht
 
 #### Switching palettes
 
-Palettes: `ink` · `clay` · `moss` · `mist` · `neutral`.
+Palettes: `ink` · `clay` · `moss` · `mist` · `neutral` · `dark`.
 
 **Static / SSR default** — set the attribute on `<html>` (for example in a root layout):
 

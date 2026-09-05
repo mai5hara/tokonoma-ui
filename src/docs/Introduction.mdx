@@ -11,7 +11,7 @@ Named after _tokonoma_ (床の間), the Japanese alcove for intentional display 
 ## Design principles
 
 - **Soft depth** — `flat`, `raised`, and `inset` variants with a neumorphic feel on `surface` backgrounds
-- **Palettes** — `ink`, `clay`, `moss`, `mist`, and `neutral`
+- **Palettes** — `ink`, `clay`, `moss`, `mist`, `neutral`, and `dark`
 - **Closed API** — appearance props only (`variant`, `size`, `rounded`, …). Public components omit `className`; use documented variants so themes stay consistent.
 - **Aligned fields** — `Input`, `Select`, and `DateRangePicker` share field chrome and error treatment
 
@@ -46,7 +46,7 @@ You do not need to configure Tailwind in the consuming app; the prebuilt stylesh
 
 ### Theme color
 
-Palettes are driven by `data-theme` on `<html>` (`ink`, `clay`, `moss`, `mist`, `neutral`).
+Palettes are driven by `data-theme` on `<html>` (`ink`, `clay`, `moss`, `mist`, `neutral`, `dark`).
 
 ```html
 <html lang="en" data-theme="moss"></html>
