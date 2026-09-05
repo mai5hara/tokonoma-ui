@@ -25,8 +25,42 @@ Built on Radix, Tailwind, and cva — similar in spirit to [shadcn/ui](https://u
 
 ## Quick start
 
-1. Add `tokonoma-ui` to your app and pin a [release tag](https://github.com/mai5hara/tokonoma-ui/releases).
-2. At your app entry: `import "tokonoma-ui/styles.css"` and `initTheme()`.
-3. Import components and choose `variant` — the active theme sets colors.
+Pin a [release tag](https://github.com/mai5hara/tokonoma-ui/releases) from GitHub (npm registry publish comes later):
 
-Full install steps and an example app are in the [repository README](https://github.com/mai5hara/tokonoma-ui).
+```bash
+npm install github:mai5hara/tokonoma-ui#v0.2.7
+```
+
+At your app entry:
+
+```ts
+import 'tokonoma-ui/styles.css';
+import { initTheme } from 'tokonoma-ui';
+
+initTheme();
+```
+
+Then import components and choose `variant` — the active theme sets colors. Soft-depth surfaces expect a `surface` page background.
+
+You do not need to configure Tailwind in the consuming app; the prebuilt stylesheet is enough.
+
+### Theme color
+
+Palettes are driven by `data-theme` on `<html>` (`ink`, `clay`, `moss`, `mist`, `neutral`).
+
+```html
+<html lang="en" data-theme="moss"></html>
+```
+
+Or switch at runtime:
+
+```ts
+import { setTheme, setThemeWithPersistence } from 'tokonoma-ui';
+
+setTheme('clay'); // session
+setThemeWithPersistence('moss'); // localStorage + data-theme
+```
+
+`initTheme()` restores a saved palette (or defaults to `ink`) and can overwrite a hard-coded `data-theme`. Use a fixed HTML attribute and/or `setTheme` when the product theme should stay put.
+
+Full install notes, theme API, and a minimal usage snippet are in the [repository README](https://github.com/mai5hara/tokonoma-ui#readme).

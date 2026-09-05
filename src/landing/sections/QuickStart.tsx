@@ -6,14 +6,17 @@ import { README_URL } from '../constants';
 import { CodeBlock, Section, SectionHeading } from '../ui';
 
 const STEPS = [
-  { label: 'Install', code: 'npm install tokonoma-ui' },
+  {
+    label: 'Install',
+    code: 'npm install github:mai5hara/tokonoma-ui#v0.2.7',
+  },
   {
     label: 'Initialize',
-    code: 'import "tokonoma-ui/styles.css";\ninitTheme();',
+    code: 'import "tokonoma-ui/styles.css";\n\n<html data-theme="ink">',
   },
   {
     label: 'Use',
-    code: '<Button variant="raised">\n  Get started\n</Button>',
+    code: 'import { Button } from "tokonoma-ui";\n\n<Button variant="raised">\n  Get started\n</Button>',
   },
 ];
 

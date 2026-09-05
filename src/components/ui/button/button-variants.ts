@@ -49,7 +49,7 @@ export const buttonVariants = cva(
         ],
         ghost: [
           'border border-transparent bg-transparent text-text-primary',
-          'hover:bg-surface',
+          'hover:opacity-70 duration-300 transition-opacity',
           'active:bg-[color-mix(in_oklab,var(--color-text-primary)_8%,var(--color-surface))]',
         ],
       },
