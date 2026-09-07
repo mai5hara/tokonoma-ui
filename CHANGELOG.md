@@ -1,3 +1,12 @@
+## 0.2.8
+
+- Add `dark` theme palette (soft ink night surfaces + dark-tuned depth shadows)
+- Add `CardLink` for navigational cards; strengthen `Card` interactive hover/focus depth
+- Fix `CardMedia` to a fixed 5∶3 aspect ratio with `object-cover`
+- Add Button Suimon ripple and shared motion styles; polish Accordion and Modal animations
+- Fix DateRangePicker range endpoints and focus rings
+- Add marketing landing page; deploy LP at site root and Storybook under `/storybook/`
+
 ## 0.2.7
 
 - Add `Textarea` component

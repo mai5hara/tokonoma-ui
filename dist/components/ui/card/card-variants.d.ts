@@ -1,12 +1,13 @@
 import { VariantProps } from 'class-variance-authority';
 /**
- * flat — neutral surface with border only, no depth.
+ * flat — border only at rest; interactive hover/focus softens the line into depth.
  * raised — soft raised depth on surface.
  * inset — soft inset depth on surface.
  */
 export declare const cardVariants: (props?: ({
     variant?: "flat" | "raised" | "inset" | null | undefined;
     size?: "sm" | "default" | null | undefined;
+    interactive?: boolean | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export declare const cardSectionVariants: (props?: ({
     direction?: "col" | "row" | null | undefined;
@@ -15,10 +16,11 @@ export declare const cardSectionVariants: (props?: ({
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export type CardVariantProps = VariantProps<typeof cardVariants>;
 export type CardSectionVariantProps = VariantProps<typeof cardSectionVariants>;
-export type CardAppearanceProps = {
+/** Shared surface props for `Card` and `CardLink`. */
+export type CardSurfaceProps = {
     /**
      * Surface style.
-     * - `flat` — neutral surface with border only, no depth.
+     * - `flat` — border only at rest; interactive hover softens into soft depth.
      * - `raised` — soft raised depth on `surface`.
      * - `inset` — soft inset depth on `surface`.
      */
@@ -27,4 +29,12 @@ export type CardAppearanceProps = {
      * Padding density. `sm` tightens vertical rhythm for dense layouts.
      */
     size?: NonNullable<CardVariantProps['size']>;
+};
+export type CardAppearanceProps = CardSurfaceProps & {
+    /**
+     * When true, the card is a clickable surface: pointer cursor, inset focus ring,
+     * and depth on hover/focus. When false (default), the card stays still.
+     * For navigation, prefer `CardLink` instead.
+     */
+    interactive?: boolean;
 };

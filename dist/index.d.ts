@@ -2,8 +2,8 @@ export { Accordion, AccordionItem, AccordionTrigger, AccordionContent, } from '.
 export type { AccordionProps, AccordionItemProps, AccordionTriggerProps, AccordionContentProps, AccordionAppearanceProps, } from './components/ui/accordion';
 export { Button, ButtonLink } from './components/ui/button';
 export type { ButtonProps, ButtonLinkProps, ButtonVariantProps, } from './components/ui/button';
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardMedia, } from './components/ui/card';
-export type { CardProps, CardHeaderProps, CardFooterProps, CardContentProps, } from './components/ui/card';
+export { Card, CardLink, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardMedia, } from './components/ui/card';
+export type { CardProps, CardLinkProps, CardHeaderProps, CardFooterProps, CardContentProps, CardAppearanceProps, CardSurfaceProps, } from './components/ui/card';
 export { Input } from './components/ui/input';
 export type { InputProps, InputVariantProps } from './components/ui/input';
 export { Textarea } from './components/ui/textarea';

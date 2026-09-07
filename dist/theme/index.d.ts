@@ -1,4 +1,4 @@
-export declare const THEME_IDS: readonly ["ink", "clay", "moss", "mist", "neutral"];
+export declare const THEME_IDS: readonly ["ink", "clay", "moss", "mist", "neutral", "dark"];
 export type ThemeId = (typeof THEME_IDS)[number];
 export declare const DEFAULT_THEME: ThemeId;
 export declare function setTheme(theme: ThemeId): void;
