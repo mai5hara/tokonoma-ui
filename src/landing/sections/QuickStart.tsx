@@ -8,7 +8,7 @@ import { CodeBlock, Section, SectionHeading } from '../ui';
 const STEPS = [
   {
     label: 'Install',
-    code: 'npm install github:mai5hara/tokonoma-ui#v0.2.7',
+    code: 'npm install tokonoma-ui',
   },
   {
     label: 'Initialize',

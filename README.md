@@ -51,24 +51,20 @@ See **Storybook** for interactive examples of every variant.
 
 ### Install
 
-Pin a release tag (GitHub). Replace the tag with the version you need — see [Releases](https://github.com/mai5hara/tokonoma-ui/releases).
-
 ```bash
-npm install github:mai5hara/tokonoma-ui#v0.2.7
+npm install tokonoma-ui
 ```
 
-Or in `package.json`:
-
-```json
-{
-  "dependencies": {
-    "tokonoma-ui": "github:mai5hara/tokonoma-ui#v0.2.7"
-  }
-}
-```
+Or with pnpm / yarn:
 
 ```bash
-pnpm install
+pnpm add tokonoma-ui
+```
+
+Pin a version when you need a fixed release:
+
+```bash
+npm install tokonoma-ui@0.2.8
 ```
 
 **Peer dependencies:** `react` and `react-dom` ^19. Radix UI, Lucide, and other runtime dependencies are bundled in the published `dist` build.
