@@ -23,7 +23,7 @@ export function UnderTheSurface() {
           ))}
         </div>
 
-        <p className="whitespace-nowrap text-center text-sm text-text-subtle">
+        <p className="whitespace-pre-wrap text-center text-sm text-text-subtle">
           Built on Radix, Tailwind, and cva — with Tokonoma&apos;s themes and
           closed API on top.
         </p>

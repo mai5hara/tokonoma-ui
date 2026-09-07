@@ -13,7 +13,7 @@ const CATEGORY_OPTIONS = [
 /** 3-4 — Input, Select, and DateRangePicker share the same field chrome. */
 export function AlignedFields() {
   return (
-    <div className="flex flex-col gap-8 rounded-xl border border-border bg-surface-elevated p-8">
+    <div className="flex flex-col gap-5 sm:gap-8 rounded-xl border border-border bg-surface-elevated p-6 sm:p-8">
       <h3 className="text-lg font-medium text-text-primary text-center">
         Different fields. One visual language.
       </h3>

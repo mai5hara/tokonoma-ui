@@ -14,13 +14,27 @@ export function FinalCta() {
           <p className="max-w-md text-base text-text-muted">
             Explore the system or dive into the source.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <ButtonLink href={STORYBOOK_URL} variant="accent" size="lg">
-              Explore Storybook
-            </ButtonLink>
-            <ButtonLink href={GITHUB_URL} variant="outline" size="lg">
-              View on GitHub
-            </ButtonLink>
+          <div className="w-full flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+            <div className="w-full max-w-none sm:max-w-[240px]">
+              <ButtonLink
+                href={STORYBOOK_URL}
+                variant="accent"
+                size="lg"
+                width="full"
+              >
+                Explore Storybook
+              </ButtonLink>
+            </div>
+            <div className="w-full max-w-none sm:max-w-[240px]">
+              <ButtonLink
+                href={GITHUB_URL}
+                variant="outline"
+                size="lg"
+                width="full"
+              >
+                View on GitHub
+              </ButtonLink>
+            </div>
           </div>
         </div>
       </Container>

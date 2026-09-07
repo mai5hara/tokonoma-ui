@@ -72,7 +72,7 @@ export const cardVariants = cva(
 );
 
 export const cardSectionVariants = cva(
-  'flex min-w-0 px-6 group-data-[size=sm]/card:px-4',
+  'flex min-w-0 px-4 sm:px-6 group-data-[size=sm]/card:px-4',
   {
     variants: {
       direction: {

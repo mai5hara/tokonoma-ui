@@ -5,7 +5,7 @@ const PROPS = ['variant', 'size', 'rounded', 'tone'];
 /** 3-3 — the closed API isn't about a rule; it's about a shared vocabulary. */
 export function ClosedApi() {
   return (
-    <div className="grid gap-8 rounded-xl border border-border bg-surface-elevated p-8 lg:grid-cols-2 lg:gap-12">
+    <div className="grid gap-5 sm:gap-8 rounded-xl border border-border bg-surface-elevated p-6 sm:p-8 lg:grid-cols-2 lg:gap-12">
       <div className="flex flex-col justify-center gap-3">
         <CodeBlock>
           {'<Button\n'}

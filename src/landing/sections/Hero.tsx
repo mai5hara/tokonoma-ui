@@ -19,13 +19,27 @@ export function Hero() {
             Soft-depth surfaces, switchable mood palettes, and a closed
             component API.
           </p>
-          <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
-            <ButtonLink href={STORYBOOK_URL} variant="accent" size="lg">
-              Explore Storybook
-            </ButtonLink>
-            <ButtonLink href={GITHUB_URL} variant="outline" size="lg">
-              View GitHub
-            </ButtonLink>
+          <div className="w-full flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+            <div className="w-full max-w-none sm:max-w-[240px]">
+              <ButtonLink
+                href={STORYBOOK_URL}
+                variant="accent"
+                size="lg"
+                width="full"
+              >
+                Explore Storybook
+              </ButtonLink>
+            </div>
+            <div className="w-full max-w-none sm:max-w-[240px]">
+              <ButtonLink
+                href={GITHUB_URL}
+                variant="outline"
+                size="lg"
+                width="full"
+              >
+                View GitHub
+              </ButtonLink>
+            </div>
           </div>
         </div>
       </Container>

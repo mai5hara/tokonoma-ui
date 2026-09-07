@@ -28,7 +28,7 @@ export function MoodPalettes() {
   const [mood, setMood] = useState<ThemeId>('ink');
 
   return (
-    <div className="flex flex-col gap-8 rounded-xl border border-border bg-surface-elevated p-8">
+    <div className="flex flex-col gap-5 sm:gap-8 rounded-xl border border-border bg-surface-elevated p-6 sm:p-8">
       <div className="flex flex-col items-center gap-2 text-center">
         <h3 className="text-lg font-medium text-text-primary">
           One system. Different moods.
@@ -58,7 +58,7 @@ export function MoodPalettes() {
         ))}
       </div>
 
-      <div data-theme={mood} className="rounded-lg bg-surface p-6 sm:p-10">
+      <div data-theme={mood} className="rounded-lg bg-surface p-5 sm:p-10">
         <div className="mx-auto max-w-sm">
           <Card variant="raised">
             <CardHeader>

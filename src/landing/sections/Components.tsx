@@ -145,10 +145,17 @@ export function Components() {
           <p className="text-sm text-text-muted">
             Every component, variant and state is documented in Storybook.
           </p>
-          <ButtonLink href={STORYBOOK_URL} variant="accent" size="lg">
-            Open Storybook
-            <ArrowRight className="size-4" aria-hidden />
-          </ButtonLink>
+          <div className="w-full max-w-none sm:max-w-[240px]">
+            <ButtonLink
+              href={STORYBOOK_URL}
+              variant="accent"
+              size="lg"
+              width="full"
+            >
+              Open Storybook
+              <ArrowRight className="size-4" aria-hidden />
+            </ButtonLink>
+          </div>
         </div>
       </div>
     </Section>
