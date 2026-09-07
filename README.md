@@ -64,7 +64,7 @@ pnpm add tokonoma-ui
 Pin a version when you need a fixed release:
 
 ```bash
-npm install tokonoma-ui@0.2.8
+npm install tokonoma-ui@0.2.9
 ```
 
 **Peer dependencies:** `react` and `react-dom` ^19. Radix UI, Lucide, and other runtime dependencies are bundled in the published `dist` build.

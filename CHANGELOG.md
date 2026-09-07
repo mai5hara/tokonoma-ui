@@ -1,3 +1,7 @@
+## 0.2.9
+
+- Docs: install from the npm registry (`npm install tokonoma-ui`)
+
 ## 0.2.8
 
 - Add `dark` theme palette (soft ink night surfaces + dark-tuned depth shadows)
