@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const photoUploadTransition =
-  'transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none';
+  'transition-[box-shadow,border-color,color,--tokonoma-clarify] duration-300 ease-[var(--ease-tokonoma)] motion-reduce:transition-none';
 
 /**
  * Shared upload chrome — mirrors field variants with a taller drop zone.
@@ -18,15 +18,19 @@ export const photoUploadVariants = cva(
       variant: {
         border:
           'border border-border bg-surface-elevated hover:border-border-strong focus-within:border-border-strong focus-within:ring-ring/40',
-        inset:
-          'border border-transparent bg-surface shadow-[var(--shadow-button-inset)] focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40',
-        raised: [
-          'border border-transparent bg-surface shadow-[var(--shadow-button-raised)]',
-          '[background:var(--background-gradient-raised)]',
-          'focus-within:shadow-[var(--shadow-button-raised-hover)] focus-within:ring-ring/40',
+        inset: [
+          'tokonoma-clarify border border-transparent bg-[var(--color-surface-clarified)] shadow-[var(--shadow-inset)]',
+          'focus-within:ring-ring/40',
         ],
-        filled:
-          'border border-transparent bg-surface hover:bg-surface-elevated focus-within:ring-ring/40',
+        raised: [
+          'tokonoma-clarify border border-transparent shadow-[var(--shadow-raised)]',
+          '[background:var(--background-gradient-raised)]',
+          'focus-within:ring-ring/40',
+        ],
+        filled: [
+          'tokonoma-clarify border border-transparent bg-[var(--color-surface-clarified)]',
+          'focus-within:ring-ring/40',
+        ],
       },
       invalid: {
         true: '',
@@ -54,7 +58,7 @@ export const photoUploadVariants = cva(
         invalid: true,
         variant: 'inset',
         class:
-          'border-error shadow-[var(--shadow-button-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-button-inset)] focus-within:ring-error/40',
+          'border-error shadow-[var(--shadow-inset)] focus-within:border-error focus-within:shadow-[var(--shadow-inset)] focus-within:ring-error/40',
       },
       {
         invalid: true,

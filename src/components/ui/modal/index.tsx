@@ -51,8 +51,12 @@ function ModalContent({
   return (
     <ModalTextAlignContext.Provider value={textAlign}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className={modalOverlay} />
+        <DialogPrimitive.Overlay
+          data-tokonoma-modal="overlay"
+          className={modalOverlay}
+        />
         <DialogPrimitive.Content
+          data-tokonoma-modal="panel"
           className={`${modalContentPanel} ${modalContentSize[size]}`}
         >
           {children}

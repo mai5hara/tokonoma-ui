@@ -10,7 +10,7 @@ const config: StorybookConfig = {
   ],
   framework: '@storybook/react-vite',
   async viteFinal(config) {
-    // GitHub Pages project site: https://<user>.github.io/tokonoma-ui/
+    // GitHub Pages: landing at /tokonoma-ui/, Storybook at /tokonoma-ui/storybook/
     config.base = process.env.STORYBOOK_BASE_PATH ?? '/';
     return config;
   },

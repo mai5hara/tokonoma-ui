@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const buttonTransition =
-  'transition-[transform,box-shadow,background-color,border-color,color] duration-200 ease-out motion-reduce:transition-none';
+  'transition-[transform,box-shadow,background-color,border-color,color] duration-300 ease-[var(--ease-tokonoma)] motion-reduce:transition-none';
 
 /**
  * flat — neutral secondary: bordered surface-elevated, no shadow (cancel, quiet actions).
@@ -13,7 +13,7 @@ const buttonTransition =
  */
 export const buttonVariants = cva(
   [
-    'inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 font-medium',
+    'relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 overflow-hidden font-medium',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
     'disabled:pointer-events-none disabled:opacity-50',
     'aria-disabled:pointer-events-none aria-disabled:opacity-50',
@@ -25,34 +25,32 @@ export const buttonVariants = cva(
         flat: [
           'border border-border bg-surface-elevated text-text-primary',
           'hover:border-border-strong hover:bg-surface hover:text-text-primary',
-          'active:scale-[0.98]',
+          'active:bg-[color-mix(in_oklab,var(--color-text-primary)_8%,var(--color-surface))]',
         ],
         raised: [
           '[background:var(--background-gradient-raised)] border border-transparent bg-surface text-text-primary',
-          'shadow-[var(--shadow-button-raised)]',
-          'hover:-translate-y-px hover:text-text-primary hover:shadow-[var(--shadow-button-raised-hover)]',
-          'active:translate-y-0 active:scale-[0.99] active:shadow-[var(--shadow-button-inset)]',
+          'shadow-[var(--shadow-raised)]',
+          'active:shadow-[var(--shadow-inset-active)]',
         ],
         inset: [
           'border border-transparent bg-surface text-text-primary',
-          'shadow-[var(--shadow-button-inset)]',
-          'hover:-translate-y-px hover:text-text-primary hover:shadow-[var(--shadow-button-raised-hover)]',
-          'active:translate-y-px active:scale-[0.99] active:shadow-[var(--shadow-button-inset)]',
+          'shadow-[var(--shadow-inset)]',
+          'active:shadow-[var(--shadow-inset-active)]',
         ],
         accent: [
           'border border-transparent bg-accent text-surface-elevated',
           'hover:bg-accent-hover hover:text-surface-elevated',
-          'active:scale-[0.98]',
+          'active:bg-accent-hover active:shadow-[var(--shadow-inset-active)]',
         ],
         outline: [
           'border border-accent bg-transparent text-accent',
           'hover:bg-accent/10 hover:text-accent',
-          'active:scale-[0.98]',
+          'active:bg-accent/20',
         ],
         ghost: [
           'border border-transparent bg-transparent text-text-primary',
-          'hover:bg-surface',
-          'active:opacity-80',
+          'hover:opacity-70 duration-300 transition-opacity',
+          'active:bg-[color-mix(in_oklab,var(--color-text-primary)_8%,var(--color-surface))]',
         ],
       },
       size: {
@@ -77,7 +75,7 @@ export const buttonVariants = cva(
       {
         size: 'icon',
         variant: 'accent',
-        class: 'rounded-md active:scale-[0.98]',
+        class: 'rounded-md',
       },
     ],
     defaultVariants: {

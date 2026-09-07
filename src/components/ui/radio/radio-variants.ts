@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const radioTransition =
-  'transition-[box-shadow,border-color,background-color,color] duration-200 ease-out motion-reduce:transition-none';
+  'transition-[box-shadow,border-color,background-color,color,--tokonoma-clarify] duration-300 ease-[var(--ease-tokonoma)] motion-reduce:transition-none';
 
 /**
  * plain — radio circle + label only (default).
@@ -26,14 +26,12 @@ export const radioItemVariants = cva(
           'has-[[data-state=checked]]:border-accent has-[[data-state=checked]]:bg-accent/1',
         ],
         filled: [
-          'rounded-md border border-transparent bg-surface px-3 py-2.5',
-          'hover:bg-surface-elevated',
+          'tokonoma-clarify rounded-md border border-transparent bg-[var(--color-surface-clarified)] px-3 py-2.5',
           'has-[[data-state=checked]]:bg-accent/10',
         ],
         inset: [
-          'rounded-md border border-transparent bg-surface px-3 py-2.5',
-          'shadow-[var(--shadow-button-inset)]',
-          'hover:shadow-[var(--shadow-button-raised-hover)]',
+          'tokonoma-clarify rounded-md border border-transparent bg-[var(--color-surface-clarified)] px-3 py-2.5',
+          'shadow-[var(--shadow-inset)]',
           'has-[[data-state=checked]]:bg-accent/4',
         ],
       },

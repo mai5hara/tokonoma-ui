@@ -1,12 +1,14 @@
 import * as React from 'react';
 
 import type { ClosedElementProps } from '@/lib/closed-api';
+import { cn } from '@/lib/utils';
 
 import {
   cardSectionVariants,
   cardVariants,
   type CardAppearanceProps,
   type CardSectionVariantProps,
+  type CardSurfaceProps,
 } from './card-variants';
 
 const cardSectionX = 'px-6 group-data-[size=sm]/card:px-4';
@@ -15,16 +17,91 @@ type CardProps = ClosedElementProps<React.ComponentProps<'div'>> &
   CardAppearanceProps;
 
 /** Content container with header, body, footer, and optional media slots. */
-function Card({ variant, size, ...props }: CardProps) {
+function Card({
+  variant,
+  size,
+  interactive = false,
+  tabIndex,
+  ...props
+}: CardProps) {
   return (
     <div
       data-variant={variant}
       data-size={size}
-      className={cardVariants({ variant, size })}
+      data-interactive={interactive || undefined}
+      tabIndex={interactive ? (tabIndex ?? 0) : tabIndex}
+      className={cardVariants({ variant, size, interactive })}
       {...props}
     />
   );
 }
+
+type CardLinkProps = ClosedElementProps<React.ComponentProps<'a'>> &
+  CardSurfaceProps & {
+    /** Destination URL. Omitted when `aria-disabled` is set. */
+    href?: string;
+    /** Opens in a new tab with safe `rel` when true or `href` is http(s). */
+    external?: boolean;
+  };
+
+/**
+ * Anchor styled as a card. Prefer over wrapping `Card` when navigation is the
+ * primary action. Always uses interactive depth hover/focus. Shares `variant`
+ * and `size` with {@link Card}.
+ */
+const CardLink = React.forwardRef<HTMLAnchorElement, CardLinkProps>(
+  (
+    {
+      variant,
+      size,
+      external,
+      href,
+      target,
+      rel,
+      'aria-disabled': ariaDisabled,
+      onClick,
+      tabIndex,
+      ...props
+    },
+    ref,
+  ) => {
+    const isExternal =
+      external ?? (typeof href === 'string' && /^https?:\/\//.test(href));
+    const isDisabled = ariaDisabled === true || ariaDisabled === 'true';
+
+    return (
+      <a
+        ref={ref}
+        href={isDisabled ? undefined : href}
+        target={isExternal ? '_blank' : target}
+        rel={
+          isExternal
+            ? [rel, 'noopener', 'noreferrer'].filter(Boolean).join(' ')
+            : rel
+        }
+        aria-disabled={ariaDisabled}
+        tabIndex={isDisabled ? -1 : tabIndex}
+        data-variant={variant}
+        data-size={size}
+        data-interactive=""
+        className={cn(
+          cardVariants({ variant, size, interactive: true }),
+          isDisabled && 'pointer-events-none opacity-50',
+        )}
+        {...props}
+        onClick={
+          isDisabled
+            ? (event) => {
+                event.preventDefault();
+                onClick?.(event);
+              }
+            : onClick
+        }
+      />
+    );
+  },
+);
+CardLink.displayName = 'CardLink';
 
 type CardHeaderProps = ClosedElementProps<React.ComponentProps<'div'>> & {
   /** Top-right controls (buttons, menus, links). */
@@ -122,11 +199,14 @@ function CardFooter({
   );
 }
 
-/** Place first to bleed media to the top; top corners follow Card rounded-lg. */
+/**
+ * Place first to bleed media to the top; top corners follow Card rounded-lg.
+ * Frame is a fixed 5∶3 ratio (same as PhotoUpload) so gallery cards share height.
+ */
 function CardMedia(props: ClosedElementProps<React.ComponentProps<'div'>>) {
   return (
     <div
-      className="-mt-6 w-full overflow-hidden group-data-[size=sm]/card:-mt-4 [&_img]:block [&_img]:size-full [&_img]:object-cover rounded-t-lg"
+      className="-mt-6 aspect-[5/3] w-full overflow-hidden rounded-t-lg group-data-[size=sm]/card:-mt-4 [&_img]:block [&_img]:size-full [&_img]:object-cover"
       {...props}
     />
   );
@@ -134,6 +214,7 @@ function CardMedia(props: ClosedElementProps<React.ComponentProps<'div'>>) {
 
 export {
   Card,
+  CardLink,
   CardHeader,
   CardFooter,
   CardTitle,
@@ -143,8 +224,10 @@ export {
 };
 export type {
   CardProps,
+  CardLinkProps,
   CardHeaderProps,
   CardContentProps,
   CardFooterProps,
   CardAppearanceProps,
+  CardSurfaceProps,
 };

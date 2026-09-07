@@ -1,0 +1,269 @@
+/**
+ * Tokonoma motion — shared tokens, button suimon, and field surface clarify.
+ */
+
+:root {
+  --ease-tokonoma: cubic-bezier(0.45, 0, 0.55, 1);
+  --duration-tokonoma: 300ms;
+  --duration-suimon: 650ms;
+  /* Soft decelerate — rises then settles like something finding the waterline */
+  --ease-tokonoma-float: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-tokonoma-float: 520ms;
+}
+
+/* —— Button suimon (水紋) —— */
+
+@keyframes tokonoma-suimon {
+  from {
+    opacity: 0.45;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.6);
+  }
+}
+
+[data-suimon] {
+  isolation: isolate;
+}
+
+[data-suimon]::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: max(140%, 10rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+[data-suimon-tone='surface']::before {
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-accent) 55%, transparent) 0%,
+    color-mix(in oklab, var(--color-accent) 18%, transparent) 45%,
+    transparent 72%
+  );
+}
+
+[data-suimon-tone='accent']::before {
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-surface-elevated) 70%, transparent) 0%,
+    color-mix(in oklab, var(--color-surface-elevated) 25%, transparent) 45%,
+    transparent 72%
+  );
+}
+
+[data-suimon].is-suimon-playing::before {
+  animation: tokonoma-suimon var(--duration-suimon) var(--ease-tokonoma)
+    forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-suimon].is-suimon-playing::before {
+    animation: none;
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1.6);
+    transition: opacity var(--duration-tokonoma) var(--ease-tokonoma);
+  }
+
+  [data-suimon]:not(.is-suimon-playing)::before {
+    opacity: 0;
+  }
+}
+
+/* —— Surface clarify (fields, radios) —— */
+/* Mix must live on the same element as --tokonoma-clarify. */
+
+@property --tokonoma-clarify {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.tokonoma-clarify {
+  --color-surface-clarified: color-mix(
+    in oklab,
+    var(--color-surface-elevated) calc(var(--tokonoma-clarify) * 1%),
+    var(--color-surface)
+  );
+  --background-gradient-raised: linear-gradient(
+    to top left,
+    var(--color-surface-clarified) 0%,
+    color-mix(
+        in oklab,
+        var(--color-text-primary) 2%,
+        var(--color-surface-clarified)
+      )
+      65%,
+    color-mix(
+        in oklab,
+        var(--color-text-primary) 3%,
+        var(--color-surface-clarified)
+      )
+      100%
+  );
+  transition: --tokonoma-clarify var(--duration-tokonoma) var(--ease-tokonoma);
+}
+
+.tokonoma-clarify[data-variant='inset']:hover {
+  --tokonoma-clarify: 80;
+}
+
+.tokonoma-clarify[data-variant='raised']:hover {
+  --tokonoma-clarify: 50;
+}
+
+.tokonoma-clarify[data-variant='filled']:hover {
+  --tokonoma-clarify: 48;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tokonoma-clarify {
+    transition: none;
+  }
+}
+
+/* —— Modal reveal (Radix mounts as open — use keyframes, not transition) —— */
+
+@keyframes tokonoma-modal-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tokonoma-modal-overlay-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes tokonoma-modal-in {
+  from {
+    opacity: 0;
+    clip-path: circle(0% at 50% 50%);
+    box-shadow: none;
+  }
+
+  to {
+    opacity: 1;
+    clip-path: circle(150% at 50% 50%);
+    box-shadow: var(--shadow-modal);
+  }
+}
+
+@keyframes tokonoma-modal-out {
+  from {
+    opacity: 1;
+    clip-path: circle(150% at 50% 50%);
+    box-shadow: var(--shadow-modal);
+  }
+
+  to {
+    opacity: 0;
+    clip-path: circle(0% at 50% 50%);
+    box-shadow: none;
+  }
+}
+
+[data-tokonoma-modal='overlay'][data-state='open'] {
+  animation: tokonoma-modal-overlay-in var(--duration-tokonoma)
+    var(--ease-tokonoma) forwards;
+}
+
+[data-tokonoma-modal='overlay'][data-state='closed'] {
+  animation: tokonoma-modal-overlay-out var(--duration-tokonoma)
+    var(--ease-tokonoma) forwards;
+}
+
+[data-tokonoma-modal='panel'][data-state='open'] {
+  animation: tokonoma-modal-in var(--duration-tokonoma-float)
+    var(--ease-tokonoma-float) forwards;
+}
+
+[data-tokonoma-modal='panel'][data-state='closed'] {
+  animation: tokonoma-modal-out var(--duration-tokonoma-float)
+    var(--ease-tokonoma-float) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tokonoma-modal='overlay'][data-state='open'],
+  [data-tokonoma-modal='overlay'][data-state='closed'],
+  [data-tokonoma-modal='panel'][data-state='open'],
+  [data-tokonoma-modal='panel'][data-state='closed'] {
+    animation-duration: 1ms;
+  }
+}
+
+/* —— Accordion (height via Radix --radix-accordion-content-height) —— */
+
+@keyframes tokonoma-accordion-down {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes tokonoma-accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+
+  to {
+    height: 0;
+  }
+}
+
+@keyframes tokonoma-accordion-body-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-tokonoma-accordion='content'][data-state='open'] {
+  animation: tokonoma-accordion-down var(--duration-tokonoma)
+    var(--ease-tokonoma);
+}
+
+[data-tokonoma-accordion='content'][data-state='closed'] {
+  animation: tokonoma-accordion-up var(--duration-tokonoma) var(--ease-tokonoma);
+}
+
+[data-tokonoma-accordion='content'][data-state='open']
+  > [data-tokonoma-accordion='body'] {
+  animation: tokonoma-accordion-body-in var(--duration-tokonoma)
+    var(--ease-tokonoma);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tokonoma-accordion='content'][data-state='open'],
+  [data-tokonoma-accordion='content'][data-state='closed'],
+  [data-tokonoma-accordion='content'][data-state='open']
+    > [data-tokonoma-accordion='body'] {
+    animation-duration: 1ms;
+  }
+}
