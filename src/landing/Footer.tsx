@@ -1,6 +1,6 @@
 import { ButtonLink } from '@/components/ui/button';
 
-import { GITHUB_URL, README_URL, STORYBOOK_URL } from './constants';
+import { GITHUB_URL, NPM_URL, STORYBOOK_URL } from './constants';
 import { Container } from './ui';
 
 export function Footer() {
@@ -18,7 +18,7 @@ export function Footer() {
             <ButtonLink href={GITHUB_URL} variant="ghost" size="sm">
               GitHub
             </ButtonLink>
-            <ButtonLink href={README_URL} variant="ghost" size="sm">
+            <ButtonLink href={NPM_URL} variant="ghost" size="sm">
               npm
             </ButtonLink>
           </nav>

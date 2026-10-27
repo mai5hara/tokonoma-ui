@@ -8,6 +8,8 @@ Named after _tokonoma_ (床の間), the Japanese alcove for intentional display 
 
 **Landing:** [mai5hara.github.io/tokonoma-ui](https://mai5hara.github.io/tokonoma-ui/)
 
+**npm:** [npmjs.com/package/tokonoma-ui](https://www.npmjs.com/package/tokonoma-ui)
+
 **Stack:** React 19 · Radix UI · Tailwind CSS v4 · class-variance-authority (cva)
 
 ---
